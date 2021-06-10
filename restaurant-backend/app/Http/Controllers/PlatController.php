@@ -37,4 +37,15 @@ class PlatController extends Controller
     {
         return Plat::destroy($id);
     }
+
+    /**
+     * Search for a name
+     *
+     * @param  string  $nom
+     * @return \Illuminate\Http\Response
+     */
+    public function search($nom)
+    {
+        return Plat::where('nom', 'like', '%'.$nom.'%')->get();
+    }
 }
