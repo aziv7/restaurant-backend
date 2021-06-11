@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlatController;
-
+use App\Http\Controllers\CategorieController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,8 +19,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/plat/{nom}', [PlatController::class, 'search']);
+
 Route::resource('plat', PlatController::class);
+Route::get('/plat/{nom}', [PlatController::class, 'search']);
+
+Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
+Route::resource('categorie', CategorieController::class);
 /*Route::get('/plat', [PlatController::class, 'index']);
 Route::get('/plat/{id}', [PlatController::class, 'show']);
 Route::post('/plat', [PlatController::class, 'store']);*/

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdatingStatusDefaultValue extends Migration
+class CategorieIdFix extends Migration
 {
     /**
      * Run the migrations.
@@ -14,8 +14,9 @@ class UpdatingStatusDefaultValue extends Migration
     public function up()
     {
         //
-        Schema::table('plats', function (Blueprint $table) {
-            $table->boolean('statut')->default(true)->change();
+        Schema::table('plats', function($table) {
+            
+            $table->bigInteger('categorie_id')->unsigned()->nullable()->change();
         });
     }
 
@@ -27,8 +28,5 @@ class UpdatingStatusDefaultValue extends Migration
     public function down()
     {
         //
-        Schema::table('plats', function($table) {
-            $table->dropColumn('statut');
-        });
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdatingStatusDefaultValue extends Migration
+class CreateCategoriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,11 @@ class UpdatingStatusDefaultValue extends Migration
      */
     public function up()
     {
-        //
-        Schema::table('plats', function (Blueprint $table) {
-            $table->boolean('statut')->default(true)->change();
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id();
+            $table->string('nom');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,9 +28,6 @@ class UpdatingStatusDefaultValue extends Migration
      */
     public function down()
     {
-        //
-        Schema::table('plats', function($table) {
-            $table->dropColumn('statut');
-        });
+        Schema::dropIfExists('categories');
     }
 }
