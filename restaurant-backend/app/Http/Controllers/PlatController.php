@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Models\Plat;
 use Illuminate\Http\Request;
 
@@ -32,6 +33,29 @@ class PlatController extends Controller
         $plat->update($request->all());
         return $plat;
     }
+
+
+    public function setIngredient(Request $request, $id)
+    {
+        $plat = Plat::find(1);
+        
+        $ingredient=Ingredient::find($id);
+
+        
+        $plat->ingredients()->attach($ingredient);
+        return $plat;
+    }
+
+    public function getIngredient(Request $request, $id)
+    {
+        $plat = Plat::find($id);
+        
+      
+
+        
+        return $plat->ingredients;
+    }
+
 
     public function destroy($id)
     {
