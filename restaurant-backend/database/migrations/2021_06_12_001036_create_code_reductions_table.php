@@ -14,11 +14,12 @@ class CreateCodeReductionsTable extends Migration
     public function up()
     {
         Schema::create('code_reductions', function (Blueprint $table) {
-            $table->string('code');
+            $table->string('code')->unique();
             $table->float('taux_reduction');
             $table->boolean('statut');
-            $table->id();            $table->softDeletes();
-
+            $table->timestamp('date_expiration')->nullable();
+            $table->id();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

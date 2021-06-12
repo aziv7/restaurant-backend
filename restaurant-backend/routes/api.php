@@ -31,6 +31,13 @@ Route::resource('categorie', CategorieController::class);
 Route::resource('commande', CommandeController::class);
 Route::resource('codereduction', CodeReductionController::class);
 Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
+Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
+Route::get('/codere/{code}', [CodeReductionController::class, 'VerifExistanceCode']);
+Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
+Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
+Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
+Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
+
 /*Route::get('/plat', [PlatController::class, 'index']);
 Route::get('/plat/{id}', [PlatController::class, 'show']);
 Route::post('/plat', [PlatController::class, 'store']);*/

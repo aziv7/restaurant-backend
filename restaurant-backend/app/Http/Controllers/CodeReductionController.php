@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\CodeReduction;
 use App\Models\Commande;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CodeReductionController extends Controller
 {
@@ -58,5 +60,48 @@ class CodeReductionController extends Controller
     public function searchByCode($code)
     {
         return CodeReduction::where('code', 'like', '%'.$code.'%')->get();
+    }
+    public function searchByCodeExact($code)
+    {
+        return CodeReduction::where('code', 'like',$code)->get();
+    }
+    /**
+     * existance par date
+     **/
+    public function searchByDate($date)
+    {
+        Log::info('This is some useful information.');
+        return CodeReduction::where('date_expiration', 'like',$date.'%')->get();
+    }
+    /**
+     * verif l'existance du code
+     **/
+    public function VerifExistanceCode($code)
+    { return !$this->searchByCodeExact($code)->isEmpty();
+
+    }
+
+    /**
+     * get all the data with date > now
+     **/
+    public function getallVerifDate($date)
+    {$code=CodeReduction::whereDate('date_expiration', '>', Carbon::now())->get();
+        return $code;
+    }
+
+    /**
+     * verifier une date si elle est expire ou nn
+     **/
+    public function VerifDateExpire($id)
+    { $date=CodeReduction::find($id)->date_expiration;
+        return $date> Carbon::now();
+
+    }
+    /**
+     * verifier validite code reduction (code+ date)
+     **/
+    public function VerifCode($code)
+    { $date=CodeReduction::where('code', 'like',$code)->get()->date_expiration;
+        return $date > Carbon::now() && $this->VerifExistanceCode($code);
     }
 }

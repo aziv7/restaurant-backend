@@ -12,7 +12,7 @@ class CodeReduction extends Model
     protected $fillable = [
         'code',
         'taux_reduction',
-        'statut',
+        'statut','date_expiration'
     ];
     public function Commandes()
     {
