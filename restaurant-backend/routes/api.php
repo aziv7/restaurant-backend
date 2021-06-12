@@ -6,6 +6,8 @@ use App\Http\Controllers\PlatController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\ImageController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +24,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
+
+//Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
 
 Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
 Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );

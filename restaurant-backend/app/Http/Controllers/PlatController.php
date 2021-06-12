@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Modificateur;
 use App\Models\Plat;
+use App\Models\Image;
 use Illuminate\Http\Request;
+
 
 class PlatController extends Controller
 {
@@ -17,9 +19,17 @@ class PlatController extends Controller
         $request->validate([
             'nom' => 'required',
             'prix' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'image-name'=>'required',
+            'image-src'=>'required'
         ]);
-        return Plat::create($request->all());
+$plat=Plat::create(['nom' => $request->get('nom'),
+        'prix' => $request->get('prix'),'description' => $request->get('description'),]) ;
+        $image =Image::create(['nom' => $request->get('image-name'),
+        'src' => $request->get('image-src'),'plat_id'=>$plat->id]) ;
+        
+        
+        return $plat;
     }
 
     public function show($id)

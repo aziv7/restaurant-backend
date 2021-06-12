@@ -20,6 +20,11 @@ class Plat extends Model
         return $this->HasOneOrZero (Categorie::class);
     }
 
+    public function images()
+    {
+        return $this->HasMany (Image::class);
+    }
+
     public function modificateurs()
     {
         return $this->belongsToMany(Modificateur::class);
