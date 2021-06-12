@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class,'role_users');
     }
+
+    //user has one coordonneesAuthentification
+    public function coordonneesAuthentification()
+    {
+        return $this->HasOne(CoordonneesAuthentification::class);
+    }
 }

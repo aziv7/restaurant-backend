@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRolesTable extends Migration
+class CoordonneesAuthentificationsFixingPwd extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,8 @@ class CreateRolesTable extends Migration
      */
     public function up()
     {
-        Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('Nom des roles');
-            $table->timestamps();
-            $table->softDeletes();
+        Schema::table('coordonnees_authentifications', function (Blueprint $table) {
+            $table->string('password', 255)->change();
         });
     }
 
@@ -28,6 +25,6 @@ class CreateRolesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('roles');
+        //
     }
 }

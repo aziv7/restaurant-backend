@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CoordonneesAuthentification;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,20 @@ class UserController extends Controller
             'email'=> 'required',
             'numero de telephone'=> 'required',
         ]);
-        return User::create($request->all());
+
+        $coordonnesauth = new CoordonneesAuthentification();
+        $coordonnesauth->login = $request->login;
+        $coordonnesauth->password = encrypt($request->password);
+        $user = new User();
+        $user->nom = $request->nom;
+        $user->prenom = $request->prenom;
+        $user->email = $request->email;
+        $user->{'date de naissance'} = $request->{'date de naissance'};
+        $user->{'numero de telephone'} = $request->{'numero de telephone'};
+        $user = User::create($request->all());
+        //$coordonnesauth = CoordonneesAuthentification::create($request->get('login' && 'password'));
+        $user->coordonneesAuthentification()->save($coordonnesauth);
+        return $user;
     }
 
     /**
