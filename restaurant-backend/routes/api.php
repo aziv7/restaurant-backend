@@ -21,7 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-
+Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
 Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
 
 Route::resource('modificateur', ModificateurController::class);
@@ -30,7 +30,7 @@ Route::resource('modificateur', ModificateurController::class);
 Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
 
 
-
+Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
 Route::resource('ingredient', IngredientController::class);
 
 Route::get('/plat/{id}/modificateurs', [PlatController::class, 'getModificateurs']);

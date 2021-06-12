@@ -16,10 +16,7 @@ class CreateModificateursTable extends Migration
         Schema::create('modificateurs', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->bigInteger('ingredient_id')->unsigned()->nullable();
-            
-            
-            $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
+
             $table->timestamps();
             $table->softDeletes();
         });

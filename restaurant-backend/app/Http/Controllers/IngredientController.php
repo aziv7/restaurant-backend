@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\Ingredient;
+use App\Models\Modificateur;
 use Illuminate\Http\Request;
 
 class IngredientController extends Controller
@@ -41,11 +42,12 @@ class IngredientController extends Controller
         return $ingredient;
     }
 //affecter un ingredient à un modificateur
-    public function addIngredientToModificateur(Request $request, $id)
+    public function addIngredientToModificateur(Request $request, $id_ingredient,$id_modificateur)
     {
-        $ingredient = Ingredient::find($id);
-        $ingredient->update($request->all());
-        return $ingredient;
+        $ingredient = Ingredient::find($id_ingredient);
+        
+        $modificateur = Modificateur::find($id_modificateur);
+        return $modificateur->ingredients()->save($ingredient);
     }
 
 

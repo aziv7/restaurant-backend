@@ -31,7 +31,15 @@ class ModificateurController extends Controller
         return $modificateur;
     }
 
+    public function getIngredients(Request $request, $id)
+    {
+        $modificateur = Modificateur::find($id);
+        
+      
 
+        
+        return $modificateur->ingredients;
+    }
     
 
     

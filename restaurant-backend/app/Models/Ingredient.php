@@ -17,11 +17,11 @@ class Ingredient extends Model
     ];
     public function plats()
     {
-        return $this->belongsToMany(Plat::class)->withTimestamps();
+        return $this->belongsToMany(Plat::class);
     }
     public function modificateur()
     {
-        return $this->belongsTo(Modificateur::class)->withTimestamps();
+        return $this->belongsTo(Modificateur::class);
     }
 
 }
