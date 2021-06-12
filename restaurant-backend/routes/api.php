@@ -9,6 +9,10 @@ use App\Http\Controllers\PlatController;
 use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ImageUploadController;
+use App\Http\Controllers\ImageController;
+use App\Http\Controllers\SupplementController;
+
+
 
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CodeReductionController;
@@ -27,13 +31,21 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
+
+//Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
+
+Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
 Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
 
 Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
 Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
 Route::resource('modificateur', ModificateurController::class);
 
+Route::get('plat/{id}/supplement',[PlatController::class, 'getSupplements'] );
+
+Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
+
+Route::resource('supplement', SupplementController::class);
 
 Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
 
