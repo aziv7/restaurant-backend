@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlatController;
@@ -25,6 +27,17 @@ Route::get('/plat/{nom}', [PlatController::class, 'search']);
 
 Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
 Route::resource('categorie', CategorieController::class);
+
+Route::get('/user/{nom}', [UserController::class, 'search']);
+Route::resource('user', UserController::class);
+
+
+Route::put('/role/{role_id}/{user_id}',[RoleController::class,'addRoleUser']);
+Route::get('/role/{nom}', [RoleController::class, 'search']);
+Route::resource('role', RoleController::class);
+
+//Route::get('/add-roles',[RoleController::class,'addRole']);
+
 /*Route::get('/plat', [PlatController::class, 'index']);
 Route::get('/plat/{id}', [PlatController::class, 'show']);
 Route::post('/plat', [PlatController::class, 'store']);*/
