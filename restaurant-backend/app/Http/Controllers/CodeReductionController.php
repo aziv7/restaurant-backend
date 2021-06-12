@@ -98,10 +98,13 @@ class CodeReductionController extends Controller
 
     }
     /**
-     * verifier validite code reduction (code+ date)
+     * entrer code => extraire date + verifier validite code reduction (code+ date)
      **/
     public function VerifCode($code)
-    { $date=CodeReduction::where('code', 'like',$code)->get()->date_expiration;
-        return $date > Carbon::now() && $this->VerifExistanceCode($code);
+    { $date=CodeReduction::where('code', 'like',$code)->pluck('date_expiration');
+      /*  print_r(Carbon::now());        print_r($date);
+
+        var_dump($date[0] > Carbon::now() );*/
+        return $date[0] > Carbon::now() && $this->VerifExistanceCode($code);
     }
 }
