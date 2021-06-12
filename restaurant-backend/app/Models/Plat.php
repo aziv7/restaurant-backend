@@ -30,4 +30,8 @@ class Plat extends Model
         return $this->belongsToMany(Modificateur::class);
 
     }
+    public function supplements()
+    {
+        return $this->HasMany (Supplement::class);
+    }
 }
