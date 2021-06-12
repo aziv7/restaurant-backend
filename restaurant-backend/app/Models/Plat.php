@@ -19,4 +19,8 @@ class Plat extends Model
     {
         return $this->HasOneOrZero (Categorie::class);
     }
+
+    public function Commande(){
+        return $this->hasOne(Commande::class);
+    }
 }
