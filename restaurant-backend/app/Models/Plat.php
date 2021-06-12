@@ -19,4 +19,10 @@ class Plat extends Model
     {
         return $this->HasOneOrZero (Categorie::class);
     }
+
+    public function modificateurs()
+    {
+        return $this->belongsToMany(Modificateur::class);
+
+    }
 }

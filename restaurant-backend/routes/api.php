@@ -2,10 +2,14 @@
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ModificateurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PlatController;
+use App\Http\Controllers\IngredientController;
 use App\Http\Controllers\CategorieController;
+use App\Http\Controllers\ImageUploadController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,7 +25,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
 
+Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
+Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
+
+Route::resource('modificateur', ModificateurController::class);
+
+
+Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
+
+
+Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
+Route::resource('ingredient', IngredientController::class);
+
+Route::get('/plat/{id}/modificateurs', [PlatController::class, 'getModificateurs']);
 Route::resource('plat', PlatController::class);
 Route::get('/plat/{nom}', [PlatController::class, 'search']);
 
