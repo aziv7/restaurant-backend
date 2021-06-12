@@ -29,6 +29,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
 
+Route::get('plat/{id}/supplements',[PlatController::class, 'getSupplements'] );
+
 Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
 Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
 Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
@@ -36,7 +38,7 @@ Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats']
 
 Route::resource('modificateur', ModificateurController::class);
 
-Route::get('plat/{id}/supplement',[PlatController::class, 'getSupplements'] );
+
 
 Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
 
