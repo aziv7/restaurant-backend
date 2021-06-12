@@ -21,7 +21,7 @@ class Ingredient extends Model
     }
     public function modificateur()
     {
-        return $this->belongsTo(Plat::class)->withTimestamps();
+        return $this->belongsTo(Modificateur::class)->withTimestamps();
     }
 
 }

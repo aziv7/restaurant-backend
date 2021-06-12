@@ -40,6 +40,14 @@ class IngredientController extends Controller
         $ingredient->update($request->all());
         return $ingredient;
     }
+//affecter un ingredient à un modificateur
+    public function addIngredientToModificateur(Request $request, $id)
+    {
+        $ingredient = Ingredient::find($id);
+        $ingredient->update($request->all());
+        return $ingredient;
+    }
+
 
     public function destroy($id)
     {

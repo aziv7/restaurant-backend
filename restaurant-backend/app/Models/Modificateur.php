@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,8 +13,13 @@ class Modificateur extends Model
         'nom',
     ];
     
-    public function modificateur()
+    public function plats()
     {
-        return $this->hasMany(Plat::class)->withTimestamps();
+        return $this->belongsToMany(Plat::class);
+    }
+
+    public function ingredients()
+    {
+        return $this->hasMany(Ingredient::class);
     }
 }

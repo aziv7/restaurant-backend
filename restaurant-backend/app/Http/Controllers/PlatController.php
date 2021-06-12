@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Ingredient;
+use App\Models\Modificateur;
 use App\Models\Plat;
 use Illuminate\Http\Request;
 
@@ -46,15 +46,27 @@ class PlatController extends Controller
         return $plat;
     }
 
-    public function getIngredient(Request $request, $id)
+    /** affecter un plat a un modificateur */
+    public function addPlatToModificateur(Request $request, $id_plat,$id_modificateur)
     {
-        $plat = Plat::find($id);
+        $plat = Plat::find($id_plat);
         
-      
+        $modificateur=Modificateur::find($id_modificateur);
 
         
-        return $plat->ingredients;
+        $plat->modificateurs()->attach($modificateur);
+        return $plat;
     }
+
+
+    public function getModificateurs(Request $request, $id_plat)
+    {
+        $plat = Plat::find($id_plat);
+        
+       
+        return $plat->modificateurs;
+    }
+    
 
 
     public function destroy($id)

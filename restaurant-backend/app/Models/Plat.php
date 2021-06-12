@@ -20,9 +20,9 @@ class Plat extends Model
         return $this->HasOneOrZero (Categorie::class);
     }
 
-    public function ingredients()
+    public function modificateurs()
     {
-        return $this->belongsToMany(Ingredient::class)->withTimestamps();
+        return $this->belongsToMany(Modificateur::class);
 
     }
 }
