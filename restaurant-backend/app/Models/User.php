@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use App\Models\Commande;
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -55,10 +55,5 @@ class User extends Authenticatable
     public function coordonneesAuthentification()
     {
         return $this->HasOne(CoordonneesAuthentification::class);
-    }
-    
-    public function Commandes()
-    {
-        return $this->hasMany(Commande::class);
     }
 }
