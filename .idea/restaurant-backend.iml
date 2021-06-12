@@ -117,6 +117,11 @@
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/doctrine/dbal" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/doctrine/event-manager" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/doctrine/deprecations" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/hanneskod/classtools" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/bensampo/laravel-enum" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laminas/laminas-code" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laminas/laminas-eventmanager" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laminas/laminas-zendframework-bridge" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
