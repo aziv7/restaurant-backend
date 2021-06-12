@@ -44,8 +44,8 @@ class User extends Authenticatable
     public function Commande(){
         return $this->hasOne('App\Models\Commande','user_id');
     }*/
-    public function Commande()
+    public function Commandes()
     {
-        return $this->hasOne(Commande::class);
+        return $this->hasMany(Commande::class);
     }
 }

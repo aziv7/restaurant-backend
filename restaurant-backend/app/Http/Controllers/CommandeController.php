@@ -67,4 +67,5 @@ return $Command;  }
     {
         return Commande::destroy($id);
     }
+
 }

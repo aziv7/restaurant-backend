@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commande;
 use App\Models\Plat;
 use Illuminate\Http\Request;
 
@@ -48,4 +49,15 @@ class PlatController extends Controller
     {
         return Plat::where('nom', 'like', '%'.$nom.'%')->get();
     }
+
+    /**
+     *affectation commande plat
+     */
+    public function addCommande($id_commande,$id_plat) {
+        $plat =Plat::find($id_plat);
+        $commande=Commande::find($id_commande);
+        $plat->Commandes()->save($commande);
+        return $plat;
+    }
+
 }

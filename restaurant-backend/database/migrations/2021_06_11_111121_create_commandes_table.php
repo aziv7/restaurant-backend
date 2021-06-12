@@ -31,9 +31,9 @@ class CreateCommandesTable extends Migration
             $table->double('longitude');
             $table->double('latitude');
             $table->softDeletes();
-
+            $table->integer('code_reduction_id')->unsigned()->nullable();
+            $table->foreign('code_reduction_id')->references('id')->on('code_reductions')->onDelete('cascade');
             $table->timestamps();
-
         });
     }
 

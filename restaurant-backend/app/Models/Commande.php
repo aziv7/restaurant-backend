@@ -16,12 +16,24 @@ class Commande extends Model
 'quantite',
 'date_paiement',
 'date_traitement',
-'supprime',
 'ingredient',
 'prix',
 'quantite_supplement',
 'token',
 'longitude',
-'latitude','plat_id','user_id'];
+'latitude','plat_id','user_id',
+        'code_reduction_id'];
 
+    public function code_reduction()
+    {
+        return $this->belongsTo(CodeReduction::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function plat()
+    {
+        return $this->belongsTo(Plat::class);
+    }
 }
