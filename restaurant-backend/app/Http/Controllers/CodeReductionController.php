@@ -70,7 +70,6 @@ class CodeReductionController extends Controller
      **/
     public function searchByDate($date)
     {
-        Log::info('This is some useful information.');
         return CodeReduction::where('date_expiration', 'like',$date.'%')->get();
     }
     /**
@@ -84,7 +83,7 @@ class CodeReductionController extends Controller
     /**
      * get all the data with date > now
      **/
-    public function getallVerifDate($date)
+    public function getallVerifDate()
     {$code=CodeReduction::whereDate('date_expiration', '>', Carbon::now())->get();
         return $code;
     }
