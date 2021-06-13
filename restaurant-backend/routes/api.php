@@ -84,6 +84,11 @@ Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate'])
 Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
 Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
 Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
+Route::get('/deletecodes', [CodeReductionController::class, 'DisplayDeletedCode']);
+Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
+Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
+Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
+
 
 /*Route::get('/plat', [PlatController::class, 'index']);
 Route::get('/plat/{id}', [PlatController::class, 'show']);
