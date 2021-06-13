@@ -15,13 +15,20 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        return  Commande::all();
+        $commandes = Commande::all();
+
+        if ($commandes->isEmpty()) {
+            return response(array(
+                'message' => ' Not Found',
+            ), 404);
+        }
+        return $commandes;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -30,41 +37,61 @@ class CommandeController extends Controller
             'nom' => 'required',
             'user_id' => 'required',
             'plat_id' => 'required',
-           'quantite'=> 'required',
+            'quantite' => 'required|gt:0',
+            'prix' => 'gt:0'
         ]);
-return Commande::create($request->all()) ;   }
+        return Commande::create($request->all());
+    }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-return Commande::find($id) ;   }
+        $commande = Commande::find($id);
+        if (!$commande) {
+            return response(array(
+                'message' => 'Commande Not Found',
+            ), 404);
+        }
+        return $commande;
+    }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $Command= Commande::find($id) ;
-        $Command->update($request->all());
-return $Command;  }
+        $commande = Commande::find($id);
+        if (!$commande) {
+            return response(array(
+                'message' => 'Commande Not Found',
+            ), 404);
+        }
+        $commande->update($request->all());
+        return $commande;
+    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
+        if (Commande::destroy($id) == 0) {
+            return response(array(
+                'message' => 'Commande Not Found',
+            ), 404);
+        }
         return Commande::destroy($id);
     }
 
