@@ -135,15 +135,26 @@ class CodeReductionController extends Controller
     public function VerifCode($code)
     {
         $date = CodeReduction::where('code', 'like', $code)->pluck('date_expiration');
-        /*  print_r(Carbon::now());        print_r($date);
-          var_dump($date[0] > Carbon::now() );
-          var_dump( $date[0]!=null);
-          var_dump(($date[0] > Carbon::now() && $this->VerifExistanceCode($code))!=1);*/
         if (($date[0] > Carbon::now() && $this->VerifExistanceCode($code)) != 1 && $date[0] != null) {
             return response(array(
                 'message' => 'Code Reduction invalid',
             ), 406);
         }
         return $date[0] > Carbon::now() && $this->VerifExistanceCode($code);
+    }
+    /**
+     * display all deleted codes
+     **/
+    public function DisplayDeletedCode()
+    {
+
+       return CodeReduction::onlyTrashed()->get();
+    }
+    /**
+     * display all code (+ deleted codes)
+     **/
+    public function DisplayAllCodes()
+    {
+      return  CodeReduction::withTrashed()->get();
     }
 }

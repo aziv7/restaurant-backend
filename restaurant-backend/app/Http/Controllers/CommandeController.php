@@ -94,5 +94,19 @@ class CommandeController extends Controller
         }
         return Commande::destroy($id);
     }
+    /**
+     * display all deleted commandes
+     **/
+    public function DisplayDeletedCommand()
+    {
+        return Commande::onlyTrashed()->get();
+    }
+    /**
+     * display all command (+ deleted commandes)
+     **/
+    public function DisplayAllCommand()
+    {
+        return  Commande::withTrashed()->get();
+    }
 
 }
