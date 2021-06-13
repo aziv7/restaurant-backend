@@ -13,7 +13,8 @@ use App\Models\Supplement;
 
 class PlatController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return Plat::all();
     }
 
@@ -23,31 +24,31 @@ class PlatController extends Controller
             'nom' => 'required',
             'prix' => 'required',
             'description' => 'required',
-            'image-name'=>'required',
-            'image-src'=>'required'
+            'image-name' => 'required',
+            'image-src' => 'required'
         ]);
-$plat=Plat::create(['nom' => $request->get('nom'),
-        'prix' => $request->get('prix'),'description' => $request->get('description'),]) ;
-        $image =Image::create(['nom' => $request->get('image-name'),
-        'src' => $request->get('image-src'),'plat_id'=>$plat->id]) ;
-        
-        
+        $plat = Plat::create(['nom' => $request->get('nom'),
+            'prix' => $request->get('prix'), 'description' => $request->get('description'),]);
+        $image = Image::create(['nom' => $request->get('image-name'),
+            'src' => $request->get('image-src'), 'plat_id' => $plat->id]);
+
+
         return $plat;
     }
 
 
-    public function addImageToPlat(Request $request,$id)
+    public function addImageToPlat(Request $request, $id)
     {
         $request->validate([
-            
-            'image-name'=>'required',
-            'image-src'=>'required'
+
+            'image-name' => 'required',
+            'image-src' => 'required'
         ]);
-$plat=Plat::find($id);
-        $image =Image::create(['nom' => $request->get('image-name'),
-        'src' => $request->get('image-src'),'plat_id'=>$plat->id]) ;
-        
-        
+        $plat = Plat::find($id);
+        $image = Image::create(['nom' => $request->get('image-name'),
+            'src' => $request->get('image-src'), 'plat_id' => $plat->id]);
+
+
         return $plat;
     }
 
@@ -56,18 +57,19 @@ $plat=Plat::find($id);
         return Plat::find($id);
     }
 
-    public function addSupplementToPlat($id,$id_supplement)
+    public function addSupplementToPlat($id, $id_supplement)
     {
-        $plat=Plat::find($id);
-        $supplement=Supplement::find($id_supplement);
+        $plat = Plat::find($id);
+        $supplement = Supplement::find($id_supplement);
         $supplement->plats()->attach($plat);
         return $plat;
     }
+
 //get plats supplements
     public function getSupplements($id)
     {
-        $plat=Plat::find($id);
-        $supplement=Supplement::find($id_supplement);
+        $plat = Plat::find($id);
+        $supplement = Supplement::find($id_supplement);
         $supplement->plats()->attach($plat);
         return $supplements->plats();
     }
@@ -83,22 +85,22 @@ $plat=Plat::find($id);
     public function setIngredient(Request $request, $id)
     {
         $plat = Plat::find(1);
-        
-        $ingredient=Ingredient::find($id);
 
-        
+        $ingredient = Ingredient::find($id);
+
+
         $plat->ingredients()->attach($ingredient);
         return $plat;
     }
 
     /** affecter un plat a un modificateur */
-    public function addPlatToModificateur(Request $request, $id_plat,$id_modificateur)
+    public function addPlatToModificateur(Request $request, $id_plat, $id_modificateur)
     {
         $plat = Plat::find($id_plat);
-        
-        $modificateur=Modificateur::find($id_modificateur);
 
-        
+        $modificateur = Modificateur::find($id_modificateur);
+
+
         $plat->modificateurs()->attach($modificateur);
         return $plat;
     }
@@ -107,11 +109,10 @@ $plat=Plat::find($id);
     public function getModificateurs(Request $request, $id_plat)
     {
         $plat = Plat::find($id_plat);
-        
-       
+
+
         return $plat->modificateurs;
     }
-    
 
 
     public function destroy($id)
@@ -122,20 +123,21 @@ $plat=Plat::find($id);
     /**
      * Search for a name
      *
-     * @param  string  $nom
+     * @param string $nom
      * @return \Illuminate\Http\Response
      */
     public function search($nom)
     {
-        return Plat::where('nom', 'like', '%'.$nom.'%')->get();
+        return Plat::where('nom', 'like', '%' . $nom . '%')->get();
     }
 
     /**
      *affectation commande plat
      */
-    public function addCommande($id_commande,$id_plat) {
-        $plat =Plat::find($id_plat);
-        $commande=Commande::find($id_commande);
+    public function addCommande($id_commande, $id_plat)
+    {
+        $plat = Plat::find($id_plat);
+        $commande = Commande::find($id_commande);
         $plat->Commandes()->save($commande);
         return $plat;
     }

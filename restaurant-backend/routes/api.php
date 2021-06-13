@@ -65,6 +65,7 @@ Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'a
 Route::resource('categorie', CategorieController::class);
 
 Route::get('/user/{nom}', [UserController::class, 'search']);
+Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
 Route::resource('user', UserController::class);
 
 

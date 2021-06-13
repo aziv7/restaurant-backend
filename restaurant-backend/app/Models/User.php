@@ -56,7 +56,7 @@ class User extends Authenticatable
     {
         return $this->HasOne(CoordonneesAuthentification::class);
     }
-    
+
     public function Commandes()
     {
         return $this->hasMany(Commande::class);

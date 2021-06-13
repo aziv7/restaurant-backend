@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CoordonneesAuthentification;
+use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -94,5 +95,16 @@ class UserController extends Controller
     public function search($nom)
     {
         return User::where('nom', 'like', '%'.$nom.'%')->get();
+    }
+
+    //add image
+    public function uploadimg(Request $request, $id)
+    {
+        $user = User::find($id);
+        Image::create(
+            ['nom' => $request->get('nomimage'),
+                'src' => $request->get('image'),
+                'user_id' => $user->id]);
+        return $user;
     }
 }
