@@ -22,6 +22,10 @@ class CreateImagesTable extends Migration
             $table->foreign('plat_id')
                 ->references('id')
                 ->on('plats');
+            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
             $table->timestamps();
         });
     }

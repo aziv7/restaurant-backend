@@ -6,6 +6,7 @@ use App\Models\CoordonneesAuthentification;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -37,7 +38,8 @@ class UserController extends Controller
 
         $coordonnesauth = new CoordonneesAuthentification();
         $coordonnesauth->login = $request->login;
-        $coordonnesauth->password = encrypt($request->password);
+        $coordonnesauth->password =Hash::make($request->password);
+        var_dump($coordonnesauth->password);
         $user = new User();
         $user->nom = $request->nom;
         $user->prenom = $request->prenom;
@@ -47,6 +49,7 @@ class UserController extends Controller
         $user = User::create($request->all());
         //$coordonnesauth = CoordonneesAuthentification::create($request->get('login' && 'password'));
         $user->coordonneesAuthentification()->save($coordonnesauth);
+        var_dump($coordonnesauth->password);
         return $user;
     }
 
@@ -106,5 +109,22 @@ class UserController extends Controller
                 'src' => $request->get('image'),
                 'user_id' => $user->id]);
         return $user;
+    }
+    public function login(Request $request) {
+        $coodronnees = CoordonneesAuthentification::where('login',$request->login)->first();
+        $user = $coodronnees->user;
+        //$mdp = decrypt($coodronnees->password);
+        if(!$user || !Hash::check($request->password, $coodronnees->password)){
+            return response([
+                Hash::check($request->password, $coodronnees->password),
+                403
+            ]);
+        }
+        $token = $user->createToken('my-app-token')->plainTextToken;
+        $response = [
+            'user'=>$user,
+            'token'=>$token,
+        ];
+        return response($response, 201);
     }
 }
