@@ -55,7 +55,10 @@ class ModificateurController extends Controller
 
         return $modificateur->plats;
     }
-
+    public function getSupplements($id)
+    {
+        return Modificateur::find($id)->supplements;
+    }
 
     public function destroy($id)
     {

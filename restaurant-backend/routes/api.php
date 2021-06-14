@@ -1,4 +1,5 @@
 <?php
+
 use App\Http\Controllers\ModificateurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -29,22 +30,26 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 //Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
 
-Route::get('plat/{id}/supplements',[PlatController::class, 'getSupplements'] );
 
-Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
-Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
-Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
-Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
+Route::get('modificateur/{id}/supplements', [ModificateurController::class, 'getSupplements']);
+Route::post('supplement/{id}/modificateur/{modificateur_id}', [SupplementController::class, 'addSupplementToModificateur']);
+
+Route::get('plat/{id}/supplements', [PlatController::class, 'getSupplements']);
+
+Route::post('plat/{id}/image', [PlatController::class, 'addImageToPlat']);
+Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost']);
+Route::get('modificateur/ingredients/{id}', [ModificateurController::class, 'getIngredients']);
+Route::get('modificateur/plats/{id}', [ModificateurController::class, 'getPlats']);
 
 Route::resource('modificateur', ModificateurController::class);
 
 
 
-Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
+Route::post('plat/{id}/supplement/{supplement_id}', [PlatController::class, 'addSupplementToPlat']);
 
 Route::resource('supplement', SupplementController::class);
 
-Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
+Route::post('plat/{plat_id}/modificateur/{modificateur_id}', [PlatController::class, 'addPlatToModificateur']);
 
 
 Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);

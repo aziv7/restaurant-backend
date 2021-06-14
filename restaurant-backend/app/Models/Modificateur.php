@@ -23,8 +23,8 @@ class Modificateur extends Model
     {
         return $this->hasMany(Ingredient::class);
     }
-    public function modificateurs()
+    public function supplements()
     {
-        return $this->belongsToMany(Supplement::class);
+        return $this->belongsToMany(Supplement::class, 'modificateur_supplement');
     }
 }
