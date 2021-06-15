@@ -89,7 +89,7 @@ Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
 Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
 Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
 Route::post('/login',[UserController::class, 'login']);
-
+Route::post('signup', [\App\Http\Controllers\Auth\RegisterController::class,'register']);
 
 //protected routes for admin role
 /*Route::group(['middleware' => ['admin']], function () {

@@ -26,10 +26,6 @@ class CreateUsersTable extends Migration
             $table->boolean('statut')->default(false);
             $table->integer('number of ban')->default(0);
             $table->dateTime('banned at')->nullable()->default(null);
-           // $table->timestamp('email_verified_at')->nullable();
-           // $table->string('password');
-            /*$table->bigInteger('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');*/
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
