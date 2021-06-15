@@ -92,6 +92,7 @@ Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
 Route::post('/login',[UserController::class, 'login']);
 
 
+Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
 
 
 /*Route::get('/plat', [PlatController::class, 'index']);

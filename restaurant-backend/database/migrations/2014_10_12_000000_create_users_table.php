@@ -17,17 +17,19 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->date('date de naissance');
+            $table->date('date de naissance')->nullable();
             $table->string('image')->nullable()->default(null);
             $table->string('nomimage')->nullable()->default(null);
             $table->string('email')->unique();
-            $table->integer('numero de telephone')->unique();
+            $table->integer('numero de telephone')->nullable();
             $table->boolean('premium')->default(false);
             $table->boolean('statut')->default(false);
             $table->integer('number of ban')->default(0);
             $table->dateTime('banned at')->nullable()->default(null);
            // $table->timestamp('email_verified_at')->nullable();
-           // $table->string('password');
+           $table->string('verification_code')-> nullable();
+            $table->boolean('is_verified')->default(0);
+
             /*$table->bigInteger('role_id')->unsigned();
             $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');*/
             $table->rememberToken();
