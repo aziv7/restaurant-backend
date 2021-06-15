@@ -3,13 +3,16 @@
 namespace App\Models;
 
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+<<<<<<< HEAD
 class User extends Authenticatable implements MustVerifyEmail
+=======
+class User extends Authenticatable
+>>>>>>> parent of f52d1d9 (email verification test)
 {
     use HasFactory, Notifiable;
     use HasApiTokens;

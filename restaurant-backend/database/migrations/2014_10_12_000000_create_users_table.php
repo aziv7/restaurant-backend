@@ -26,6 +26,13 @@ class CreateUsersTable extends Migration
             $table->boolean('statut')->default(false);
             $table->integer('number of ban')->default(0);
             $table->dateTime('banned at')->nullable()->default(null);
+<<<<<<< HEAD
+=======
+           // $table->timestamp('email_verified_at')->nullable();
+           // $table->string('password');
+            /*$table->bigInteger('role_id')->unsigned();
+            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');*/
+>>>>>>> parent of f52d1d9 (email verification test)
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
