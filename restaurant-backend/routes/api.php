@@ -98,6 +98,7 @@ Route::post('signup', [\App\Http\Controllers\Auth\RegisterController::class,'reg
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
 });
+Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
 
 
 /*Route::get('/plat', [PlatController::class, 'index']);
