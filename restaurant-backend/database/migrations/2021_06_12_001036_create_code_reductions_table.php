@@ -17,7 +17,6 @@ class CreateCodeReductionsTable extends Migration
             $table->string('code')->unique();
             $table->float('taux_reduction');
             $table->boolean('statut');
-            $table->boolean('user_id')->nullable();
             $table->timestamp('date_expiration')->nullable();
             $table->id();
             $table->softDeletes();
