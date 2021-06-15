@@ -32,7 +32,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 
-//Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
+Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
 
 Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
 Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
@@ -74,7 +74,7 @@ Route::get('/role/{nom}', [RoleController::class, 'search']);
 Route::resource('role', RoleController::class);
 
 //Route::get('/add-roles',[RoleController::class,'addRole']);
-Route::post('/register',[UserController::class, 'store']);
+Route::post('/register',[\App\Http\Controllers\Auth\RegisterController::class, 'store']);
 Route::resource('commande', CommandeController::class);
 Route::resource('codereduction', CodeReductionController::class);
 Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
