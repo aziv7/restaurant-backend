@@ -26,12 +26,9 @@ class CreateUsersTable extends Migration
             $table->boolean('statut')->default(false);
             $table->integer('number of ban')->default(0);
             $table->dateTime('banned at')->nullable()->default(null);
-           // $table->timestamp('email_verified_at')->nullable();
-           $table->string('verification_code')-> nullable();
-            $table->boolean('is_verified')->default(0);
-
-            /*$table->bigInteger('role_id')->unsigned();
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');*/
+           $table->timestamp('email_verified_at')->nullable();
+            $table->integer('is_verified')->default(0);
+            $table->string('verification_code')->nullable();
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

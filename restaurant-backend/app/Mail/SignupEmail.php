@@ -18,7 +18,8 @@ class SignupEmail extends Mailable
      */
     public function __construct($data)
     {
-        $this->email_data = $data;    }
+        $this->email_data = $data;
+    }
 
     /**
      * Build the message.
@@ -27,6 +28,6 @@ class SignupEmail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'), 'Team')->subject("Welcome to our restaurent!")->view('mail.signup-email', ['email_data' => $this->email_data]);
+        return $this->from(env('MAIL_USERNAME'), 'Team')->subject("Welcome to our restaurent!")->view('mail.signup-mail', ['email_data' => $this->email_data]);
     }
 }
