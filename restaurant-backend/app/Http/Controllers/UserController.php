@@ -35,11 +35,12 @@ class UserController extends Controller
             'email'=> 'required',
             'numero de telephone'=> 'required',
         ]);
-
+        //créer une instance de CoordonneesAuthentification
         $coordonnesauth = new CoordonneesAuthentification();
         $coordonnesauth->login = $request->login;
+        //hacher le mdp eissue de la requete
         $coordonnesauth->password =Hash::make($request->password);
-        var_dump($coordonnesauth->password);
+        /*********Creation d'un user à partir des informations récupérés de la requete*********/
         $user = new User();
         $user->nom = $request->nom;
         $user->prenom = $request->prenom;
@@ -47,9 +48,10 @@ class UserController extends Controller
         $user->{'date de naissance'} = $request->{'date de naissance'};
         $user->{'numero de telephone'} = $request->{'numero de telephone'};
         $user = User::create($request->all());
-        //$coordonnesauth = CoordonneesAuthentification::create($request->get('login' && 'password'));
+        /****************************************************/
+
+        /************enregistrer le login et pwd dans la base ****************/
         $user->coordonneesAuthentification()->save($coordonnesauth);
-        var_dump($coordonnesauth->password);
         return $user;
     }
 
@@ -111,15 +113,18 @@ class UserController extends Controller
         return $user;
     }
     public function login(Request $request) {
+        //recuprération de login et mdp ou le login est identique au celui récupéré de la requete
         $coodronnees = CoordonneesAuthentification::where('login',$request->login)->first();
+        //récupération de l'utilisateur ayan ce login et ce mdp
         $user = $coodronnees->user;
-        //$mdp = decrypt($coodronnees->password);
+        //echec
         if(!$user || !Hash::check($request->password, $coodronnees->password)){
             return response([
-                Hash::check($request->password, $coodronnees->password),
+                'message'=>["this credentials don't match"],
                 403
             ]);
         }
+        //succés
         $token = $user->createToken('my-app-token')->plainTextToken;
         $response = [
             'user'=>$user,
