@@ -6,7 +6,7 @@ use App\Mail\SignupEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
-class mailController extends Controller
+class MailController extends Controller
 {
     public static function sendSignupEmail($name, $email, $verification_code){
         $data = [
@@ -16,5 +16,4 @@ class mailController extends Controller
         var_dump($email);
 
         Mail::to($email)->send(new SignupEmail($data));
-    }
-}
+    }}
