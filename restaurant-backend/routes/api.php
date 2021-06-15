@@ -77,17 +77,11 @@ Route::resource('role', RoleController::class);
 Route::post('/register',[\App\Http\Controllers\Auth\RegisterController::class, 'store']);
 Route::resource('commande', CommandeController::class);
 Route::resource('codereduction', CodeReductionController::class);
-Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
 Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
 Route::get('/codere/{code}', [CodeReductionController::class, 'VerifExistanceCode']);
 Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
-Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
 Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
 Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
-Route::get('/deletecodes', [CodeReductionController::class, 'DisplayDeletedCode']);
-Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
-Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
-Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
 Route::post('/login',[UserController::class, 'login']);
 
 
@@ -97,6 +91,13 @@ Route::post('/login',[UserController::class, 'login']);
 });*/
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+    Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
+    Route::get('/deletecodes', [CodeReductionController::class, 'DisplayDeletedCode']);
+    Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
+    Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
+    Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
+    Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
+
 });
 Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
 
