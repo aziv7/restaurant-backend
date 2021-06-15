@@ -52,9 +52,22 @@ class UserController extends Controller
 
         /************enregistrer le login et pwd dans la base ****************/
         $user->coordonneesAuthentification()->save($coordonnesauth);
+        var_dump($coordonnesauth->password);
+        if($user != null){
+            MailController::sendSignupEmail($user->nom, $user->email, $user->verification_code);
+        }
         return $user;
+
+
     }
 
+    public function verifyUser(Request $request){
+        $verification_code = \Illuminate\Support\Facades\Request::get('code');
+        $user = User::where(['verification_code' => $verification_code])->first();
+        if($user != null){
+            $user->is_verified = 1;
+            $user->save();}
+        return $user;}
     /**
      * Display the specified resource.
      *
@@ -130,6 +143,9 @@ class UserController extends Controller
             'user'=>$user,
             'token'=>$token,
         ];
-        return response($response, 201);
+        return response($response, 201);}
+    public function credentials(Request $request)
+    {
+        return array_merge($request->only($this->username(), 'password'), ['is_verified' => 1]);
     }
 }
