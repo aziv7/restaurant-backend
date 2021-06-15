@@ -98,6 +98,7 @@ Route::post('/login',[UserController::class, 'login']);
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
 });
+Route::get('/stripe', [\App\Http\Controllers\StripeController::class,'getbananas']);
 
 
 /*Route::get('/plat', [PlatController::class, 'index']);
