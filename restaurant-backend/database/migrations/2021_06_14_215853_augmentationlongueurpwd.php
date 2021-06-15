@@ -14,7 +14,7 @@ class Augmentationlongueurpwd extends Migration
     public function up()
     {
         Schema::table('coordonnees_authentifications', function (Blueprint $table) {
-            $table->string('password', 10000)->change();
+            $table->string('password', 255)->change();
         });
     }
 

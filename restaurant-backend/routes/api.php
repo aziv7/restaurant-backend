@@ -74,7 +74,7 @@ Route::get('/role/{nom}', [RoleController::class, 'search']);
 Route::resource('role', RoleController::class);
 
 //Route::get('/add-roles',[RoleController::class,'addRole']);
-
+Route::post('/register',[UserController::class, 'store']);
 Route::resource('commande', CommandeController::class);
 Route::resource('codereduction', CodeReductionController::class);
 Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
@@ -92,11 +92,12 @@ Route::post('/login',[UserController::class, 'login']);
 
 
 //protected routes for admin role
-Route::group(['middleware' => ['admin']], function () {
+/*Route::group(['middleware' => ['admin']], function () {
     Route::resource('user', UserController::class);
+});*/
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
 });
-
-
 
 
 /*Route::get('/plat', [PlatController::class, 'index']);
