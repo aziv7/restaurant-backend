@@ -17,11 +17,11 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
-            $table->date('date de naissance')->nullable();
+            $table->date('date de naissance');
             $table->string('image')->nullable()->default(null);
             $table->string('nomimage')->nullable()->default(null);
             $table->string('email')->unique();
-            $table->integer('numero de telephone')->nullable();
+            $table->integer('numero de telephone')->unique();
             $table->boolean('premium')->default(false);
             $table->boolean('statut')->default(false);
             $table->integer('number of ban')->default(0);

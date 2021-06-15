@@ -4,25 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\CodeReduction;
 use App\Models\Commande;
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
 
 class CodeReductionController extends Controller
 {
 
     public function index()
-    {
-        $codered = CodeReduction::all();
+    { $codered=CodeReduction::all();
 
         if ($codered->isEmpty()) {
-            return response(array(
-                'message' => ' Not Found',
-            ), 404);
-        }
-        return $codered;
+        return response(array(
+            'message' => ' Not Found',
+        ), 404);
+    }
+         return $codered ;
     }
 
 
@@ -135,60 +132,29 @@ class CodeReductionController extends Controller
     /**
      * entrer code => extraire date + verifier validite code reduction (code+ date)
      **/
-    /**
-     * verifier $codered->user_id si null c'est pour tt le monde sinn id user comparer avec id connecté
-     **/
-
     public function VerifCode($code)
     {
-        if ($codered->user_id == null || $codered->user_id == Auth::id()) {
-            $date = CodeReduction::where('code', 'like', $code)->pluck('date_expiration');
-            if (($date[0] > Carbon::now() && $this->VerifExistanceCode($code)) != 1 && $date[0] != null) {
-                return response(array(
-                    'message' => 'Code Reduction invalid',
-                ), 406);
-            }
-            return $date[0] > Carbon::now() && $this->VerifExistanceCode($code);
+        $date = CodeReduction::where('code', 'like', $code)->pluck('date_expiration');
+        if (($date[0] > Carbon::now() && $this->VerifExistanceCode($code)) != 1 && $date[0] != null) {
+            return response(array(
+                'message' => 'Code Reduction invalid',
+            ), 406);
         }
-        return false;
+        return $date[0] > Carbon::now() && $this->VerifExistanceCode($code);
     }
-
     /**
      * display all deleted codes
      **/
     public function DisplayDeletedCode()
     {
 
-        return CodeReduction::onlyTrashed()->get();
+       return CodeReduction::onlyTrashed()->get();
     }
-
     /**
      * display all code (+ deleted codes)
      **/
     public function DisplayAllCodes()
     {
-        return CodeReduction::withTrashed()->get();
+      return  CodeReduction::withTrashed()->get();
     }
-
-    /**
-     * affecter un code de reduction à un id user
-     **/
-    public function AffecterUserReduction($id_reduction, $id_user)
-    {
-        $codered = CodeReduction::find($id_reduction);
-        $user = User::find($id_user);
-        if (!$codered) {
-            return response(array(
-                'message' => 'Code Reduction Not Found',
-            ), 404);
-        }
-        if (!$user) {
-            return response(array(
-                'message' => ' user Not Found',
-            ), 404);
-        }
-        $codered->user_id = $id_user;
-        return $codered;
-    }
-
 }
