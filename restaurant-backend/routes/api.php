@@ -30,7 +30,8 @@ use App\Http\Controllers\CodeReductionController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
+Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
 
 Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
 

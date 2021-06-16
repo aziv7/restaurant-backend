@@ -16,12 +16,13 @@ class CreateCoordonneesAuthentificationsTable extends Migration
         Schema::create('coordonnees_authentifications', function (Blueprint $table) {
             $table->id();
             $table->string('login')->unique();
-            $table->string('password');
+            $table->string('password', 255);
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->string('token', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
