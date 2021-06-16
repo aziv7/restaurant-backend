@@ -117,6 +117,25 @@
       <path value="$PROJECT_DIR$/restaurant-backend/vendor/laminas/laminas-eventmanager" />
       <path value="$PROJECT_DIR$/restaurant-backend/vendor/laminas/laminas-zendframework-bridge" />
       <path value="$PROJECT_DIR$/restaurant-backend/vendor/laravel/sanctum" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/ringcentral/psr7" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/evenement/evenement" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/beyondcode/laravel-websockets" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/paragonie/sodium_compat" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/paragonie/random_compat" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/stream" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/socket" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/promise-timer" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/promise-stream" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/promise" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/http" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/event-loop" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/dns" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/cache" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/ratchet/rfc6455" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/cboden/ratchet" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/symfony/psr-http-message-bridge" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

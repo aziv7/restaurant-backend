@@ -2,16 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewMessage;
+use App\Models\Ingredient;
 use App\Models\Modificateur;
 use App\Models\Commande;
 use App\Models\Plat;
 use App\Models\Image;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Http\Request;
 
 use App\Models\Supplement;
 
 
-class PlatController extends Controller
+class PlatController extends Controller implements ShouldBroadcast
 {
     public function index()
     {
@@ -33,7 +37,7 @@ class PlatController extends Controller
             'src' => $request->get('image-src'), 'plat_id' => $plat->id]);
 
 
-        return $plat;
+        broadcast(new NewMessage('plat ajouté'));
     }
 
 
@@ -142,4 +146,8 @@ class PlatController extends Controller
         return $plat;
     }
 
+    public function broadcastOn()
+    {
+        return new PrivateChannel('home');
+    }
 }
