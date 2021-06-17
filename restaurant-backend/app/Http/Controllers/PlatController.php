@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\test;
 use App\Models\Modificateur;
 use App\Models\Plat;
 use App\Models\Ingredient;
@@ -36,7 +37,9 @@ class PlatController extends Controller
             'src' => $request->get('image-src'), 'plat_id' => $plat->id
         ]);
 
-
+        if ($plat) {
+            broadcast(new test());
+        }
         return $plat;
     }
 

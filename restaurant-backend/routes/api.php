@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\test;
 use App\Http\Controllers\ModificateurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::get('push-test', function () {
+    broadcast(new test());
+});
 //Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
 
 
