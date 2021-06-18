@@ -18,7 +18,8 @@ class CoordonneesAuthentification extends Model
      */
     protected $fillable = [
         'login',
-        'password'
+        'password',
+        'token'
     ];
 
     //one to one

@@ -30,7 +30,8 @@ use App\Http\Controllers\CodeReductionController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
+Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
 
 Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
 
@@ -97,7 +98,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
     Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
     Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
-
+    Route::post('logout', [UserController::class, 'logout']);
 });
 Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
 

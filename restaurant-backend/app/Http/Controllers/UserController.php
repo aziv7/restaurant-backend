@@ -6,6 +6,7 @@ use App\Models\CoordonneesAuthentification;
 use App\Models\Image;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -52,10 +53,6 @@ class UserController extends Controller
 
         /************enregistrer le login et pwd dans la base ****************/
         $user->coordonneesAuthentification()->save($coordonnesauth);
-        var_dump($coordonnesauth->password);
-        if($user != null){
-            MailController::sendSignupEmail($user->nom, $user->email, $user->verification_code);
-        }
         return $user;
 
 
@@ -139,13 +136,22 @@ class UserController extends Controller
         }
         //succés
         $token = $user->createToken('my-app-token')->plainTextToken;
+        $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $response = [
             'user'=>$user,
-            'token'=>$token,
         ];
-        return response($response, 201);}
-    public function credentials(Request $request)
+        return response($response, 201)->withCookie($cookie);
+    }
+    /**
+     * Delete the cookie
+     *
+     */
+    public function logout()
     {
-        return array_merge($request->only($this->username(), 'password'), ['is_verified' => 1]);
+        $cookie = \Cookie::forget('jwt');
+
+        return response([
+            'message' => 'Success'
+        ])->withCookie($cookie);
     }
 }
