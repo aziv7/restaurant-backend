@@ -9,7 +9,7 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 
 use App\Models\Supplement;
-
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class PlatController extends Controller
 {
@@ -35,9 +35,18 @@ class PlatController extends Controller
             'nom' => $request->get('image-name'),
             'src' => $request->get('image-src'), 'plat_id' => $plat->id
         ]);
-
-
-        return $plat;
+        $response = new StreamedResponse(function () use ($request, $plat) {
+            while (true) {
+                echo 'data: ' . json_encode($plat) . "\n\n";
+                ob_flush();
+                flush();
+                usleep(200000);
+            }
+        });
+        $response->headers->set('Content-Type', 'text/event-stream');
+        $response->headers->set('X-Accel-Buffering', 'no');
+        $response->headers->set('Cach-Control', 'no-cache');
+        return $response;
     }
 
 
