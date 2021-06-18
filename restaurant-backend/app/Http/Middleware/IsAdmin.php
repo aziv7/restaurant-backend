@@ -18,10 +18,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {         if (Auth::user()) {
-        print_r(Auth::id());
+       // print_r(Auth::id());
                $roles=User::find(Auth::id())->roles;
                foreach ($roles as $role)
-                {print_r($role);
+                {//print_r($role);
                     if(strcmp($role->Nom_des_roles,'admin')==0)
                 return $next($request);}
             }

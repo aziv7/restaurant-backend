@@ -98,6 +98,8 @@ Route::post('/login',[UserController::class, 'login']);
 });*/
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+    Route::post('logout', [UserController::class, 'logout']);
+
 });
 
 
