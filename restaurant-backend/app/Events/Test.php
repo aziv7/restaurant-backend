@@ -26,7 +26,7 @@ class Test implements ShouldBroadcast
     }
     public function boradcastWith()
     {
-        return ['hello' => 'there'];
+        return json_encode(['hello' => 'there']);
     }
     /**
      * Get the channels the event should broadcast on.

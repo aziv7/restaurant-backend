@@ -9,6 +9,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SupplementController;
+use App\Http\Controllers\StreamController;
 
 
 
@@ -27,7 +28,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
+Route::get('/stream', [PlatController::class, 'StreamController']);
 //Route::get('image-upload', [ ImageUploadController::class, 'imageUpload' ]);
 
 

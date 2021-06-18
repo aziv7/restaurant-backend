@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Test;
 use App\Models\Modificateur;
 use App\Models\Plat;
 use App\Models\Ingredient;
