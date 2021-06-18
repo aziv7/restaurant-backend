@@ -140,7 +140,7 @@ class CodeReductionController extends Controller
      **/
 
     public function VerifCode($code)
-    {
+    {$codered=$this->searchByCodeExact($code);
         if ($codered->user_id == null || $codered->user_id == Auth::id()) {
             $date = CodeReduction::where('code', 'like', $code)->pluck('date_expiration');
             if (($date[0] > Carbon::now() && $this->VerifExistanceCode($code)) != 1 && $date[0] != null) {
