@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\mailController;
 use App\Models\CoordonneesAuthentification;
+use App\Models\Role;
+use App\Models\RoleUser;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -12,6 +14,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class RegisterController extends Controller
 {
@@ -89,6 +92,9 @@ class RegisterController extends Controller
         $user->{'numero de telephone'} = $request->{'numero de telephone'};
         $user->verification_code = sha1(time());
         $user = User::create($request->all());
+        /************ donner le role Costumer****************/
+        $role_costumer =Role::where(['nom_des_roles' =>'costumer'])->first();//search for the role id of costumer
+        $user->roles()->save($role_costumer);
         /****************************************************/
 
         /************enregistrer le login et pwd dans la base ****************/

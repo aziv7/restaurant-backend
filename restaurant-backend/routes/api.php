@@ -32,11 +32,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
 Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
-
 Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
 
-Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
-Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
 
 Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
 Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
@@ -56,41 +53,36 @@ Route::resource('ingredient', IngredientController::class);
 
 Route::get('/plat/{id}/modificateurs', [PlatController::class, 'getModificateurs']);
 Route::resource('plat', PlatController::class);
-Route::get('/plat/{nom}', [PlatController::class, 'search']);
-
-Route::put('codered/{id_commande}/{id_reduction}', [CodeReductionController::class, 'addReduction']);
-
-Route::put('command/{id_commande}/{id_plat}', [PlatController::class, 'addCommande']);
-
-Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
-Route::resource('categorie', CategorieController::class);
-
-Route::get('/user/{nom}', [UserController::class, 'search']);
-Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
-//Route::post('/user', [\Database\Seeders\UsersTableSeeder::class, 'run']);
 
 
-Route::put('/role/{role_id}/{user_id}',[RoleController::class,'addRoleUser']);
-Route::get('/role/{nom}', [RoleController::class, 'search']);
-Route::resource('role', RoleController::class);
-
-//Route::get('/add-roles',[RoleController::class,'addRole']);
 Route::post('/register',[\App\Http\Controllers\Auth\RegisterController::class, 'store']);
-Route::resource('commande', CommandeController::class);
-Route::resource('codereduction', CodeReductionController::class);
-Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
-Route::get('/codere/{code}', [CodeReductionController::class, 'VerifExistanceCode']);
-Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
-Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
-Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
 Route::post('/login',[UserController::class, 'login']);
+Route::get('categorie', CategorieController::class);
 
 
+
+//protected routes for connected people
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::put('codered/{id_commande}/{id_reduction}', [CodeReductionController::class, 'addReduction']);
+    Route::put('command/{id_commande}/{id_plat}', [PlatController::class, 'addCommande']);
+    Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
+    Route::get('/codere/{code}', [CodeReductionController::class, 'VerifExistanceCode']);
+    Route::resource('commande', CommandeController::class);
+    Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
+    Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
+    Route::get('/plat/{nom}', [PlatController::class, 'search']);
+
+});
 //protected routes for admin role
-/*Route::group(['middleware' => ['admin']], function () {
-    Route::resource('user', UserController::class);
-});*/
+
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
+    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+    Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
+    Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
+    Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
+    Route::get('/user/{nom}', [UserController::class, 'search']);
     Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
     Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
     Route::get('/deletecodes', [CodeReductionController::class, 'DisplayDeletedCode']);
@@ -99,6 +91,18 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
     Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
     Route::post('logout', [UserController::class, 'logout']);
+    Route::resource('codereduction', CodeReductionController::class);
+    Route::put('/role/{role_id}/{user_id}',[RoleController::class,'addRoleUser']);
+    Route::get('/role/{nom}', [RoleController::class, 'search']);
+    Route::resource('role', RoleController::class);
+
+    Route::post('categorie', [CategorieController::class,'store']);
+    Route::put('categorie', [CategorieController::class,'update']);
+    Route::delete('categorie', [CategorieController::class,'destroy']);
+
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
 });
 Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
 
