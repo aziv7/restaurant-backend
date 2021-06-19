@@ -10,7 +10,7 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 
 use App\Models\Supplement;
-
+use PHPUnit\Util\Test as UtilTest;
 
 class PlatController extends Controller
 {
@@ -38,7 +38,7 @@ class PlatController extends Controller
         ]);
 
         if ($plat) {
-            broadcast(new test());
+            broadcast(new Test($plat));
         }
         return $plat;
     }

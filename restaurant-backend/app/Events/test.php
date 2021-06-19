@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Models\Plat;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -11,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class test implements ShouldBroadcast
+class Test implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -20,13 +21,15 @@ class test implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct()
+
+    public $plat;
+    public function __construct(Plat $plat)
     {
-        //
+        $this->plat = $plat;
     }
-    public function boradcastWith()
+    /*  public function boradcastWith()
     {
-        return ['hello' => 'there'];
+        return ['playt' => $this->plat];
     }
     /**
      * Get the channels the event should broadcast on.
@@ -35,6 +38,6 @@ class test implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('channel');
+        return new Channel('channel1234');
     }
 }
