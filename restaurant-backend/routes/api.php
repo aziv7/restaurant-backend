@@ -30,83 +30,173 @@ use App\Http\Controllers\CodeReductionController;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/*
+|--------------------------------------------------------------------------
+| Accessible by everyone
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
+
+
+            //***************************             USER           *************************//
+Route::post('/register',[\App\Http\Controllers\Auth\RegisterController::class, 'store']);
+Route::post('/login',[UserController::class, 'login']);
 Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
 Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
 Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
+            //***************************            modificateur          *************************//
 
+Route::get('modificateur/{id}', [ModificateurController::class,'show']);
+Route::get('modificateur',  [ModificateurController::class,'index']);
+            //***************************            Ingrédient          *************************//
+Route::get('ingredient', [IngredientController::class,'index']);
+Route::get('ingredient/{id}', [IngredientController::class,'show']);
+            //***************************            Supplement          *************************//
 
-Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
-Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
-Route::resource('modificateur', ModificateurController::class);
+Route::get('supplement', [SupplementController::class,'index']);
+Route::get('supplement/{id}', [SupplementController::class,'show']);
+
+            //***************************            Plat          *************************//
 
 Route::get('plat/{id}/supplement',[PlatController::class, 'getSupplements'] );
-
-Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
-
-Route::resource('supplement', SupplementController::class);
-
-Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
-
-
-Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
-Route::resource('ingredient', IngredientController::class);
-
 Route::get('/plat/{id}/modificateurs', [PlatController::class, 'getModificateurs']);
-Route::resource('plat', PlatController::class);
+Route::get('plat', [PlatController::class,'index']);
+Route::get('plat/{id}',  [PlatController::class,'show']);
+            //***************************            Categorie         *************************//
 
+Route::get('categorie/{id}', [CategorieController::class,'show']);
+Route::get('categorie', [CategorieController::class,'index']);
 
-Route::post('/register',[\App\Http\Controllers\Auth\RegisterController::class, 'store']);
-Route::post('/login',[UserController::class, 'login']);
-Route::get('categorie', CategorieController::class);
+/*
+|--------------------------------------------------------------------------
+| protected routes for connected people
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
 
-
-
-//protected routes for connected people
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::put('codered/{id_commande}/{id_reduction}', [CodeReductionController::class, 'addReduction']);
-    Route::put('command/{id_commande}/{id_plat}', [PlatController::class, 'addCommande']);
+
+    //***************************            User          *************************//
+
+    Route::post('logout', [UserController::class, 'logout']);
     Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
+
+
+    //***************************            Ingrédient          *************************//
+
+    Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
+
+    //***************************            modificateur          *************************//
+    Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
+    Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
+
+
+    //***************************            Plat          *************************//
+
+    Route::get('/plat/{nom}', [PlatController::class, 'search']);
+    Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
+    Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
+    Route::put('command/{id_commande}/{id_plat}', [PlatController::class, 'addCommande']);
+
+    //***************************            Code reduction          *************************//
+
+    Route::put('codered/{id_commande}/{id_reduction}', [CodeReductionController::class, 'addReduction']);
     Route::get('/codere/{code}', [CodeReductionController::class, 'VerifExistanceCode']);
-    Route::resource('commande', CommandeController::class);
     Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
     Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
-    Route::get('/plat/{nom}', [PlatController::class, 'search']);
+
+    //***************************            Commande          *************************//
+
+    Route::get('commande/{id}', [CommandeController::class,'show']);
+    Route::post('commande', [CommandeController::class,'store']);
+    Route::put('commande/{id}', [CommandeController::class,'update']);
+    Route::delete('commande/{id}', [CommandeController::class,'destroy']);
+
+
 
 });
-//protected routes for admin role
+
+/*
+|--------------------------------------------------------------------------
+| protected routes for admin role
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
 
 Route::middleware(['auth:sanctum', 'admin'])->group(function () {
-    Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
-    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
-    Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
-    Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
-    Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
+
+    //***************************           User        *************************//
+
     Route::get('/user/{nom}', [UserController::class, 'search']);
-    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
-    Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
-    Route::get('/deletecodes', [CodeReductionController::class, 'DisplayDeletedCode']);
-    Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
-    Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
-    Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);
-    Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
-    Route::post('logout', [UserController::class, 'logout']);
-    Route::resource('codereduction', CodeReductionController::class);
+
+
+    //***************************           Roles         *************************//
+
     Route::put('/role/{role_id}/{user_id}',[RoleController::class,'addRoleUser']);
     Route::get('/role/{nom}', [RoleController::class, 'search']);
     Route::resource('role', RoleController::class);
 
+    //***************************            Ingrédient          *************************//
+
+    Route::put('ingredient/{id}', [IngredientController::class,'update']);
+    Route::post('ingredient', [IngredientController::class,'store']);
+    Route::delete('ingredient/{id}', [IngredientController::class,'destroy']);
+    //***************************            Supplement          *************************//
+
+    Route::post('supplement', [SupplementController::class,'store']);
+    Route::put('supplement/{id}', [SupplementController::class,'update']);
+    Route::delete('supplement/{id}', [SupplementController::class,'destroy']);
+
+    //***************************            modificateur          *************************//
+
+    Route::post('modificateur',  [ModificateurController::class,'store']);
+    Route::put('modificateur/{id}',  [ModificateurController::class,'update']);
+    Route::delete('modificateur/{id}',  [ModificateurController::class,'destroy']);
+
+
+    //***************************            Categorie         *************************//
+
     Route::post('categorie', [CategorieController::class,'store']);
-    Route::put('categorie', [CategorieController::class,'update']);
-    Route::delete('categorie', [CategorieController::class,'destroy']);
+    Route::put('categorie/{id}', [CategorieController::class,'update']);
+    Route::delete('categorie/{id}', [CategorieController::class,'destroy']);
+    Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
+
+
+    //***************************           Plat        *************************//
+
+    Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
+    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+    Route::post('plat',  [PlatController::class,'store']);
+    Route::put('plat/{id}',  [PlatController::class,'update']);
+    Route::delete('plat/{id}',  [PlatController::class,'destroy']);
+    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+
+
+    //***************************           Commande        *************************//
+
+    Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
+    Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);//even the deleted ones
+    Route::get('commande', [CommandeController::class,'index']);
+
+    //***************************          Code de reduction       *************************//
+
+    Route::get('/deletecodes', [CodeReductionController::class, 'DisplayDeletedCode']);
+    Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
+    Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
+    Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
+    Route::resource('codereduction', CodeReductionController::class);
+    Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
+    Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
+    Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
+
 
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
-});
-Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
-
-
-/*Route::get('/plat', [PlatController::class, 'index']);
-Route::get('/plat/{id}', [PlatController::class, 'show']);
-Route::post('/plat', [PlatController::class, 'store']);*/
