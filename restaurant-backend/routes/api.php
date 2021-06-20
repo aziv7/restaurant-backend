@@ -51,6 +51,9 @@ Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')
 
 Route::get('modificateur/{id}', [ModificateurController::class,'show']);
 Route::get('modificateur',  [ModificateurController::class,'index']);
+Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
+Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
+
             //***************************            Ingrédient          *************************//
 Route::get('ingredient', [IngredientController::class,'index']);
 Route::get('ingredient/{id}', [IngredientController::class,'show']);
@@ -65,6 +68,8 @@ Route::get('plat/{id}/supplement',[PlatController::class, 'getSupplements'] );
 Route::get('/plat/{id}/modificateurs', [PlatController::class, 'getModificateurs']);
 Route::get('plat', [PlatController::class,'index']);
 Route::get('plat/{id}',  [PlatController::class,'show']);
+Route::get('/plat/{nom}', [PlatController::class, 'search']);
+
             //***************************            Categorie         *************************//
 
 Route::get('categorie/{id}', [CategorieController::class,'show']);
@@ -90,18 +95,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     //***************************            Ingrédient          *************************//
 
-    Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
 
     //***************************            modificateur          *************************//
-    Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
-    Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
 
 
     //***************************            Plat          *************************//
 
-    Route::get('/plat/{nom}', [PlatController::class, 'search']);
-    Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
-    Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
     Route::put('command/{id_commande}/{id_plat}', [PlatController::class, 'addCommande']);
 
     //***************************            Code reduction          *************************//
@@ -115,8 +114,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::get('commande/{id}', [CommandeController::class,'show']);
     Route::post('commande', [CommandeController::class,'store']);
-    Route::put('commande/{id}', [CommandeController::class,'update']);
-    Route::delete('commande/{id}', [CommandeController::class,'destroy']);
 
 
 
@@ -149,6 +146,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::put('ingredient/{id}', [IngredientController::class,'update']);
     Route::post('ingredient', [IngredientController::class,'store']);
     Route::delete('ingredient/{id}', [IngredientController::class,'destroy']);
+    Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
+
     //***************************            Supplement          *************************//
 
     Route::post('supplement', [SupplementController::class,'store']);
@@ -173,11 +172,12 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     //***************************           Plat        *************************//
 
     Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
-    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
     Route::post('plat',  [PlatController::class,'store']);
     Route::put('plat/{id}',  [PlatController::class,'update']);
     Route::delete('plat/{id}',  [PlatController::class,'destroy']);
     Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+    Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
+    Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
 
 
     //***************************           Commande        *************************//
@@ -185,6 +185,8 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
     Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);//even the deleted ones
     Route::get('commande', [CommandeController::class,'index']);
+    Route::put('commande/{id}', [CommandeController::class,'update']);
+    Route::delete('commande/{id}', [CommandeController::class,'destroy']);
 
     //***************************          Code de reduction       *************************//
 

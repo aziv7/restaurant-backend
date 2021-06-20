@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\RoleUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Hash;
 
@@ -150,6 +151,8 @@ class UserController extends Controller
     public function logout()
     {
         $cookie = \Cookie::forget('jwt');
+        $user = request()->user();
+        $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
 
         return response([
             'message' => 'Success'
