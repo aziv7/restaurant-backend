@@ -94,7 +94,7 @@ class CodeReductionController extends Controller
 
     public function searchByCodeExact($code)
     {
-        return CodeReduction::where('code', 'like', $code)->get();
+        return CodeReduction::where('code', 'like', $code)->get()->first();
     }
 
     /**
@@ -110,7 +110,7 @@ class CodeReductionController extends Controller
      **/
     public function VerifExistanceCode($code)
     {
-        return !$this->searchByCodeExact($code)->isEmpty();
+        return $this->searchByCodeExact($code)!=null;
 
     }
 
@@ -141,16 +141,23 @@ class CodeReductionController extends Controller
 
     public function VerifCode($code)
     {$codered=$this->searchByCodeExact($code);
+        if (!$codered) {
+            return response(array(
+                'message' => 'Code Reduction Not Found',
+            ), 404);
+        }
         if ($codered->user_id == null || $codered->user_id == Auth::id()) {
-            $date = CodeReduction::where('code', 'like', $code)->pluck('date_expiration');
-            if (($date[0] > Carbon::now() && $this->VerifExistanceCode($code)) != 1 && $date[0] != null) {
+            $date = CodeReduction::where('code', 'like', $code)->pluck('date_expiration')->first();
+            if ($date < Carbon::now() && $date!= null) { //date expiration <Now OU date expiration != null (a un delai)=> erreur
                 return response(array(
                     'message' => 'Code Reduction invalid',
                 ), 406);
             }
-            return $date[0] > Carbon::now() && $this->VerifExistanceCode($code);
+            return true;
         }
-        return false;
+        return response(array(
+            'message' => 'Code Reduction Not Found',
+        ), 404);
     }
 
     /**

@@ -64,6 +64,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Commande::class);
     }
+    public function Code_reductions()
+    {
+        return $this->hasMany(CodeReduction::class);
+    }
     public function img() {
         return $this->hasOne(Image::class);
     }

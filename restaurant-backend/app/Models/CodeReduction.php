@@ -12,10 +12,14 @@ class CodeReduction extends Model
     protected $fillable = [
         'code',
         'taux_reduction',
-        'statut','date_expiration'
+        'statut','date_expiration','user_id'
     ];
     public function Commandes()
     {
         return $this->hasMany(Commande::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

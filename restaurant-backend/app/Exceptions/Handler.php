@@ -38,4 +38,11 @@ class Handler extends ExceptionHandler
             //
         });
     }
+  /*  public function render($request, Exception $e)
+    {
+        // turn $e into an array.
+        // this is sending status code of 500
+        // get headers from $request.
+        return response()->json($e, 500);
+    }*/
 }

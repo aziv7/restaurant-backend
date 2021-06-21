@@ -41,39 +41,44 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 
 
-            //***************************             USER           *************************//
-Route::post('/register',[\App\Http\Controllers\Auth\RegisterController::class, 'store']);
-Route::post('/login',[UserController::class, 'login']);
-Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
-Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
-Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
-            //***************************            modificateur          *************************//
 
-Route::get('modificateur/{id}', [ModificateurController::class,'show']);
-Route::get('modificateur',  [ModificateurController::class,'index']);
-Route::get('modificateur/ingredients/{id}',[ModificateurController::class, 'getIngredients'] );
-Route::get('modificateur/plats/{id}',[ModificateurController::class, 'getPlats'] );
+Route::middleware(['json.response'])->group(function () {
+    //***************************             USER           *************************//
+    Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
+    Route::post('/login', [UserController::class, 'login']);
+    Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
+    Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
+    Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
+    //***************************            modificateur          *************************//
 
-            //***************************            Ingrédient          *************************//
-Route::get('ingredient', [IngredientController::class,'index']);
-Route::get('ingredient/{id}', [IngredientController::class,'show']);
-            //***************************            Supplement          *************************//
+    Route::get('modificateur/{id}', [ModificateurController::class, 'show']);
+    Route::get('modificateur', [ModificateurController::class, 'index']);
+    Route::get('modificateur/ingredients/{id}', [ModificateurController::class, 'getIngredients']);
+    Route::get('modificateur/plats/{id}', [ModificateurController::class, 'getPlats']);
 
-Route::get('supplement', [SupplementController::class,'index']);
-Route::get('supplement/{id}', [SupplementController::class,'show']);
+    //***************************            Ingrédient          *************************//
+    Route::get('ingredient', [IngredientController::class, 'index']);
+    Route::get('ingredient/{id}', [IngredientController::class, 'show']);
+    //***************************            Supplement          *************************//
 
-            //***************************            Plat          *************************//
+    Route::get('supplement', [SupplementController::class, 'index']);
+    Route::get('supplement/{id}', [SupplementController::class, 'show']);
 
-Route::get('plat/{id}/supplement',[PlatController::class, 'getSupplements'] );
-Route::get('/plat/{id}/modificateurs', [PlatController::class, 'getModificateurs']);
-Route::get('plat', [PlatController::class,'index']);
-Route::get('plat/{id}',  [PlatController::class,'show']);
-Route::get('/plat/{nom}', [PlatController::class, 'search']);
+    //***************************            Plat          *************************//
 
-            //***************************            Categorie         *************************//
+    Route::get('plat/{id}/supplement', [PlatController::class, 'getSupplements']);
+    Route::get('/plat/{id}/modificateurs', [PlatController::class, 'getModificateurs']);
+    Route::get('plat', [PlatController::class, 'index']);
+    Route::get('plat/{id}', [PlatController::class, 'show']);
+    Route::get('/plat/{nom}', [PlatController::class, 'search']);
 
-Route::get('categorie/{id}', [CategorieController::class,'show']);
-Route::get('categorie', [CategorieController::class,'index']);
+    //***************************            Categorie         *************************//
+
+    Route::get('categorie/{id}', [CategorieController::class, 'show']);
+    Route::get('categorie', [CategorieController::class, 'index']);
+});
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -85,7 +90,7 @@ Route::get('categorie', [CategorieController::class,'index']);
 */
 
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:sanctum','json.response'])->group(function () {
 
     //***************************            User          *************************//
 
@@ -128,7 +133,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 |
 */
 
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+Route::middleware(['auth:sanctum', 'admin','json.response'])->group(function () {
 
     //***************************           User        *************************//
 

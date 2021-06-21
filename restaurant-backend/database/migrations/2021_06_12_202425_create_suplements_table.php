@@ -28,8 +28,8 @@ class CreateSuplementsTable extends Migration
             $table->softDeletes();
             $table->bigInteger('supplement_id')->unsigned()->onDelete('cascade');
             $table->bigInteger('plat_id')->unsigned()->onDelete('cascade');
-            
-            
+
+
             $table->foreign('supplement_id')
                 ->references('id')
                 ->on('supplements');
@@ -47,5 +47,8 @@ class CreateSuplementsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('suplements');
+        Schema::dropIfExists('plat_supplement');
+
+
     }
 }

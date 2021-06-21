@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Illuminate\Routing\Router;
 
 class Kernel extends HttpKernel
 {
@@ -13,6 +15,13 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
+    /* force Json response */
+    public function __construct( Application $app, Router $router ) {
+        parent::__construct( $app, $router );
+        $this->prependMiddlewareToGroup('api',\App\Http\Middleware\ForceJsonResponse::class); }
+
+
+
     protected $middleware = [
         // \App\Http\Middleware\TrustHosts::class,
         \App\Http\Middleware\TrustProxies::class,
@@ -65,5 +74,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\IsAdmin::class,
         'costumer'=> \App\Http\Middleware\IsCostumer::class,
+        'json.response' => \App\Http\Middleware\ForceJsonResponse::class,
     ];
 }
