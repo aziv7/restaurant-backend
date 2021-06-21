@@ -69,13 +69,21 @@ class RoleController extends Controller
     }
 
     /** affecter un role a un utilisateur */
-    public function addRoleUser(Request $request, $role_id,$user_id)
+    public function addRoleUser($role_id,$user_id)
     {
         $user = User::find($user_id);
-        $role=Role::find($role_id);
-
-        //users() refers to the method user() in Role model
-        $role->users()->attach($user);
-        return $role;
+        $role=Role::find($role_id);//var_dump($role);
+if($role!=null && $user!=null)
+{//check if the user has already the role or not
+    if($user->roles()->find($role_id)==null)
+    {$role->users()->attach($user);//users() refers to the method user() in Role model
+        return $role;}
+    return response(array(
+        'message' => 'role exists already',
+    ), 403);
+    }
+        return response(array(
+            'message' => 'role or user not found',
+        ), 404);
     }
 }
