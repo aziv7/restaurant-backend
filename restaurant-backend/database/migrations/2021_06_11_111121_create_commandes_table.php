@@ -14,7 +14,7 @@ class CreateCommandesTable extends Migration
     public function up()
     {
         Schema::create('commandes', function (Blueprint $table) {
-            $table->id();
+            $table->string('commande_id')->primary();
             $table->string('livraison')->nullable();
             $table->enum('status',Statut::getKeys())->default(Statut::getKey(0));
             $table->bigInteger('plat_id')->unsigned();
@@ -33,7 +33,8 @@ class CreateCommandesTable extends Migration
             $table->softDeletes();
             $table->integer('code_reduction_id')->unsigned()->nullable();
             $table->foreign('code_reduction_id')->references('id')->on('code_reductions')->onDelete('cascade');
-            $table->timestamps();
+            $table->dateTime('created_at');
+            $table->dateTime('updated_at');
         });
     }
 

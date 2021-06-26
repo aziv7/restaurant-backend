@@ -3,8 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use MongoDB\BSON\Timestamp;
+use PhpParser\Node\Expr\Array_;
 
 class CommandeController extends Controller
 {
@@ -33,14 +38,25 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'nom' => 'required',
             'user_id' => 'required',
             'plat_id' => 'required',
             'quantite' => 'required|gt:0',
             'prix' => 'gt:0'
         ]);
-        return Commande::create($request->all());
+
+        $commande = new Command();
+        $commande ->user_id = $request->user_id;
+        $commande ->plat_id = $request->plat_id;
+        $commande ->quantite = $request->quantite;
+        $commande ->prix = $request->prix;
+        $commande ->created_at = Carbon::now();
+        $creation_datetime_string = $commande->created_at ->toDateTimeString();
+        $chaine = ($request->user_id + $request->plat_id) * 357;
+        $chaine_string = "id" . (string) $chaine . "/" . $creation_datetime_string;
+        $commande->commande_id = Hash::make($chaine_string);
+        DB::insert('insert into commandes (commande_id, user_id, plat_id, quantite, prix, created_at, date_paiement, date_traitement) values (?,?,?,?,?,?,?,?)', [$commande->commande_id, $commande ->user_id, $commande ->plat_id, $commande ->quantite, $commande ->prix, $commande ->created_at, "2021-06-25", "1993-04-29"]);
     }
 
     /**
