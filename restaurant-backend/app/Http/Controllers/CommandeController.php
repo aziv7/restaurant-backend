@@ -60,6 +60,32 @@ class CommandeController extends Controller
     }
 
     /**
+     * Verif if the creation date in the DB is equal to Creation Date in the token of Command_id  by Id commande entred
+     *
+     * @param string $commande_id
+     * @return \Illuminate\Http\Response
+     */
+    public function VerifCommande($commande_id){
+
+        $commande =Commande::where('commande_id', 'like', $commande_id )->first();
+        if (!$commande) {
+            return response(array(
+                'message' => 'Commande Not Found',
+            ), 404);
+        }
+        $chaine_date=(string)$commande->created_at;
+        $chaine = ($commande->user_id + $commande->plat_id) * 357;
+        $chaine_string = "id" . (string) $chaine . "/" .   $chaine_date;
+        if(!Hash::check( $chaine_string,$commande->commande_id)){
+            return response(array(
+                'message' => "don't match",
+            ), 404);
+        }
+        return response(array(
+            'message' => "accept",
+        ), 200);
+}
+    /**
      * Display the specified resource.
      *
      * @param int $id

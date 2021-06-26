@@ -192,6 +192,7 @@ Route::middleware(['auth:sanctum', 'admin','json.response'])->group(function () 
     Route::get('commande', [CommandeController::class,'index']);
     Route::put('commande/{id}', [CommandeController::class,'update']);
     Route::delete('commande/{id}', [CommandeController::class,'destroy']);
+    Route::get('verifcommand/{id}', [CommandeController::class,'VerifCommande']);
 
     //***************************          Code de reduction       *************************//
 

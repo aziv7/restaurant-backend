@@ -35,7 +35,6 @@ class AppServiceProvider extends ServiceProvider
         }
         $role->save();$role_a->save();    }
     catch (Throwable $e) {
-var_dump('c bon');
     }
 
         Schema::defaultStringLength(191);

@@ -22,7 +22,7 @@ class Commande extends Model
 'token',
 'longitude',
 'latitude','plat_id','user_id',
-        'code_reduction_id'];
+        'code_reduction_id','created_at','updated_at'];
 
     public function code_reduction()
     {
