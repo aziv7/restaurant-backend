@@ -22,19 +22,18 @@ class CreateCommandesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('quantite');
-            $table->timestamp('date_paiement');
-            $table->timestamp('date_traitement');
-            $table->boolean('ingredient');
+            $table->timestamp('date_paiement')->nullable();
+            $table->timestamp('date_traitement')->nullable();
+            $table->boolean('ingredient')->default(0);
             $table->double('prix');
             $table->integer('quantite_supplement')->default(0);
-            $table->string('token');
-            $table->double('longitude');
-            $table->double('latitude');
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
             $table->softDeletes();
             $table->integer('code_reduction_id')->unsigned()->nullable();
             $table->foreign('code_reduction_id')->references('id')->on('code_reductions')->onDelete('cascade');
             $table->dateTime('created_at');
-            $table->dateTime('updated_at');
+            $table->dateTime('updated_at')->nullable();
         });
     }
 
