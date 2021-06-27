@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Horairehebdomadaire;
+use App\Models\jourFerie;
 use Illuminate\Http\Request;
 
-class HorairehebdomadaireController extends Controller
+class JourFerieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,14 +14,15 @@ class HorairehebdomadaireController extends Controller
      */
     public function index()
     {
-        $horaires = Horairehebdomadaire::all();
 
-        if ($horaires->isEmpty()) {
+        $jour_fer =jourFerie::all();
+
+        if ($jour_fer->isEmpty()) {
             return response(array(
                 'message' => ' Not Found',
             ), 404);
         }
-        return $horaires;    }
+        return $jour_fer;      }
 
     /**
      * Store a newly created resource in storage.
@@ -30,15 +31,11 @@ class HorairehebdomadaireController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'jour' => 'required',
-            'heure_debut' => 'required',
-            'heure_fermeture' => 'required',
-        ]);
-        //var_dump($request->all());
-        return Horairehebdomadaire::create($request->all());
-
+    { $request->validate([
+        'date_jour_fer_debut' => 'required',
+        'date_jour_fer_fin' => 'required',
+    ]);
+        return jourFerie::create($request->all());
     }
 
     /**
@@ -49,13 +46,13 @@ class HorairehebdomadaireController extends Controller
      */
     public function show($id)
     {
-        $Horaire = Horairehebdomadaire::find($id);
-        if (!$Horaire) {
+        $jour_fer = jourFerie::find($id);
+        if (!$jour_fer) {
             return response(array(
-                'message' => 'Horaire Not Found',
+                'message' => 'jour ferie Not Found',
             ), 404);
         }
-        return $Horaire;
+        return $jour_fer;
     }
 
     /**
@@ -67,10 +64,9 @@ class HorairehebdomadaireController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $horaire = Horairehebdomadaire::find($id);
-        $horaire->update($request->all());
-        return $horaire;
-    }
+        $jour_fer = jourFerie::find($id);
+        $jour_fer->update($request->all());
+        return $jour_fer;    }
 
     /**
      * Remove the specified resource from storage.
@@ -80,11 +76,11 @@ class HorairehebdomadaireController extends Controller
      */
     public function destroy($id)
     {
-        if (Horairehebdomadaire::destroy($id) == 0) {
+        if (jourFerie::destroy($id) == 0) {
             return response(array(
-                'message' => 'Horaire Not Found',
+                'message' => 'jour ferie Not Found',
             ), 404);
         }
-        return Horairehebdomadaire::destroy($id);
+        return jourFerie::destroy($id);
     }
 }

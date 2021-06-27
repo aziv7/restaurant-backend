@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateHorairehebdomadairesTable extends Migration
+class CreateJourFerieTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateHorairehebdomadairesTable extends Migration
      */
     public function up()
     {
-        Schema::create('horairehebdomadaires', function (Blueprint $table) {
+        Schema::create('jour_feries', function (Blueprint $table) {
             $table->id();
-            $table->string('jour')->unique();
-            $table->time('heure_debut');
-            $table->time('heure_fermeture');
-            $table->timestamps();
-            $table->softDeletes();
+            $table->string('name');
+            $table->date('date_jour_fer_debut')->unique();
+            $table->date('date_jour_fer_fin')->unique();
             $table->bigInteger('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -32,6 +32,6 @@ class CreateHorairehebdomadairesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('horairehebdomadaires');
+        Schema::dropIfExists('conges');
     }
 }

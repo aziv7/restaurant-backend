@@ -36,7 +36,7 @@ class AppServiceProvider extends ServiceProvider
         $role->save();$role_a->save();    }
     catch (Throwable $e) {
     }
-
+        date_default_timezone_set('Europe/Paris');
         Schema::defaultStringLength(191);
     }
 }

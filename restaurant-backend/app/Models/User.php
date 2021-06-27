@@ -3,6 +3,7 @@
 namespace App\Models;
 
 
+use DateTimeInterface;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -70,5 +71,17 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function img() {
         return $this->hasOne(Image::class);
+    }
+    protected function serializeDate(DateTimeInterface $date)
+    {
+        return $date->format('Y-m-d H:i:s');
+    }
+    public function horaires()
+    {
+        return $this->hasMany(Horairehebdomadaire::class);
+    }
+    public function jourFeries()
+    {
+        return $this->hasMany(jourFerie::class);
     }
 }

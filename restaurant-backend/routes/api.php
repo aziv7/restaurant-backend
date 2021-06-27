@@ -82,6 +82,10 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('horaire/{id}',  [\App\Http\Controllers\HorairehebdomadaireController::class,'show']);
     Route::get('horaire',  [\App\Http\Controllers\HorairehebdomadaireController::class,'index']);
 
+    //***************************           Horaire de travail       *************************//
+
+    Route::get('jourferie/{id}',  [\App\Http\Controllers\JourFerieController::class,'show']);
+    Route::get('jourferie',  [\App\Http\Controllers\JourFerieController::class,'index']);
 
 });
 
@@ -215,6 +219,11 @@ Route::middleware(['auth:sanctum', 'admin','json.response'])->group(function () 
     Route::post('horaire',  [\App\Http\Controllers\HorairehebdomadaireController::class,'store']);
     Route::put('horaire/{id}',  [\App\Http\Controllers\HorairehebdomadaireController::class,'update']);
     Route::delete('horaire/{id}',  [\App\Http\Controllers\HorairehebdomadaireController::class,'destroy']);
+    //***************************          Jour ferie       *************************//
+    Route::post('jourferie',  [\App\Http\Controllers\JourFerieController::class,'store']);
+    Route::put('jourferie/{id}',  [\App\Http\Controllers\JourFerieController::class,'update']);
+    Route::delete('jourferie/{id}',  [\App\Http\Controllers\JourFerieController::class,'destroy']);
+
 
 
 });
