@@ -151,4 +151,12 @@ class CommandeController extends Controller
         return  Commande::withTrashed()->get();
     }
 
+    public function getDay()
+    {//$myDate= Carbon::now('Europe/Paris');
+        $myDate =Carbon::now('Europe/Paris');
+        //var_dump($myDate);
+        //$carbon = new Carbon('YYYY-MM-DD HH:II:SS', 'Europe/Paris');
+        $day = Carbon::parse($myDate)->format('l');
+return $day;    }
+
 }

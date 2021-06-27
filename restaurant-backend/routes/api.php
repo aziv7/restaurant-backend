@@ -76,6 +76,13 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('categorie/{id}', [CategorieController::class, 'show']);
     Route::get('categorie', [CategorieController::class, 'index']);
+
+    //***************************           Horaire de travail       *************************//
+
+    Route::get('horaire/{id}',  [\App\Http\Controllers\HorairehebdomadaireController::class,'show']);
+    Route::get('horaire',  [\App\Http\Controllers\HorairehebdomadaireController::class,'index']);
+
+
 });
 
 
@@ -193,7 +200,7 @@ Route::middleware(['auth:sanctum', 'admin','json.response'])->group(function () 
     Route::put('commande/{id}', [CommandeController::class,'update']);
     Route::delete('commande/{id}', [CommandeController::class,'destroy']);
     Route::get('verifcommand/{id}', [CommandeController::class,'VerifCommande']);
-
+    Route::get('getday', [CommandeController::class,'getDay']);
     //***************************          Code de reduction       *************************//
 
     Route::get('/deletecodes', [CodeReductionController::class, 'DisplayDeletedCode']);
@@ -204,6 +211,10 @@ Route::middleware(['auth:sanctum', 'admin','json.response'])->group(function () 
     Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
     Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
     Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
+    //***************************          Horaire du travail       *************************//
+    Route::post('horaire',  [\App\Http\Controllers\HorairehebdomadaireController::class,'store']);
+    Route::put('horaire/{id}',  [\App\Http\Controllers\HorairehebdomadaireController::class,'update']);
+    Route::delete('horaire/{id}',  [\App\Http\Controllers\HorairehebdomadaireController::class,'destroy']);
 
 
 });
