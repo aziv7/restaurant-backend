@@ -69,7 +69,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(CodeReduction::class);
     }
     public function img() {
-        return $this->hasOne(Image::class);
+        return $this->hasOne(Image::class);}
     public function ratings()
     {
         return $this->belongsToMany(Rating::class);
