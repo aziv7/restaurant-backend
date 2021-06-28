@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Events\test;
 use App\Http\Controllers\ModificateurController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -50,6 +51,9 @@ Route::middleware(['json.response'])->group(function () {
     Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
     Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
     //***************************            modificateur          *************************//
+Route::get('push-test', function () {
+    broadcast(new test());
+});
 
     Route::get('modificateur/{id}', [ModificateurController::class, 'show']);
     Route::get('modificateur', [ModificateurController::class, 'index']);

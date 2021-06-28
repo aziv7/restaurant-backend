@@ -7,6 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "bensampo/laravel-enum": "^3.3",
+        "beyondcode/laravel-websockets": "^1.12",
         "doctrine/dbal": "^3.1",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
@@ -16,7 +17,8 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "paypal/rest-api-sdk-php": "^1.14",
-        "stripe/stripe-php": "^7.83"
+        "stripe/stripe-php": "^7.83",
+        "pusher/pusher-php-server": "~3.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

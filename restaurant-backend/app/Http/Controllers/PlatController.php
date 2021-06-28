@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\test;
 use App\Models\Modificateur;
 use App\Models\Commande;
 use App\Models\Plat;
@@ -10,7 +11,7 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 
 use App\Models\Supplement;
-
+use PHPUnit\Util\Test as UtilTest;
 
 class PlatController extends Controller
 {
@@ -37,7 +38,9 @@ class PlatController extends Controller
             'src' => $request->get('image-src'), 'plat_id' => $plat->id
         ]);
 
-
+        if ($plat) {
+            broadcast(new Test($plat));
+        }
         return $plat;
     }
 

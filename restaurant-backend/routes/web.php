@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\test;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('push-test', function () {
+    broadcast(new test());
+});
