@@ -70,5 +70,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
     public function img() {
         return $this->hasOne(Image::class);
+    public function ratings()
+    {
+        return $this->belongsToMany(Rating::class);
     }
 }

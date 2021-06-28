@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Modificateur;
 use App\Models\Commande;
 use App\Models\Plat;
+use App\Models\Ingredient;
 use App\Models\Image;
 use Illuminate\Http\Request;
 
@@ -27,10 +28,14 @@ class PlatController extends Controller
             'image-name' => 'required',
             'image-src' => 'required'
         ]);
-        $plat = Plat::create(['nom' => $request->get('nom'),
-            'prix' => $request->get('prix'), 'description' => $request->get('description'),]);
-        $image = Image::create(['nom' => $request->get('image-name'),
-            'src' => $request->get('image-src'), 'plat_id' => $plat->id]);
+        $plat = Plat::create([
+            'nom' => $request->get('nom'),
+            'prix' => $request->get('prix'), 'description' => $request->get('description'),
+        ]);
+        $image = Image::create([
+            'nom' => $request->get('image-name'),
+            'src' => $request->get('image-src'), 'plat_id' => $plat->id
+        ]);
 
 
         return $plat;
@@ -45,8 +50,10 @@ class PlatController extends Controller
             'image-src' => 'required'
         ]);
         $plat = Plat::find($id);
-        $image = Image::create(['nom' => $request->get('image-name'),
-            'src' => $request->get('image-src'), 'plat_id' => $plat->id]);
+        $image = Image::create([
+            'nom' => $request->get('image-name'),
+            'src' => $request->get('image-src'), 'plat_id' => $plat->id
+        ]);
 
 
         return $plat;
@@ -64,14 +71,12 @@ class PlatController extends Controller
         $supplement->plats()->attach($plat);
         return $plat;
     }
-
-//get plats supplements
+    //get plats supplements
     public function getSupplements($id)
     {
         $plat = Plat::find($id);
-        $supplement = Supplement::find($id_supplement);
-        $supplement->plats()->attach($plat);
-        return $supplements->plats();
+
+        return $plat->supplements;
     }
 
     public function update(Request $request, $id)

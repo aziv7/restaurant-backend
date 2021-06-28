@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Modificateur;
 use Illuminate\Http\Request;
 use App\Models\Supplement;
+
 class SupplementController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return Supplement::all();
     }
 
@@ -16,18 +19,24 @@ class SupplementController extends Controller
             'nom' => 'required',
             'prix' => 'required',
             'quantite' => 'required',
-            'image'=>'required',
-            
+            'image' => 'required',
+
         ]);
-$supplement=Supplement::create($request->all()) ;
-        
-        
-        
+        $supplement = Supplement::create($request->all());
+
+
+
         return $supplement;
     }
 
 
-   
+    public function addSupplementToModificateur($id, $id_modificateur)
+    {
+        $supplement = Supplement::find($id);
+        $modificateur = Modificateur::find($id_modificateur);
+        $supplement->modificateurs()->attach($modificateur);
+        return $supplement;
+    }
 
     public function show($id)
     {
@@ -42,13 +51,13 @@ $supplement=Supplement::create($request->all()) ;
     }
 
 
-    
-
-    
 
 
-    
-    
+
+
+
+
+
 
 
     public function destroy($id)
@@ -64,6 +73,6 @@ $supplement=Supplement::create($request->all()) ;
      */
     public function search($nom)
     {
-        return Supplement::where('nom', 'like', '%'.$nom.'%')->get();
+        return Supplement::where('nom', 'like', '%' . $nom . '%')->get();
     }
 }

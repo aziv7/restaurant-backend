@@ -1,12 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Modificateur;
 use Illuminate\Http\Request;
 
 class ModificateurController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return Modificateur::all();
     }
 
@@ -14,7 +16,7 @@ class ModificateurController extends Controller
     {
         $request->validate([
             'nom' => 'required',
-           
+
         ]);
         return Modificateur::create($request->all());
     }
@@ -31,29 +33,32 @@ class ModificateurController extends Controller
         return $modificateur;
     }
 
-    public function getIngredients(Request $request, $id)
+    public function getIngredients($id)
     {
         $modificateur = Modificateur::find($id);
-        
-      
 
-        
+
+
+
         return $modificateur->ingredients;
     }
-    
 
-    
+
+
 
     public function getPlats(Request $request, $id)
     {
         $modificateur = Modificateur::find($id);
-        
-      
 
-        
+
+
+
         return $modificateur->plats;
     }
-
+    public function getSupplements($id)
+    {
+        return Modificateur::find($id)->supplements;
+    }
 
     public function destroy($id)
     {
@@ -68,6 +73,6 @@ class ModificateurController extends Controller
      */
     public function search($nom)
     {
-        return Modificateur::where('nom', 'like', '%'.$nom.'%')->get();
+        return Modificateur::where('nom', 'like', '%' . $nom . '%')->get();
     }
 }

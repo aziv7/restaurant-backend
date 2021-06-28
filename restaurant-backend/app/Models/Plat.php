@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Plat extends Model
 {
     use HasFactory;
@@ -17,12 +18,12 @@ class Plat extends Model
 
     public function categorie()
     {
-        return $this->HasOneOrZero (Categorie::class);
+        return $this->HasOneOrZero(Categorie::class);
     }
 
     public function images()
     {
-        return $this->HasMany (Image::class);
+        return $this->HasMany(Image::class);
     }
 
     public function modificateurs()
@@ -36,6 +37,11 @@ class Plat extends Model
     }
     public function supplements()
     {
-        return $this->HasMany (Supplement::class);
+        return $this->belongsToMany(Supplement::class);
+    }
+
+    public function ratings()
+    {
+        return $this->belongsToMany(Rating::class);
     }
 }

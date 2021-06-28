@@ -167,6 +167,8 @@ Route::middleware(['auth:sanctum', 'admin','json.response'])->group(function () 
     Route::delete('modificateur/{id}',  [ModificateurController::class,'destroy']);
 
 
+
+
     //***************************            Categorie         *************************//
 
     Route::post('categorie', [CategorieController::class,'store']);
