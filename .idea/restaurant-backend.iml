@@ -124,6 +124,8 @@
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laminas/laminas-zendframework-bridge" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laravel/sanctum" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laravel/ui" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/stripe/stripe-php" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/paypal/rest-api-sdk-php" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

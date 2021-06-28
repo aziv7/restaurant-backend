@@ -14,7 +14,9 @@
         "laravel/framework": "^8.40",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
-        "laravel/ui": "^3.3"
+        "laravel/ui": "^3.3",
+        "paypal/rest-api-sdk-php": "^1.14",
+        "stripe/stripe-php": "^7.83"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
