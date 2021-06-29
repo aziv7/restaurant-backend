@@ -27,7 +27,13 @@ class Test implements ShouldBroadcast
     {
         $this->plat = $plat;
     }
-    /*  public function boradcastWith()
+ /*   public function __construct($message)
+    {
+        $this->message= $message;
+    }*/
+
+
+    public function boradcastWith()
     {
         return ['playt' => $this->plat];
     }
@@ -38,6 +44,8 @@ class Test implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('channel1234');
+//        return new Channel('channel1234');
+        return new Channel('channel-message');
+
     }
 }

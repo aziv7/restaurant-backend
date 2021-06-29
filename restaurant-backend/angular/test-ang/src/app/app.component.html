@@ -1,0 +1,8 @@
+<input type="text" [(ngModel)]="prix" >
+<input type="text" [(ngModel)]="name" >
+<input type="text" [(ngModel)]="description" >
+<button (click)="add(prix,name,description)">add</button>
+<div *ngFor=" let pl of plat">
+  {{pl.prix}}
+  {{pl.description}}
+</div>
