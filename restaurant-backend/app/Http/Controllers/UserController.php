@@ -151,7 +151,7 @@ class UserController extends Controller
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $response = [
-            'user'=>$user,
+            'user'=> $user,
         ];
         return response($response, 201)->withCookie($cookie);
     }
@@ -168,5 +168,12 @@ class UserController extends Controller
         return response([
             'message' => 'Success'
         ])->withCookie($cookie);
+    }
+
+        public function Connected()
+    {return Auth::user();}
+    
+    public function GetUserByLogin($login)
+    {return CoordonneesAuthentification::where('login', 'like', $login)->get();
     }
 }

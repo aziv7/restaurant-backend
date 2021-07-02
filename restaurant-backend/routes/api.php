@@ -100,7 +100,8 @@ Route::middleware(['auth:sanctum','json.response'])->group(function () {
 
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
-
+    Route::get('connected', [UserController::class, 'Connected']);
+    Route::get('getuser/login/{login}', [UserController::class, 'GetUserByLogin']);
 
     //***************************            Ingrédient          *************************//
 
