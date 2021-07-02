@@ -31,8 +31,8 @@ export class SettingsPage implements OnInit {
   languageConfirm() {
     this.myEvent.setLanguageData(this.defaultLanguageCode);
     window.localStorage.setItem(Constants.KEY_DEFAULT_LANGUAGE, this.defaultLanguageCode);
-    console.log(this.cookieService.get('jwt').length)
-    if(this.cookieService.get('jwt').length!=0)
+    console.log(this.cookieService.check('login'))
+    if(this.cookieService.get('login').length!=0)
         this.route.navigate(['./tabs']);
     else
       this.route.navigate(['./phone-number']);
