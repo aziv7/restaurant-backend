@@ -6,6 +6,7 @@ use App\Models\Commande;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use MongoDB\BSON\Timestamp;
@@ -40,14 +41,13 @@ class CommandeController extends Controller
     {
 
         $request->validate([
-            'user_id' => 'required',
             'plat_id' => 'required',
             'quantite' => 'required|gt:0',
             'prix' => 'gt:0'
         ]);
 
         $commande = new Command();
-        $commande ->user_id = $request->user_id;
+        $commande ->user_id = Auth::id();
         $commande ->plat_id = $request->plat_id;
         $commande ->quantite = $request->quantite;
         $commande ->prix = $request->prix;

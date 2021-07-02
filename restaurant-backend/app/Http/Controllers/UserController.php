@@ -34,9 +34,9 @@ class UserController extends Controller
         $request->validate([
             'nom'=> 'required',
             'prenom'=> 'required',
-            'date de naissance'=> 'required',
+            'date_de_naissance'=> 'required',
             'email'=> 'required',
-            'numero de telephone'=> 'required',
+            'numero_de_telephone'=> 'required',
         ]);
         //créer une instance de CoordonneesAuthentification
         $coordonnesauth = new CoordonneesAuthentification();
@@ -124,6 +124,12 @@ class UserController extends Controller
                 'user_id' => $user->id]);
         return $user;
     }
+    /**
+     * Encode array from latin1 to utf8 recursively
+     * @param $dat
+     * @return array|string
+     */
+
     public function login(Request $request) {
         //recuprération de login et mdp ou le login est identique au celui récupéré de la requete
         $coodronnees = CoordonneesAuthentification::where('login',$request->login)->first();
@@ -131,10 +137,15 @@ class UserController extends Controller
         $user = $coodronnees->user;
         //echec
         if(!$user || !Hash::check($request->password, $coodronnees->password)){
-            return response([
-                'message'=>["this credentials don't match"],
-                403
-            ]);
+            return response(array(
+                'message' => 'this credentials don"t match',
+            ), 403);
+        }
+
+        if($user->is_verified==0){
+            return response(array(
+                'message' => 'verify your email',
+            ), 403);
         }
         //succés
         $token = $user->createToken('my-app-token')->plainTextToken;
