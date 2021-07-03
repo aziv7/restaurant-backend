@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            <ion-icon class="zmdi zmdi-chevron-down" (click)="dismiss()"></ion-icon>
+        </ion-title>
+    </ion-toolbar>
+    <div class="profile_info d-flex">
+        <div class="img_box center_img">
+            <img src="assets/images/img_profile.png" class="crop_img">
+        </div>
+        <div class="text_box">
+            <h2>George Anderson</h2>
+            <h3>{{'delivery_partner' | translate}}</h3>
+        </div>
+        <div class="icon_box end">
+            <ion-icon class="zmdi zmdi-comment-alt-text ion-text-start" (click)="chat_delivery_partner()"></ion-icon>
+            <ion-icon class="zmdi zmdi-phone ion-text-end"></ion-icon>
+        </div>
+    </div>
+</ion-header>
+
+<ion-content>
+    <div class="map center_img">
+        <img src="assets/images/map.png" class="crop_img">
+        <div class="delivery_location" style="top: 4%; right: 77%; transform: rotate(-164deg);">
+            <img src="assets/images/deliveryman.png">
+        </div>
+        <ion-icon class="zmdi zmdi-pin ion-text-center" style="top: 20%; right: 79%;"></ion-icon>
+        <ion-icon class="zmdi zmdi-navigation ion-text-center" style="top: 36%; right: 35%;"></ion-icon>
+    </div>
+</ion-content>

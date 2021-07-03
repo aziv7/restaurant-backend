@@ -1,22 +1,19 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController } from '@ionic/angular';
-import { VariationSelectionPage } from '../variation-selection/variation-selection.page';   
 import { IonSlides } from '@ionic/angular';
-
-@Component({ 
+@Component({
   selector: 'app-items',
   templateUrl: './items.page.html',
   styleUrls: ['./items.page.scss'],
 })
 export class ItemsPage implements OnInit {
  segment = 0;   
- @ViewChild('slides', { static: true }) slider: IonSlides;     
- FavoriteIcon = false;    
-  constructor(private route: Router,private modalController: ModalController) { }
+ @ViewChild('slides', { static: true }) slider: IonSlides;      
+  constructor(private route: Router) { }
 
   ngOnInit() {
   }
+
   async segmentChanged() {
     await this.slider.slideTo(this.segment);
   }
@@ -25,24 +22,11 @@ export class ItemsPage implements OnInit {
     this.segment = await this.slider.getActiveIndex();
   }  
     
-  cart() {
-    this.route.navigate(['./cart']);
+  edit_product() {
+    this.route.navigate(['./edit-product']);
   } 
     
- toggleFavoriteIcon(){
-   this.FavoriteIcon = !this.FavoriteIcon;
-   }
-    
- reviews() {
-    this.route.navigate(['./reviews']);
-  }
-    
-  variation_selection(){
-    this.modalController.create({component:VariationSelectionPage}).then((modalElement)=>
-    {
-      modalElement.present();
-    }
-    )
+ add_product() {
+    this.route.navigate(['./add-product']);
   } 
-  
 }

@@ -1,39 +1,17 @@
-
-
-.close {
-
-    position: relative;
-    width: 32px;
-    height: 32px;
-    opacity: 0.3;
-}
-.close:hover {
-    opacity: 1;
-}
-.close:before, .close:after { margin-top: 20px !important;
-    position: absolute;
-    left: 15px;
-    content: ' ';
-    height: 33px; --border-radius: 20px;
-    width: 2px;
-    background-color: var(--primary);
-}
-.close:before {
-    transform: rotate(45deg);
-}
-.close:after {
-    transform: rotate(-45deg);
-}
 .banner {
     padding: 0 20px;
+    position: absolute;
+    top: 17%;
+    left: 0;
+    right: 0;
     margin: auto;
     width: 100%;
-    margin-bottom: 80px;
 
     .logo {
         display: block;
-        width: 100px;
+        width: 105px;
         margin: auto;
+        margin-bottom: 80px;
 
         img {
             display: block;
@@ -65,9 +43,10 @@
     --animate-duration: .2s;
 }
 
+
+
 ion-footer {
     background: var(--bg-color);
-    overflow-y: auto;
 
     .img_box {
         width: 100%;
@@ -75,7 +54,7 @@ ion-footer {
 
         img {
             width: auto;
-            display: block;
+            display: block
         }
     }
 
@@ -88,6 +67,13 @@ ion-footer {
                 margin: 0 !important;
                 border-bottom: none !important;
                 padding: 11px 0px !important;
+
+                h3 {
+                    margin: 0;
+                    font-size: 1.1rem;
+                    min-width: 27px;
+                    font-weight: 600;
+                }
 
                 .item_inner {
                     &.d-flex {
@@ -108,26 +94,14 @@ ion-footer {
 
         }
     }
+}
 
+@media screen and (max-height:680px) {
+    .banner {
+        top: 13%;
 
-
-    .login {
-        width: 100%;
-        height: 35px;
-        font-size: .9rem;
-        min-width: 108px;
-        --padding-start: 10px;
-        --padding-end: 10px;border-radius: 0px!important;
+        .logo {
+            margin-bottom: 30px;
+        }
     }
-    h5,h3,p{
-          margin: 0;
-          color: var(--text-black);
-          font-size: 1rem;
-          padding: 20px 0;
-          a{color: var(--primary);
-              text-decoration: none;
-          }
-      }
-
-
 }

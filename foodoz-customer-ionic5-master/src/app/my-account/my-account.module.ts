@@ -14,7 +14,7 @@ import { MyAccountPage } from './my-account.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    TranslateModule,      
+    TranslateModule,   
     MyAccountPageRoutingModule
   ],
   declarations: [MyAccountPage]

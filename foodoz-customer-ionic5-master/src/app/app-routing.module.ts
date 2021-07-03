@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import {LoginComponent} from './login/login.component';
 
 const routes: Routes = [
-  {
+ {
     path: '',
-    redirectTo: '/settings',
+    redirectTo: '/phone-number',
     pathMatch: 'full'
-  },
+  },     
   {
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
@@ -25,60 +24,60 @@ const routes: Routes = [
     loadChildren: () => import('./verification/verification.module').then( m => m.VerificationPageModule)
   },
   {
-    path: 'set-location',
-    loadChildren: () => import('./set-location/set-location.module').then( m => m.SetLocationPageModule)
+    path: 'my-orders',
+    loadChildren: () => import('./my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
   },
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    path: 'order-info',
+    loadChildren: () => import('./order-info/order-info.module').then( m => m.OrderInfoPageModule)
   },
   {
-    path: 'stores',
-    loadChildren: () => import('./stores/stores.module').then( m => m.StoresPageModule)
+    path: 'track-delivery',
+    loadChildren: () => import('./track-delivery/track-delivery.module').then( m => m.TrackDeliveryPageModule)
+  },
+  {
+    path: 'chat-delivery-partner',
+    loadChildren: () => import('./chat-delivery-partner/chat-delivery-partner.module').then( m => m.ChatDeliveryPartnerPageModule)
+  },
+  {
+    path: 'chat-customer',
+    loadChildren: () => import('./chat-customer/chat-customer.module').then( m => m.ChatCustomerPageModule)
   },
   {
     path: 'items',
     loadChildren: () => import('./items/items.module').then( m => m.ItemsPageModule)
   },
   {
-    path: 'variation-selection',
-    loadChildren: () => import('./variation-selection/variation-selection.module').then( m => m.VariationSelectionPageModule)
+    path: 'add-product',
+    loadChildren: () => import('./add-product/add-product.module').then( m => m.AddProductPageModule)
   },
   {
-    path: 'cart',
-    loadChildren: () => import('./cart/cart.module').then( m => m.CartPageModule)
-  },
-  {
-    path: 'payment',
-    loadChildren: () => import('./payment/payment.module').then( m => m.PaymentPageModule)
-  },
-  {
-    path: 'order-placed',
-    loadChildren: () => import('./order-placed/order-placed.module').then( m => m.OrderPlacedPageModule)
-  },
-  {
-    path: 'my-orders',
-    loadChildren: () => import('./my-orders/my-orders.module').then( m => m.MyOrdersPageModule)
-  },
-  {
-    path: 'order-detail',
-    loadChildren: () => import('./order-detail/order-detail.module').then( m => m.OrderDetailPageModule)
-  },
-  {
-    path: 'chat',
-    loadChildren: () => import('./chat/chat.module').then( m => m.ChatPageModule)
-  },
-  {
-    path: 'package-type',
-    loadChildren: () => import('./package-type/package-type.module').then( m => m.PackageTypePageModule)
+    path: 'edit-product',
+    loadChildren: () => import('./edit-product/edit-product.module').then( m => m.EditProductPageModule)
   },
   {
     path: 'my-account',
     loadChildren: () => import('./my-account/my-account.module').then( m => m.MyAccountPageModule)
   },
   {
-    path: 'saved-addresses',
-    loadChildren: () => import('./saved-addresses/saved-addresses.module').then( m => m.SavedAddressesPageModule)
+    path: 'store-profile',
+    loadChildren: () => import('./store-profile/store-profile.module').then( m => m.StoreProfilePageModule)
+  },
+  {
+    path: 'set-location',
+    loadChildren: () => import('./set-location/set-location.module').then( m => m.SetLocationPageModule)
+  },
+  {
+    path: 'insight',
+    loadChildren: () => import('./insight/insight.module').then( m => m.InsightPageModule)
+  },
+  {
+    path: 'wallet',
+    loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule)
+  },
+  {
+    path: 'send-to-bank',
+    loadChildren: () => import('./send-to-bank/send-to-bank.module').then( m => m.SendToBankPageModule)
   },
   {
     path: 'support',
@@ -97,47 +96,18 @@ const routes: Routes = [
     loadChildren: () => import('./buyappalert/buyappalert.module').then( m => m.BuyappalertPageModule)
   },
   {
-    path: 'settings',
-    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
-  },
-  {
-    path: 'socila-login',
-    loadChildren: () => import('./socila-login/socila-login.module').then( m => m.SocilaLoginPageModule)
-  },
-  {
     path: 'reviews',
     loadChildren: () => import('./reviews/reviews.module').then( m => m.ReviewsPageModule)
   },
   {
-    path: 'add-review',
-    loadChildren: () => import('./add-review/add-review.module').then( m => m.AddReviewPageModule)
-  },
-  {
-    path: 'wallet',
-    loadChildren: () => import('./wallet/wallet.module').then( m => m.WalletPageModule)
-  },
-  {
-    path: 'add-money',
-    loadChildren: () => import('./add-money/add-money.module').then( m => m.AddMoneyPageModule)
-  },
-  {
-    path: 'add-money-option',
-    loadChildren: () => import('./add-money-option/add-money-option.module').then( m => m.AddMoneyOptionPageModule)
-  },
-  {
-    path: 'favorites',
-    loadChildren: () => import('./favorites/favorites.module').then( m => m.FavoritesPageModule)
-  },
-  {
-    path: 'offers',
-    loadChildren: () => import('./offers/offers.module').then( m => m.OffersPageModule)
+    path: 'settings',
+    loadChildren: () => import('./settings/settings.module').then( m => m.SettingsPageModule)
   },
   {
     path: 'vt-popup',
     loadChildren: () => import('./vt-popup/vt-popup.module').then( m => m.VtPopupPageModule)
-  },
-  {
-    path: 'login',component:LoginComponent},
+  }
+
 ];
 @NgModule({
   imports: [

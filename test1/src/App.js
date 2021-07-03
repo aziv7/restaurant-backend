@@ -29,7 +29,7 @@ function App() {
     e.preventDefault()
     axios
       .post(
-        `http://127.0.0.1:8000/api/plat?nom=${form.name}&prix=${form.prix}&description=${form.description}&image-name=img&image-src=img`
+        `http://localhost:8000/api/plat?nom=${form.name}&prix=${form.prix}&description=${form.description}&image-name=img&image-src=img`
       )
       .then(function (response) {
         // handle success

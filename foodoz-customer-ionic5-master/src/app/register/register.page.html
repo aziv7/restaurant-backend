@@ -9,77 +9,26 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content fullscreen class="content" >
-    <form ngForm>
+<ion-content fullscreen>
     <div class="form">
         <ion-list lines="none">
+            <ion-item lines="none" class="animate__animated animate__fadeInUp">
+                <div class="item_inner d-flex">
+                    <div class="icon_box ion-text-start"><img src="assets/images/ic_name.png"></div>
+                    <div class="input_box">
+                        <ion-label mode="md" position="stacked">{{"full_name" | translate}}</ion-label>
+                        <ion-input mode="md" type="name" placeholder="" value="Samantha Smith"></ion-input>
+                    </div>
+                </div>
+            </ion-item> 
 
-            <ion-item lines="none" class="animate__animated animate__fadeInUp">
-                <div class="item_inner d-flex">
-                    <div class="icon_box ion-text-start"><img src="assets/images/ic_name.png"></div>
-                    <div class="input_box">
-                        <ion-label mode="md" position="stacked">{{"first_name" | translate}}</ion-label>
-                        <ion-input mode="md"  name="prenom" [(ngModel)]="user.prenom" #prenom="ngModel"  class="light" type="text" placeholder="" value="saman"></ion-input>
-                    </div>
-                </div>
-            </ion-item>
-            <ion-item lines="none" class="animate__animated animate__fadeInUp">
-                <div class="item_inner d-flex">
-                    <div class="icon_box ion-text-start"><img src="assets/images/ic_name.png"></div>
-                    <div class="input_box">
-                        <ion-label mode="md" position="stacked">{{"last_name" | translate}}</ion-label>
-                        <ion-input mode="md" name="lastname" [(ngModel)]="user.nom" #nom="ngModel"   class="light" type="text" placeholder="" value="samanath"></ion-input>
-                    </div>
-                </div>
-            </ion-item>
-            <ion-item lines="none" class="animate__animated animate__fadeInUp">
-                <div class="item_inner d-flex">
-                    <div class="icon_box ion-text-start"><img src="assets/images/ic_name.png"></div>
-                    <div class="input_box">
-                        <ion-label mode="md" position="stacked">{{"login" | translate}}</ion-label>
-                        <ion-input mode="md" name="llogin" [(ngModel)]="user.login" #login="ngModel"   class="light" type="text" placeholder="" value="samanath"></ion-input>
-                    </div>
-                </div>
-            </ion-item>
             <ion-item lines="none" class="animate__animated animate__fadeInUp">
                 <div class="item_inner d-flex">
                     <div class="icon_box ion-text-start"><img src="assets/images/ic_mail.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"email_address" | translate}}</ion-label>
-                        <ion-input mode="md"  name="email" [(ngModel)]="user.email" #email="ngModel"  class="light" type="email" placeholder="" value="samanthasmith@mail.com"></ion-input>
+                        <ion-input mode="md" type="email" placeholder="" value="samanthasmith@mail.com"></ion-input>
                     </div>
-                </div>
-            </ion-item>
-
-            <ion-item lines="none" class="animate__animated animate__fadeInUp">
-                <div class="item_inner d-flex">
-                    <div class="icon_box ion-text-start"><img src="assets/images/calendar-icon-marketing-image.png"></div>
-                    <div class="input_box">
-                        <ion-label mode="md" position="stacked">{{"birthday" | translate}}</ion-label>
-                        <ion-input mode="md" name="date" [(ngModel)]="user.date_de_naissance" #date="ngModel"   class="light" type="date" placeholder="" value=""></ion-input>
-                    </div>
-                </div>
-            </ion-item>
-            <ion-item lines="none" class="animate__animated animate__fadeInUp">
-                <div class="item_inner d-flex">
-                    <div class="icon_box ion-text-start"><img src="assets/images/1719662671537184109-512.png"></div>
-                    <div class="input_box">
-                        <ion-label mode="md" position="stacked">{{"password" | translate}}</ion-label>
-                        <ion-input mode="md"  name="password" [(ngModel)]="user.password" #password="ngModel"  class="light" type="password" placeholder="" value=""></ion-input>
-                    </div>
-                </div>
-            </ion-item>
-            <ion-item lines="none" class="animate__animated animate__fadeInUp">
-                <div class="validation" *ngIf="confirm.value!=password.value && confirm.touched">
-                    <p class="d-flex"><span class="end">{{"please check your password" | translate}}</span></p>
-                </div>
-                <div class="item_inner d-flex"  >
-                    <div class="icon_box ion-text-start"><img src="assets/images/1719662671537184109-512.png"></div>
-                    <div class="input_box">
-                        <ion-label mode="md"  position="stacked">{{"confirm password" | translate}}</ion-label>
-                        <ion-input mode="md"  name="confirm" ngModel #confirm="ngModel" class="light" type="password" placeholder="" value=""></ion-input>
-                    </div>
-
                 </div>
             </ion-item>
 
@@ -88,20 +37,16 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/ic_phone.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"phone_number" | translate}}</ion-label>
-                        <ion-input mode="md"  name="numero_de_telephone" [(ngModel)]="user.numero_de_telephone" #numero_de_telephone="ngModel" class="light" type="number" placeholder="" value="+1 987 654 3210"></ion-input>
+                        <ion-input mode="md" type="text" placeholder="" value="+1 987 654 3210"></ion-input>
                     </div>
                 </div>
-            </ion-item>
+            </ion-item> 
 
-
-
-
-
-            <p class="d-flex"><span class="end">{{"we_ll_send_email_verification_code" | translate}}</span></p>
+            <p class="d-flex"><span class="end">{{"we_ll_send_verification_code_on_adove_given_number" | translate}}</span></p>
         </ion-list>
-    </div></form>
+    </div>
 </ion-content>
 
 <ion-footer class="ion-no-border animate__animated animate__fadeInUp">
-    <ion-button size="large" expand="full" class="btn" (click)="verification()" [disabled]="confirm.value != password.value">{{'continue' | translate}}</ion-button>
+    <ion-button size="large" expand="full" class="btn" (click)="verification()">{{'continue' | translate}}</ion-button>
 </ion-footer>

@@ -113,5 +113,67 @@ ion-list {
                 line-height: 22px;
             }
         }
+
+        &.animate__animated.animate__fadeInRight {
+            &:nth-child(1) {
+                --animate-duration: .15s;
+            }
+
+            &:nth-child(2) {
+                --animate-duration: .2s;
+            }
+
+            &:nth-child(3) {
+                --animate-duration: .25s;
+            }
+
+            &:nth-child(4) {
+                --animate-duration: .3s;
+            }
+
+            &:nth-child(5) {
+                --animate-duration: .35s;
+            }
+
+            &:nth-child(6) {
+                --animate-duration: .4s;
+            }
+
+            &:nth-child(7) {
+                --animate-duration: .45s;
+            }
+
+            &:nth-child(8) {
+                --animate-duration: .5s;
+            }
+
+            &:nth-child(9) {
+                --animate-duration: .55s;
+            }
+
+            &:nth-child(10) {
+                --animate-duration: .6s;
+            }
+
+            &:nth-child(11) {
+                --animate-duration: .65s;
+            }
+
+            &:nth-child(12) {
+                --animate-duration: .7s;
+            }
+
+            &:nth-child(13) {
+                --animate-duration: .5s;
+            }
+
+            &:nth-child(14) {
+                --animate-duration: .5s;
+            }
+
+            &:nth-child(15) {
+                --animate-duration: .5s;
+            }
+        }
     }
 }
