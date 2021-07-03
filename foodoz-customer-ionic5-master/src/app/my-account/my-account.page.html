@@ -2,11 +2,19 @@
     <ion-toolbar>
         <ion-title>{{'my_account' | translate}}</ion-title>
     </ion-toolbar>
-    <div class="profile_info"  >
-        <h2 class="animate__animated animate__fadeInUp">{{cookieService.get('login')}}</h2>
-        <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.email}}</p>
-        <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.numero_de_telephone}}</p>
+    <div class="profile_info" >
+        <div style="display: flex;justify-content: space-between">
+            <h2 class="animate__animated animate__fadeInUp">{{cookieService.get('login')}}
+
+            </h2> <img src="assets/images/edit.png"style="width: 30px;height: 30px" (click)="edit()"></div>
+            <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.email}}</p>
+            <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.numero_de_telephone}}</p>
+
+
+
+
     </div>
+
 </ion-header>
 
 <ion-content fullscreen class="content">

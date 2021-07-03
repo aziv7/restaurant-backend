@@ -1,4 +1,5 @@
 export class User {
+    id:bigint;
     nom:string;
     prenom:string;
     date_de_naissance:string;

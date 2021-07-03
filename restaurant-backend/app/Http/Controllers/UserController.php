@@ -6,9 +6,11 @@ use App\Models\CoordonneesAuthentification;
 use App\Models\Image;
 use App\Models\RoleUser;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -88,7 +90,16 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
+        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
         $user->update($request->all());
+        DB::delete('delete from coordonnees_authentifications where user_id= ?',[$id]);
+       $coordonnesauthh=new CoordonneesAuthentification();
+       $coordonnesauthh->id=$coordonnesauth->id;
+$coordonnesauthh->login=$request->login;
+$password =Hash::make($request->password);
+        $coordonnesauthh->password=$password;
+      $user->coordonneesAuthentification()->save($coordonnesauthh);
+
         return $user;
     }
 
@@ -172,7 +183,7 @@ class UserController extends Controller
 
         public function Connected()
     {return Auth::user();}
-    
+
     public function GetUserByLogin($login)
     {return CoordonneesAuthentification::where('login', 'like', $login)->get();
     }

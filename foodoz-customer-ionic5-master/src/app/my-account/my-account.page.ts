@@ -59,4 +59,8 @@ buyappalert(){
     login() {
         this.route.navigate(['./phone-number'])
     }
+
+    edit() {
+        this.route.navigate(['./register'])
+    }
 }

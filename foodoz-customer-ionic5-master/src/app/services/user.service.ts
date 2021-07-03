@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../environments/environment';
 import {User} from '../Models/User';
+import {CoordonneesAuthentification} from "../Models/CoordonneesAuthentification";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,10 @@ public userConnected:User;
   AddUser(user: User) {
     return this.http.post(`${this.env}register`, user,{ withCredentials: true });
   }
+
+  ModifyUser(id,user) {
+    return this.http.put(`${this.env}user/${id}`, user,{ withCredentials: true });
+  }
   Login(user: User){
     return this.http.post(`${this.env}login?login=${user.login}&password=${user.password}`, {},{ observe: 'response', withCredentials: true });
   }
@@ -25,6 +30,6 @@ public userConnected:User;
     return this.http.post(`${this.env}logout`, {}, { withCredentials: true });
   }
   getuserBylogin(login: string){
-    return this.http.get(`${this.env}getuser/login/${login}`, { withCredentials: true });
+    return this.http.get<CoordonneesAuthentification>(`${this.env}getuser/login/${login}`, { withCredentials: true });
   }
 }
