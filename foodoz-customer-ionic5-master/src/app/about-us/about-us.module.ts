@@ -14,7 +14,7 @@ import { AboutUsPage } from './about-us.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    TranslateModule,        
+    TranslateModule,   
     AboutUsPageRoutingModule
   ],
   declarations: [AboutUsPage]

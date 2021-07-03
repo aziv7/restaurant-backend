@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-set-location',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./set-location.page.scss'],
 })
 export class SetLocationPage implements OnInit {
-
-  constructor() { }
+fabAction = false;
+  constructor(private navCtrl: NavController,) { }
 
   ngOnInit() {
   }
-
+ toggleFab(){
+      this.fabAction = !this.fabAction;
+   }
+  tabs() {
+    this.navCtrl.navigateRoot(['./tabs']);
+  } 
+    
 }

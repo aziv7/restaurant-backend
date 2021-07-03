@@ -5,6 +5,8 @@ import { ModalController } from '@ionic/angular';
 import { BuyappalertPage } from '../buyappalert/buyappalert.page'; 
 import { APP_CONFIG, AppConfig } from '../app.config';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {UserService} from '../services/user.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-my-account',
@@ -12,51 +14,53 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./my-account.page.scss'],
 })
 export class MyAccountPage implements OnInit {
-    
-  constructor(@Inject(APP_CONFIG) public config: AppConfig,private route: Router, private navCtrl: NavController, private modalController: ModalController, private http: HttpClient) { }
+    getCurrentUser:any;
+  constructor(@Inject(APP_CONFIG) public config: AppConfig,private cookieService:CookieService, private route: Router, private navCtrl: NavController, private modalController: ModalController, private http: HttpClient,private Userservice:UserService) {
 
-  ngOnInit() {
+       }
+
+  ngOnInit() {}
+
+saved_addresses() {
+    this.route.navigate(['./saved-addresses']);
   }
-
-store_profile() {
-    this.route.navigate(['./store-profile']);
-  } 
-insight() {
-    this.route.navigate(['./insight']);
-  } 
-wallet() {
-    this.route.navigate(['./wallet']);
-  } 
 terms_conditions() {
     this.route.navigate(['./terms-conditions']);
   } 
 support() {
     this.route.navigate(['./support']);
   }
-reviews() {
-    this.route.navigate(['./reviews']);
+wallet() {
+    this.route.navigate(['./wallet']);
   }
-settings() {
-    this.route.navigate(['./settings']);
+favorites() {
+    this.route.navigate(['./favorites']);
   }
 //about_us() {
 //    this.route.navigate(['./about-us']);
 //  }
-//select_language() {
-//    this.route.navigate(['./select-language']);
-//  }
-phone_number() {
-    this.route.navigate(['./phone-number']);
-  }  
-developed_by() {
-   window.open("https://opuslab.works/", '_system', 'location=no');
- }    
+settings() {
+    this.route.navigate(['./settings']);
+  }
+phone_number() {this.Userservice.logout().subscribe((data)=> {console.log(data);
+    this.cookieService.deleteAll();
+    this.route.navigate(['./phone-number']);},
+    (e)=>this.route.navigate(['./phone-number']));
+  }
+
 buyappalert(){
-    this.modalController.create({component:BuyappalertPage}).then((modalElement)=>
-    {
-      modalElement.present();
+   this.modalController.create({component:BuyappalertPage}).then((modalElement)=>
+   {
+     modalElement.present();
+   }
+   )
+ }
+
+    login() {
+        this.route.navigate(['./phone-number'])
     }
-    )
-  }    
-    
+
+    edit() {
+        this.route.navigate(['./register'])
+    }
 }

@@ -21,7 +21,7 @@ export const BaseAppConfig: AppConfig = {
 		code: 'fr',
 		name: 'French'
 	}, {
-		code: 'id',
+		code: 'id', 
 		name: 'Indonesian'
 	}, {
 		code: 'pt',

@@ -2,6 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { APP_CONFIG, AppConfig } from '../app.config';
 import { MyEvent } from 'src/services/myevent.services';
 import { Constants } from 'src/models/contants.models';
+import {Router} from '@angular/router';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +14,7 @@ export class SettingsPage implements OnInit {
   defaultLanguageCode;
   languages: Array<{ code: string, name: string }>;
 
-  constructor(@Inject(APP_CONFIG) private config: AppConfig, private myEvent: MyEvent) {
+  constructor(@Inject(APP_CONFIG) private config: AppConfig, private myEvent: MyEvent,private route:Router,private cookieService:CookieService) {
     this.languages = this.config.availableLanguages;
     this.defaultLanguageCode = config.availableLanguages[0].code;
     let defaultLang = window.localStorage.getItem(Constants.KEY_DEFAULT_LANGUAGE);
@@ -29,6 +31,12 @@ export class SettingsPage implements OnInit {
   languageConfirm() {
     this.myEvent.setLanguageData(this.defaultLanguageCode);
     window.localStorage.setItem(Constants.KEY_DEFAULT_LANGUAGE, this.defaultLanguageCode);
+    console.log(this.cookieService.check('login'))
+    if(this.cookieService.get('login').length!=0)
+        this.route.navigate(['./tabs']);
+    else
+      this.route.navigate(['./phone-number']);
+
   }
  onClick(event){
     let systemDark = window.matchMedia("(class: dark-theme)");
@@ -48,4 +56,6 @@ export class SettingsPage implements OnInit {
       document.body.setAttribute('class', 'light-theme');
     }
   }
+
+
 }

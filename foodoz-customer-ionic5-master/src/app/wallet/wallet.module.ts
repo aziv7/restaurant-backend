@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-     
+  
 import { IonicModule } from '@ionic/angular';
 
 import { WalletPageRoutingModule } from './wallet-routing.module';
@@ -14,7 +14,7 @@ import { WalletPage } from './wallet.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    TranslateModule,  
+    TranslateModule,    
     WalletPageRoutingModule
   ],
   declarations: [WalletPage]

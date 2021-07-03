@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-verification',
@@ -8,11 +8,13 @@ import { NavController } from '@ionic/angular';
 })
 export class VerificationPage implements OnInit {
 
-  constructor(private navCtrl: NavController) { }
+  constructor( private route: Router) { }
 
   ngOnInit() {
   }
-  tabs() {
-    this.navCtrl.navigateRoot(['./tabs']);
+
+set_location() {
+    this.route.navigate(['./set-location']);
   } 
 }
+ 

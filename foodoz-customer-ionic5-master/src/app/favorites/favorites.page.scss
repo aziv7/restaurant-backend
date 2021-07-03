@@ -1,0 +1,84 @@
+ion-list {
+    margin: 0;
+    background: none;
+    padding: 10px 20px 0 20px;
+
+    h2 {
+        margin: 0;
+        color: var(--text-light);
+        font-size: .9rem;
+        padding-bottom: 25px;
+    }
+
+    ion-item {
+        --inner-padding-end: 0px;
+        --inner-min-height: unset !important;
+        --padding-start: 0;
+        --background: var(--transparent) !important;
+        background: var(--white);
+        margin-bottom: 25px;
+
+        .item_inner {
+            align-items: flex-start !important;
+
+            .img_box {
+                min-width: 88px;
+                height: 88px;
+                margin-right: 12px;
+                border-radius: 3px;
+            }
+
+            .text_box {
+                width: 100%;
+                overflow: hidden;
+
+                h3 {
+                    margin: 0;
+                    font-size: 1rem;
+                    color: var(--text-black);
+                    padding-bottom: 4px;
+
+                    ion-icon {
+                        color: var(--red_color);
+                        padding: 0 2px;
+                        font-size: 1.1rem;
+                        min-width: 20px;
+                    }
+                }
+
+                h4 {
+                    margin: 0;
+                    color: var(--text-light);
+                    font-size: .7rem;
+                    font-weight: 400;
+                    margin-bottom: 7px;
+                    letter-spacing: .3px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+
+                    ion-icon {
+                        min-width: 16px;
+                        padding: 0 2px;
+                        font-size: .8rem;
+                    }
+                }
+
+                h5 {
+                    margin: 0;
+                    color: var(--primary);
+                    font-size: .73rem;
+                    font-weight: 400;
+                    margin-bottom: 7px;
+                    letter-spacing: .3px;
+
+                    ion-icon {
+                        min-width: 16px;
+                        padding: 0 2px;
+                        font-size: .8rem;
+                    }
+                }
+            }
+        }
+    }
+}

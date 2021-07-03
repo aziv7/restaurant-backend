@@ -1,3 +1,4 @@
+
 .form {
     border-top: 6px solid var(--bg-color);
     padding-top: 34px;
@@ -6,6 +7,7 @@
         ion-item {
             &:last-of-type {
                 margin-bottom: 15px !important;
+
             }
         }
     }
@@ -60,4 +62,14 @@
 
 ion-footer{
     --animate-duration: .4s !important;
+}
+.light{
+    color: var(--text-light);
+}
+.validation{
+    padding-bottom: 6px;
+}
+
+.content{
+    --background: var(--bg-color) !important;
 }

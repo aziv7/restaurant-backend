@@ -6,8 +6,9 @@
 
     .logo {
         display: block;
-        width: 105px;
+        width: 100px;
         margin: auto;
+        --animate-duration: .2s !important;
 
         img {
             &.dark_theme_logo {

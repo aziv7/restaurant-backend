@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {CookieService} from 'ngx-cookie-service';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-tabs',
@@ -7,6 +9,13 @@ import { Component } from '@angular/core';
 })
 export class TabsPage {
 
-  constructor() {}
+  constructor(private Userservice:UserService,private cookieService:CookieService,) {
 
+  }
+
+  check() {
+  //  console.log('hi');
+  // this.Userservice.getuserBylogin(this.cookieService.get('login')).subscribe((data)=> console.log(data));
+
+  }
 }

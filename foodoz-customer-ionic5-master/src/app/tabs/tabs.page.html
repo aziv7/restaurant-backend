@@ -1,12 +1,31 @@
 <ion-tabs>
-
     <ion-tab-bar slot="bottom">
-        <ion-tab-button tab="my_orders">
+        <ion-tab-button class="animate__animated animate__fadeInUp" tab="home">
+            <div class="tab-button">
+                <div class="tab-button-inner">
+                    <div class="icon_box">
+                        <img src="assets/images/ic_home.png" class="light-them-icon">
+                        <img src="assets/images/ic_home_wt.png" class="dark-them-icon">
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-button selected">
+                <div class="tab-button-inner">
+                    <div class="icon_box">
+                        <img src="assets/images/ic_homeact.png">
+                    </div>
+                    <h2>{{"home" | translate}}</h2>
+                </div>
+            </div>
+        </ion-tab-button>
+
+        <ion-tab-button class="animate__animated animate__fadeInUp" tab="my_orders">
             <div class="tab-button">
                 <div class="tab-button-inner">
                     <div class="icon_box">
                         <img src="assets/images/ic_orders.png" class="light-them-icon">
-                        <img src="assets/images/ic_ordersact_wt.png" class="dark-them-icon">
+                        <img src="assets/images/ic_orders_wt.png" class="dark-them-icon">
                     </div>
                 </div>
             </div>
@@ -21,32 +40,12 @@
             </div>
         </ion-tab-button>
 
-        <ion-tab-button tab="items">
-            <div class="tab-button">
-                <div class="tab-button-inner">
-                    <div class="icon_box">
-                        <img src="assets/images/ic_item.png" class="light-them-icon">
-                        <img src="assets/images/ic_itemact_wt.png" class="dark-them-icon">
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-button selected">
-                <div class="tab-button-inner">
-                    <div class="icon_box">
-                        <img src="assets/images/ic_itemact.png">
-                    </div>
-                    <h2>{{"products" | translate}}</h2>
-                </div>
-            </div>
-        </ion-tab-button>
-
-        <ion-tab-button tab="my_account">
+        <ion-tab-button class="animate__animated animate__fadeInUp" tab="my_account">
             <div class="tab-button">
                 <div class="tab-button-inner">
                     <div class="icon_box">
                         <img src="assets/images/ic_profile.png" class="light-them-icon">
-                        <img src="assets/images/ic_profileact_wt.png" class="dark-them-icon">
+                        <img src="assets/images/ic_profile_wt.png" class="dark-them-icon">
                     </div>
                 </div>
             </div>
@@ -54,12 +53,11 @@
             <div class="tab-button selected">
                 <div class="tab-button-inner">
                     <div class="icon_box">
-                        <img src="assets/images/ic_profileact.png">
+                        <a (click)="check()" style="text-decoration: none"> <img src="assets/images/ic_profileact.png"></a>
                     </div>
-                    <h2>{{"account" | translate}}</h2>
+                 <h2 >{{"account" | translate}}</h2>
                 </div>
             </div>
         </ion-tab-button>
     </ion-tab-bar>
-
 </ion-tabs>

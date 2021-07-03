@@ -13,7 +13,7 @@ export class WalletPage implements OnInit {
   ngOnInit() {
   }
 
-send_to_bank() {
-    this.route.navigate(['./send-to-bank']);
-  } 
+add_money_option() {
+    this.route.navigate(['./add-money-option']);
+  }
 }

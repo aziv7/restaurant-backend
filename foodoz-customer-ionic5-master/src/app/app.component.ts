@@ -63,19 +63,20 @@ export class AppComponent {
   }
 
   ngOnInit() {
-   if (this.config.demoMode) {
+    if (this.config.demoMode) {
       setTimeout(() => {
         this.presentModal();
       }, 15000)
     }
+
 
     const path = window.location.pathname.split('folder/')[1];
     if (path !== undefined) {
       this.selectedIndex = this.appPages.findIndex(page => page.title.toLowerCase() === path.toLowerCase());
     }
   }
-
- async presentModal() {
+ 
+  async presentModal() {
     const modal = await this.modalController.create({
       component: VtPopupPage,
     });

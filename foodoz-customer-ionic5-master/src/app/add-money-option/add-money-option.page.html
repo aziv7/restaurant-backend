@@ -1,0 +1,63 @@
+<ion-header class="bg_transparent">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="" icon="chevron-back-outline"></ion-back-button>
+        </ion-buttons>
+        <ion-title>{{'add_money' | translate}}</ion-title>
+    </ion-toolbar>
+    <div class="form">
+        <ion-item lines="none">
+            <div class="item_inner d-flex">
+                <div class="input_box">
+                    <ion-label mode="md" position="stacked">{{"enter_amount_to_add" | translate}}</ion-label>
+                    <ion-input mode="md" type="name" placeholder="" value="$ 500"></ion-input>
+                </div>
+            </div>
+        </ion-item>
+    </div>
+</ion-header>
+
+<ion-content fullscreen class="bg_color">
+    <ion-list lines="none">
+
+        <ion-item>
+            <div class="item_inner">
+                <h2>{{'add_via' | translate}}</h2>
+                <div class="payment_option d-flex animate__animated animate__fadeInUp">
+                    <div class="img_box center_img">
+                        <img src="assets/images/payment_card.png" class="crop_img">
+                    </div>
+                    <h3>Credit Card</h3>
+                </div>
+
+                <div class="payment_option d-flex animate__animated animate__fadeInUp">
+                    <div class="img_box center_img">
+                        <img src="assets/images/payment_card.png" class="crop_img">
+                    </div>
+                    <h3>Debit Card</h3>
+                </div>
+
+                <div class="payment_option d-flex animate__animated animate__fadeInUp">
+                    <div class="img_box center_img">
+                        <img src="assets/images/payment_paypal.png" class="crop_img">
+                    </div>
+                    <h3>PayPal</h3>
+                </div>
+
+                <div class="payment_option d-flex animate__animated animate__fadeInUp">
+                    <div class="img_box center_img">
+                        <img src="assets/images/payment_payu.png" class="crop_img">
+                    </div>
+                    <h3>PayU Money</h3>
+                </div>
+
+                <div class="payment_option d-flex animate__animated animate__fadeInUp">
+                    <div class="img_box center_img">
+                        <img src="assets/images/payment_stripe.png" class="crop_img">
+                    </div>
+                    <h3>Stripe</h3>
+                </div>
+            </div>
+        </ion-item>
+    </ion-list>
+</ion-content>

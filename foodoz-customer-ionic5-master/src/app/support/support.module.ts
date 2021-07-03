@@ -14,7 +14,7 @@ import { SupportPage } from './support.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    TranslateModule,  
+    TranslateModule,   
     SupportPageRoutingModule
   ],
   declarations: [SupportPage]

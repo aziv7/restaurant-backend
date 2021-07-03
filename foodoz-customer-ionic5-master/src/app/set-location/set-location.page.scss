@@ -3,16 +3,17 @@ ion-header {
     padding-bottom: 13px;
 
     .search_box {
-        width: calc(100% - 42px);
+        width: calc(100% - 38px);
         margin: 0 auto;
         overflow: hidden;
         display: flex;
         align-items: center;
-        height: 59px;
+        height: 55px;
         position: relative;
         background: var(--bg-color);
         border-radius: 50px;
         padding: 0 16px;
+        --animate-duration: .3s;
 
         ion-icon {
             color: var(--text-black);
@@ -58,6 +59,7 @@ ion-header {
         background-size: contain;
         background-position: center;
         background-repeat: no-repeat;
+        --animate-duration: .3s;
     }
 }
 
@@ -66,7 +68,14 @@ ion-footer {
     bottom: 0;
     left: 0;
     width: 100%;
-    --animate-duration: .4s !important;
+    --animate-duration: .4s;
+
+    .footer_content {
+        width: 100%;
+        height: 120px;
+        overflow: hidden;
+        transition: all .3s;
+    }
 
     .current_location {
         display: block;
@@ -107,6 +116,174 @@ ion-footer {
                     background-repeat: no-repeat;
                     margin-right: 4px;
                 }
+            }
+        }
+    }
+
+    .form {
+        padding: 0;
+        padding-top: 30px;
+        transition: all .5s;
+        background: var(--white);
+
+        ion-list {
+            padding: 0px 20px 23px 20px;
+
+            .address_title {
+                h3 {
+                    color: var(--text-dark) !important;
+                    font-size: 0.73rem !important;
+                    font-weight: 500;
+                    margin-bottom: 10px !important;
+                    text-transform: uppercase;
+                    letter-spacing: 0.5px !important;
+                }
+
+                ion-row {
+                    ion-col {
+                        ion-item {
+                            padding: 7px 8px !important;
+                            border-radius: 50px;
+                            transition: all 0.5s;
+                            background: var(--bg-color);
+                            margin: 0;
+
+                            ion-label {
+                                width: 100% !important;
+                                position: relative;
+                                max-width: 100% !important;
+                                white-space: normal;
+                                margin: 0 !important;
+
+                                .img_container {
+                                    width: 100%;
+                                    display: flex;
+                                    align-items: center;
+
+                                    .img_box {
+                                        position: relative;
+                                        width: 23px;
+                                        height: 23px;
+                                        overflow: hidden;
+                                        margin-right: 7px;
+
+                                        img {
+                                            position: absolute;
+                                            top: 0;
+                                            left: 0;
+                                            right: 0;
+                                            bottom: 0;
+                                            margin: auto;
+                                            width: 0;
+                                            height: 0;
+                                            display: block;
+
+                                            &:nth-child(odd) {
+                                                width: 100%;
+                                                height: auto;
+                                            }
+                                        }
+                                    }
+
+                                    h2 {
+                                        margin: 0;
+                                        font-weight: 500;
+                                        font-size: 0.9rem;
+                                        color: var(--text-black);
+                                        text-transform: none;
+                                        position: relative;
+                                        top: 0px;
+                                    }
+                                }
+                            }
+
+                            ion-radio {
+                                position: absolute;
+                                z-index: 999;
+                                width: 100%;
+                                height: 100%;
+                                margin: 0;
+                                --color: var(--transparent) !important;
+                                --color-checked: var(--transparent) !important;
+                            }
+
+                            &::before {
+                                content: '';
+                                position: absolute;
+                                top: 0;
+                                left: 0;
+                                bottom: 0;
+                                right: 0;
+                                width: 0;
+                                height: 0;
+                                margin: auto;
+                                background: var(--primary);
+                                transition: all .3s;
+                                border-radius: 50px;
+                            }
+
+                            &.item-radio-checked {
+                                border-color: var(--transparent) !important;
+
+                                &::before {
+                                    width: 100%;
+                                    height: 100%;
+                                }
+
+                                ion-label {
+                                    .img_container {
+                                        .img_box {
+                                            img {
+                                                &:nth-child(even) {
+                                                    width: 100%;
+                                                    height: auto;
+                                                }
+
+                                                &:nth-child(odd) {
+                                                    width: 0;
+                                                    height: 0;
+                                                }
+                                            }
+                                        }
+
+                                        h2 {
+                                            color: var(--white);
+                                        }
+                                    }
+
+
+                                }
+
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .button.btn {
+        &.btnA {
+            display: none;
+        }
+    }
+
+    &.active {
+        .form {
+            display: block;
+        }
+
+        .footer_content {
+            height: 314px;
+        }
+
+        .button.btn {
+            &.btnA {
+                display: block;
+            }
+
+            &.btnB {
+                display: none;
             }
         }
     }
