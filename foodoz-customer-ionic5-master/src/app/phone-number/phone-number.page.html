@@ -1,7 +1,10 @@
 <ion-header class="bg_transparent">
-    <ion-toolbar>
+    <ion-toolbar>  <div class="banner animate__animated animate__zoomInUp">
+        <a href="./tabs" class="close"></a>
+    </div>
         <ion-title></ion-title>
     </ion-toolbar>
+
 </ion-header>
 
 <ion-content class="bg_color" fullscreen>
@@ -9,6 +12,7 @@
 </ion-content>
 
 <ion-footer class="ion-no-border animate__animated animate__fadeInUp">
+
     <div class="banner animate__animated animate__zoomInUp">
         <div class="logo ion-text-center">
             <img src="assets/images/Logo.png" class="light_theme_logo">
@@ -56,7 +60,7 @@
          </ion-list>
      </div>-->
 
-    <h5 class="ion-text-center">Don't have an account? <a routerLink="../register">Sign up now</a></h5>
+    <h5 class="ion-text-center">{{"Don't have an account?" | translate }} <a routerLink="../register">{{"Sign up now" | translate }}</a></h5>
 
     <!--
     <div class="social_login">

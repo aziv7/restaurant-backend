@@ -1,3 +1,29 @@
+
+
+.close {
+
+    position: relative;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
+}
+.close:hover {
+    opacity: 1;
+}
+.close:before, .close:after { margin-top: 20px !important;
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px; --border-radius: 20px;
+    width: 2px;
+    background-color: var(--primary);
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
+}
 .banner {
     padding: 0 20px;
     margin: auto;
@@ -102,5 +128,6 @@ ion-footer {
               text-decoration: none;
           }
       }
+
 
 }

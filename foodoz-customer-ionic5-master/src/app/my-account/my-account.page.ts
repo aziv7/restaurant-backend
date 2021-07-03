@@ -56,4 +56,7 @@ buyappalert(){
    )
  }
 
+    login() {
+        this.route.navigate(['./phone-number'])
+    }
 }

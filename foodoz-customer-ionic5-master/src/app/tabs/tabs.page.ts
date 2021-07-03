@@ -14,8 +14,8 @@ export class TabsPage {
   }
 
   check() {
-    console.log('hi');
-    this.Userservice.getuserBylogin(this.cookieService.get('login')).subscribe((data)=> console.log(data));
+  //  console.log('hi');
+  // this.Userservice.getuserBylogin(this.cookieService.get('login')).subscribe((data)=> console.log(data));
 
   }
 }

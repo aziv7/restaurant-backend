@@ -1,8 +1,8 @@
-<ion-header>
+<ion-header *ngIf="cookieService.check('login')">
     <ion-toolbar>
         <ion-title>{{'my_account' | translate}}</ion-title>
     </ion-toolbar>
-    <div class="profile_info">
+    <div class="profile_info"  >
         <h2 class="animate__animated animate__fadeInUp">{{cookieService.get('login')}}</h2>
         <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.email}}</p>
         <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.numero_de_telephone}}</p>
@@ -11,7 +11,7 @@
 
 <ion-content fullscreen class="content">
     <ion-list lines="none" >
-        <ion-item class="animate__animated animate__fadeInUp" (click)="wallet()">
+        <ion-item class="animate__animated animate__fadeInUp" (click)="wallet()" *ngIf="cookieService.check('login')">
             <div class="item_inner d-flex">
                 <div class="icon_box ion-text-start">
                     <img src="assets/images/ic_menu_wallet.png">
@@ -20,7 +20,7 @@
             </div>
         </ion-item>
 
-        <ion-item class="animate__animated animate__fadeInUp" (click)="saved_addresses()">
+        <ion-item class="animate__animated animate__fadeInUp" (click)="saved_addresses()" *ngIf="cookieService.check('login')">
             <div class="item_inner d-flex">
                 <div class="icon_box ion-text-start">
                     <img src="assets/images/ic_menu_addressact.png">
@@ -29,7 +29,7 @@
             </div>
         </ion-item>
 
-        <ion-item class="animate__animated animate__fadeInUp" (click)="favorites()">
+        <ion-item class="animate__animated animate__fadeInUp" (click)="favorites()" *ngIf="cookieService.check('login')">
             <div class="item_inner d-flex">
                 <div class="icon_box ion-text-start">
                     <img src="assets/images/ic_menu_favorite.png">
@@ -47,7 +47,7 @@
             </div>
         </ion-item>
 
-        <ion-item class="animate__animated animate__fadeInUp" (click)="support()">
+        <ion-item class="animate__animated animate__fadeInUp" (click)="support()" *ngIf="cookieService.check('login')">
             <div class="item_inner d-flex">
                 <div class="icon_box ion-text-start">
                     <img src="assets/images/ic_menu_supportact.png">
@@ -76,7 +76,7 @@
             </div>
         </ion-item>
 
-        <ion-item class="animate__animated animate__fadeInUp" (click)="phone_number()">
+        <ion-item class="animate__animated animate__fadeInUp" (click)="phone_number()" *ngIf="cookieService.check('login')">
             <div class="item_inner d-flex">
                 <div class="icon_box ion-text-start">
                     <img src="assets/images/ic_menu_logoutact.png">
@@ -84,5 +84,14 @@
                 <h2>{{ 'logout' | translate}}</h2>
             </div>
         </ion-item>
+        <ion-item class="animate__animated animate__fadeInUp" (click)="login()" *ngIf="cookieService.check('login')==false">
+        <div class="item_inner d-flex">
+            <div class="icon_box ion-text-start">
+                <img src="assets/images/person3.png">
+            </div>
+            <h2>{{'login' | translate}}</h2>
+        </div>
+    </ion-item>
     </ion-list>
+
 </ion-content>

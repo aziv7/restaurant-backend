@@ -31,6 +31,10 @@
     --background: var(--bg-color);
 }
 
+.alertLogCss{
+    --background:  var(--bg-color) !important;
+button{  --background: var(--primary);width: 100%;border: 0}
+}
 .d-flex {
     display: flex !important;
     align-items: center;
