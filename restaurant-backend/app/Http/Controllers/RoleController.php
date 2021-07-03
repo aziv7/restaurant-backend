@@ -75,7 +75,7 @@ class RoleController extends Controller
         $role=Role::find($role_id);//var_dump($role);
 if($role!=null && $user!=null)
 {//check if the user has already the role or not
-    if($user->roles()->find($role_id)==null)
+    if($user->roles()->find($role_id)==null)//test pour voir si le user a ce role ou nn
     {$role->users()->attach($user);//users() refers to the method user() in Role model
         return $role;}
     return response(array(
