@@ -9,6 +9,7 @@
     "full_name": "Full Name",
     "email_address": "Email Address",
     "phone_number": "Phone Number",
+    "we_ll_send_email_verification_code": "we will send you an email verification",
     "we_ll_send_verification_code_on_adove_given_number": "We'll send verification code on adove given number",
     "verification": "Verification",
     "enter_verification_code__we_ve_sent_on_given_number": "Enter verification code  we've sent on given number",

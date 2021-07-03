@@ -6,6 +6,7 @@
         ion-item {
             &:last-of-type {
                 margin-bottom: 15px !important;
+
             }
         }
     }
@@ -62,8 +63,12 @@ ion-footer{
     --animate-duration: .4s !important;
 }
 .light{
-    color:white;
+    color: var(--text-light);
 }
 .validation{
     padding-bottom: 6px;
+}
+
+.content{
+    --background: var(--bg-color) !important;
 }

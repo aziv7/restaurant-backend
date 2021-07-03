@@ -9,6 +9,7 @@
     "full_name": "Nom complet",
     "email_address": "Adresse électronique",
     "phone_number": "Numéro de téléphone",
+    "we_ll_send_email_verification_code": "Nous vous enverrons un email de verification",
     "we_ll_send_verification_code_on_adove_given_number": "Nous vous ferons parvenir le code de vérification sur Adove nombre donné",
     "verification": "Vérification",
     "enter_verification_code__we_ve_sent_on_given_number": "Entrez le code de vérification que nous avons envoyé le nombre donné",
