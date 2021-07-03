@@ -21,6 +21,7 @@ private categories=[]
     this.plats=this.servicePlat.getPlats()
     this.servicePlat.fetchPlats()
    this.sub= this.servicePlat.updatedPlats.subscribe(data=>this.plats=data)
+   this.categories=this.categorieService.getCategories()
    this.sub1=this. categorieService.updatedCategories.subscribe(data=>this.categories=data)
   }
 

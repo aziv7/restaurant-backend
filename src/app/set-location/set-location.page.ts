@@ -16,7 +16,7 @@ fabAction = false;
       this.fabAction = !this.fabAction;
    }
   tabs() {
-    this.navCtrl.navigateRoot(['./tabs']);
+    this.navCtrl.navigateRoot(['./home']);
   } 
     
 }
