@@ -17,16 +17,10 @@ class CreateCommandesTable extends Migration
             $table->string('commande_id')->primary();
             $table->string('livraison')->nullable();
             $table->enum('status',Statut::getKeys())->default(Statut::getKey(0));
-            $table->bigInteger('plat_id')->unsigned();
-            $table->foreign('plat_id')->references('id')->on('commandes')->onDelete('cascade');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('quantite');
             $table->timestamp('date_paiement')->nullable();
             $table->timestamp('date_traitement')->nullable();
-            $table->boolean('ingredient')->default(0);
-            $table->double('prix');
-            $table->integer('quantite_supplement')->default(0);
             $table->double('longitude')->nullable();
             $table->double('latitude')->nullable();
             $table->softDeletes();

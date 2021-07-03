@@ -18,7 +18,7 @@ class SignupEmail extends Mailable
      */
     public function __construct($data)
     {
-        $this->email_data = $data;
+        $this->email_data = $data;//var_dump($this->email_data);
     }
 
     /**
@@ -28,6 +28,8 @@ class SignupEmail extends Mailable
      */
     public function build()
     {
-        return $this->from(env('MAIL_USERNAME'), 'Team')->subject("Welcome to our restaurent!")->view('mail.signup-mail', ['email_data' => $this->email_data]);
+       // var_dump('email ownere'); var_dump(env('MAIL_USERNAME'));
+      //  var_dump('email receiver'); var_dump($this->email_data);
+        return $this->from('zizoetjihen2014@gmail.com', 'Team')->subject("Welcome to our restaurent!")->view('mail.signup-mail', ['email_data' => $this->email_data]);
     }
 }

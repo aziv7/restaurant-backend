@@ -136,7 +136,7 @@ class CodeReductionController extends Controller
      * entrer code => extraire date + verifier validite code reduction (code+ date)
      **/
     /**
-     * verifier $codered->user_id si null c'est pour tt le monde sinn id user comparer avec id connecté
+     * verifier $codered->user_id si null c'est pour tt le monde sinn id user comparer avec id connecte
      **/
 
     public function VerifCode($code)

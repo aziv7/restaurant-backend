@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use App\Models\Plat;
+use App\Models\User;
 use Carbon\Carbon;
+use Faker\Core\Number;
 use Illuminate\Console\Command;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use MongoDB\BSON\Timestamp;
@@ -20,7 +24,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::all();
+        $commandes = Commande::with('plat','user')->get();
 
         if ($commandes->isEmpty()) {
             return response(array(
@@ -38,25 +42,32 @@ class CommandeController extends Controller
      */
     public function store(Request $request)
     {
-
-        $request->validate([
-            'user_id' => 'required',
-            'plat_id' => 'required',
-            'quantite' => 'required|gt:0',
-            'prix' => 'gt:0'
-        ]);
-
-        $commande = new Command();
-        $commande ->user_id = $request->user_id;
-        $commande ->plat_id = $request->plat_id;
-        $commande ->quantite = $request->quantite;
-        $commande ->prix = $request->prix;
-        $commande ->created_at = Carbon::now();
-        $creation_datetime_string = $commande->created_at ->toDateTimeString();
-        $chaine = ($request->user_id + $request->plat_id) * 357;
-        $chaine_string = "id" . (string) $chaine . "/" . $creation_datetime_string;
+        $commande = new Commande();
+        $commande->user_id = Auth::id();
+        $commande->prix = $request->prix;
+        $commande->created_at = Carbon::now();
+        $creation_datetime_string = $commande->created_at->toDateTimeString();
+        //je vais avoir une liste des id des plats choisits pour les affecter au commande
+        $list_plat_id = $request->plats;
+        //somme des plats id
+        $somme_plat_id = 0;
+        foreach ($list_plat_id as $plat_id) {
+            $somme_plat_id = $somme_plat_id + (int)$plat_id;
+        }
+        //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
+        $chaine = ($request->user_id + $somme_plat_id) * 357;
+        $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
         $commande->commande_id = Hash::make($chaine_string);
-        DB::insert('insert into commandes (commande_id, user_id, plat_id, quantite, prix, created_at, date_paiement, date_traitement) values (?,?,?,?,?,?,?,?)', [$commande->commande_id, $commande ->user_id, $commande ->plat_id, $commande ->quantite, $commande ->prix, $commande ->created_at, "2021-06-25", "1993-04-29"]);
+
+        //création de commande sans plats
+        DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement) values (?,?,?,?,?)', [$commande->commande_id, $commande->user_id, $commande->created_at, "2021-06-25", "1993-04-29"]);
+        // affectation des plats au commande
+        foreach ($list_plat_id as $plat_id) {
+            //fetch plat by id of plat sending in request
+            $plat = Plat::find($plat_id);
+            //affecter le plat à la commande
+            $commande->plat()->attach($plat);
+        }
     }
 
     /**
@@ -65,18 +76,19 @@ class CommandeController extends Controller
      * @param string $commande_id
      * @return \Illuminate\Http\Response
      */
-    public function VerifCommande($commande_id){
+    public function VerifCommande($commande_id)
+    {
 
-        $commande =Commande::where('commande_id', 'like', $commande_id )->first();
+        $commande = Commande::where('commande_id', 'like', $commande_id)->first();
         if (!$commande) {
             return response(array(
                 'message' => 'Commande Not Found',
             ), 404);
         }
-        $chaine_date=(string)$commande->created_at;
+        $chaine_date = (string)$commande->created_at;
         $chaine = ($commande->user_id + $commande->plat_id) * 357;
-        $chaine_string = "id" . (string) $chaine . "/" .   $chaine_date;
-        if(!Hash::check( $chaine_string,$commande->commande_id)){
+        $chaine_string = "id" . (string)$chaine . "/" . $chaine_date;
+        if (!Hash::check($chaine_string, $commande->commande_id)) {
             return response(array(
                 'message' => "don't match",
             ), 404);
@@ -84,7 +96,8 @@ class CommandeController extends Controller
         return response(array(
             'message' => "accept",
         ), 200);
-}
+    }
+
     /**
      * Display the specified resource.
      *
@@ -136,6 +149,7 @@ class CommandeController extends Controller
         }
         return Commande::destroy($id);
     }
+
     /**
      * display all deleted commandes
      **/
@@ -143,12 +157,13 @@ class CommandeController extends Controller
     {
         return Commande::onlyTrashed()->get();
     }
+
     /**
      * display all command (+ deleted commandes)
      **/
     public function DisplayAllCommand()
     {
-        return  Commande::withTrashed()->get();
+        return Commande::withTrashed()->get();
     }
 
 }

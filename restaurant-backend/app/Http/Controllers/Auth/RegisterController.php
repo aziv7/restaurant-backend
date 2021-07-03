@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
@@ -74,9 +75,9 @@ class RegisterController extends Controller
         $request->validate([
             'nom'=> 'required',
             'prenom'=> 'required',
-            'date de naissance'=> 'required',
+            'date_de_naissance'=> 'required',
             'email'=> 'required',
-            'numero de telephone'=> 'required',
+            'numero_de_telephone'=> 'required',
         ]);
         //créer une instance de CoordonneesAuthentification
         $coordonnesauth = new CoordonneesAuthentification();
@@ -88,10 +89,13 @@ class RegisterController extends Controller
         $user->nom = $request->nom;
         $user->prenom = $request->prenom;
         $user->email = $request->email;
-        $user->{'date de naissance'} = $request->{'date de naissance'};
-        $user->{'numero de telephone'} = $request->{'numero de telephone'};
+        $user->date_de_naissance = $request->date_de_naissance;
+        $user->numero_de_telephone = $request->numero_de_telephone;
         $user->verification_code = sha1(time());
-        $user = User::create($request->all());
+        DB::insert('insert into users (nom, prenom, email,date_de_naissance,numero_de_telephone,
+                   verification_code,created_at,updated_at) values(?,?,?,?,?,?,?,?)', [$request->nom, $request->prenom,
+            $request->email, $request->date_de_naissance, $request->numero_de_telephone, $user->verification_code,Carbon::Now(),Carbon::Now()]);
+        $user = User::where(['verification_code' => $user->verification_code])->first();
         /************ donner le role Costumer****************/
         $role_costumer =Role::where(['nom_des_roles' =>'costumer'])->first();//search for the role id of costumer
         $user->roles()->save($role_costumer);
@@ -104,14 +108,15 @@ class RegisterController extends Controller
         /*********************sending verification email***************/
         //success
         if($user != null){
-        MailController::sendSignupEmail($user->nom, $user->email, $user->verification_code);
+        mailController::sendSignupEmail($user->nom, $user->email, $user->verification_code);
     }
         return $user;
     }
 
     public function verifyUser(Request $request){
         $verification_code = \Illuminate\Support\Facades\Request::get('code');
-        $user = User::where(['verification_code' => $verification_code])->first();
+      //  var_dump($verification_code);
+        $user = User::where(['verification_code' => $verification_code])->first();// var_dump($user);
         if($user != null){
             $user->is_verified = 1;
             $user->save();
