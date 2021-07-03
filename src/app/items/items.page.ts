@@ -3,7 +3,9 @@ import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
 import { VariationSelectionPage } from '../variation-selection/variation-selection.page';   
 import { IonSlides } from '@ionic/angular';
-
+import { CategorieService } from '../services/categorie.service';
+import { Categorie } from 'src/models/categorie.model';
+import {Subscription} from 'rxjs';
 @Component({ 
   selector: 'app-items',
   templateUrl: './items.page.html',
@@ -11,12 +13,19 @@ import { IonSlides } from '@ionic/angular';
 })
 export class ItemsPage implements OnInit {
  segment = 0;   
- @ViewChild('slides', { static: true }) slider: IonSlides;     
+ private sub:Subscription
+ @ViewChild('slides', { static: true }) slider: IonSlides;   
+ categories:Categorie[]=[];  
  FavoriteIcon = false;    
-  constructor(private route: Router,private modalController: ModalController) { }
+  constructor(private route: Router,private modalController: ModalController,private serviceCategorie:CategorieService) { }
 
   ngOnInit() {
+    this.segment=this.serviceCategorie.selected
+    this.segmentChanged()
+    this.categories=this.serviceCategorie.getCategories()
+  this.sub=  this.serviceCategorie.updatedCategories.subscribe((data:Categorie[])=>this.categories=data)
   }
+  
   async segmentChanged() {
     await this.slider.slideTo(this.segment);
   }
@@ -28,7 +37,10 @@ export class ItemsPage implements OnInit {
   cart() {
     this.route.navigate(['./cart']);
   } 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
     
+}
  toggleFavoriteIcon(){
    this.FavoriteIcon = !this.FavoriteIcon;
    }

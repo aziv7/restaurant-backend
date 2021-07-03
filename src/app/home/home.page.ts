@@ -38,7 +38,8 @@ offers() {
 stores() {
     this.route.navigate(['./stores']);
   }    
-items() {
+items(i:number) { 
+  this.categorieService.setSelected(i)
     this.route.navigate(['./items']);
   }
   ngOnDestroy() {
