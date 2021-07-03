@@ -126,6 +126,24 @@
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laravel/ui" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/stripe/stripe-php" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/paypal/rest-api-sdk-php" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/symfony/psr-http-message-bridge" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/evenement/evenement" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/paragonie/sodium_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/paragonie/random_compat" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/ratchet/rfc6455" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/ringcentral/psr7" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/beyondcode/laravel-websockets" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/cboden/ratchet" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/stream" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/socket" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/promise-timer" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/promise-stream" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/promise" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/http" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/event-loop" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/dns" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/pusher/pusher-php-server" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

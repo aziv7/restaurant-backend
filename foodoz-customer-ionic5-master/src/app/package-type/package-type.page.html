@@ -1,0 +1,65 @@
+<!--
+<ion-header>
+  <ion-toolbar>
+    <ion-title>variation-selection</ion-title>
+  </ion-toolbar>
+</ion-header>
+-->
+
+<ion-content fullscreen (click)="dismiss()">
+
+</ion-content>
+<ion-footer class="ion-no-border">
+    <ion-list lines="none">
+        <div class="list_header d-flex">
+            <div class="text_box">
+                <h2>{{'select_package_type' | translate}}</h2>
+            </div>
+            <h6 class="end" (click)="dismiss()">{{'done' | translate}}</h6>
+        </div>
+        <ion-item>
+            <div class="item_inner d-flex">
+                <ion-checkbox checked="true"></ion-checkbox>
+                <h2 class="d-flex">Paper & Documents</h2>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="item_inner d-flex">
+                <ion-checkbox></ion-checkbox>
+                <h2 class="d-flex">Flowers & Chocolate</h2>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="item_inner d-flex">
+                <ion-checkbox></ion-checkbox>
+                <h2 class="d-flex">Sport & Toys item</h2>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="item_inner d-flex">
+                <ion-checkbox checked="true"></ion-checkbox>
+                <h2 class="d-flex">Clothes & Accesories</h2>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="item_inner d-flex">
+                <ion-checkbox></ion-checkbox>
+                <h2 class="d-flex">Electronic Item</h2>
+            </div>
+        </ion-item>
+        <ion-item>
+            <div class="item_inner d-flex">
+                <ion-checkbox></ion-checkbox>
+                <h2 class="d-flex">Hosehold item</h2>
+            </div>
+        </ion-item>   
+        
+        <ion-item>
+            <div class="item_inner d-flex">
+                <ion-checkbox></ion-checkbox>
+                <h2 class="d-flex">Glass item</h2>
+            </div>
+        </ion-item>
+
+    </ion-list>
+</ion-footer>

@@ -67,4 +67,8 @@ class CoordonnesAuthentifications extends Controller
     {
         return CoordonneesAuthentification::destroy($id);
     }
+    public function SearchByLogin($login)
+    {
+        return CoordonneesAuthentification::where('login', 'like', $login)->get()->first();
+    }
 }

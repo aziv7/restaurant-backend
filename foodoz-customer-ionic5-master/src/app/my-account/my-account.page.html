@@ -1,0 +1,105 @@
+<ion-header *ngIf="cookieService.check('login')">
+    <ion-toolbar>
+        <ion-title>{{'my_account' | translate}}</ion-title>
+    </ion-toolbar>
+    <div class="profile_info" >
+        <div style="display: flex;justify-content: space-between">
+            <h2 class="animate__animated animate__fadeInUp">{{cookieService.get('login')}}
+
+            </h2> <img src="assets/images/edit.png"style="width: 30px;height: 30px" (click)="edit()"></div>
+            <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.email}}</p>
+            <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.numero_de_telephone}}</p>
+
+
+
+
+    </div>
+
+</ion-header>
+
+<ion-content fullscreen class="content">
+    <ion-list lines="none" >
+        <ion-item class="animate__animated animate__fadeInUp" (click)="wallet()" *ngIf="cookieService.check('login')">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_wallet.png">
+                </div>
+                <h2>{{'wallet' | translate}}</h2>
+            </div>
+        </ion-item>
+
+        <ion-item class="animate__animated animate__fadeInUp" (click)="saved_addresses()" *ngIf="cookieService.check('login')">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_addressact.png">
+                </div>
+                <h2>{{'saved_address' | translate}}</h2>
+            </div>
+        </ion-item>
+
+        <ion-item class="animate__animated animate__fadeInUp" (click)="favorites()" *ngIf="cookieService.check('login')">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_favorite.png">
+                </div>
+                <h2>{{'favorites' | translate}}</h2>
+            </div>
+        </ion-item>
+
+        <ion-item class="animate__animated animate__fadeInUp" (click)="terms_conditions()">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_tncact.png">
+                </div>
+                <h2>{{'terms_conditions' | translate}}</h2>
+            </div>
+        </ion-item>
+
+        <ion-item class="animate__animated animate__fadeInUp" (click)="support()" *ngIf="cookieService.check('login')">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_supportact.png">
+                </div>
+                <h2>{{'support' | translate}}</h2>
+            </div>
+        </ion-item>
+
+        <!--
+        <ion-item class="animate__animated animate__fadeInUp" (click)="about_us()">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_aboutact.png">
+                </div>
+                <h2>{{'about_us' | translate}}</h2>
+            </div>
+        </ion-item>
+-->
+
+        <ion-item class="animate__animated animate__fadeInUp" (click)="settings()">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_setting.png">
+                </div>
+                <h2>{{'settings' | translate}}</h2>
+            </div>
+        </ion-item>
+
+        <ion-item class="animate__animated animate__fadeInUp" (click)="phone_number()" *ngIf="cookieService.check('login')">
+            <div class="item_inner d-flex">
+                <div class="icon_box ion-text-start">
+                    <img src="assets/images/ic_menu_logoutact.png">
+                </div>
+                <h2>{{ 'logout' | translate}}</h2>
+            </div>
+        </ion-item>
+        <ion-item class="animate__animated animate__fadeInUp" (click)="login()" *ngIf="cookieService.check('login')==false">
+        <div class="item_inner d-flex">
+            <div class="icon_box ion-text-start">
+                <img src="assets/images/person3.png">
+            </div>
+            <h2>{{'login' | translate}}</h2>
+        </div>
+    </ion-item>
+    </ion-list>
+
+</ion-content>
