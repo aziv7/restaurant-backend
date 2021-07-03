@@ -23,13 +23,12 @@ register() {
     this.route.navigate(['./socila-login']);
   }
     login() {
-this.userservice.Login(this.user).subscribe((data)=>{
-        //console.log(JSON.stringify(data));
-      //  console.log(JSON.parse(x).token);
-       // this.cookieService.set('jwt', JSON.parse(x).token);
+this.userservice.Login(this.user).subscribe((data:object)=>{
         this.cookieService.set('login',this.user.login);
         let x=JSON.stringify(data);
-        this.cookieService.set('userConnected',JSON.parse(x).id);
+       // this.cookieService.set('userConnected',JSON.parse(x).body.id);
+        this.userservice.userConnected=JSON.parse(x).body.user;
+        console.log(this.userservice.userConnected)
         this.route.navigate(['./tabs']);
     },
     (error => this.loginError='please check your login and your password'))

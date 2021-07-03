@@ -3,9 +3,9 @@
         <ion-title>{{'my_account' | translate}}</ion-title>
     </ion-toolbar>
     <div class="profile_info">
-        <h2 class="animate__animated animate__fadeInUp">Samantha Smith</h2>
-        <p class="animate__animated animate__fadeInUp">+1 987 654 3210</p>
-        <p class="animate__animated animate__fadeInUp">samanthasmith@mail.com</p>
+        <h2 class="animate__animated animate__fadeInUp">{{cookieService.get('login')}}</h2>
+        <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.email}}</p>
+        <p class="animate__animated animate__fadeInUp">{{Userservice.userConnected.numero_de_telephone}}</p>
     </div>
 </ion-header>
 

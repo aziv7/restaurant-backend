@@ -7,7 +7,7 @@ import {User} from '../Models/User';
   providedIn: 'root'
 })
 export class UserService {
-
+public userConnected:User;
   constructor(private http: HttpClient) {
   }
   private env = environment.apiUrl;

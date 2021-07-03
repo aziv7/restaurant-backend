@@ -32,7 +32,7 @@
             </ion-item>
             <ion-item lines="none">
                 <div class="item_inner d-flex">
-                    <ion-input mode="md" type="text"  placeholder="{{'password' | translate}}" name="password" [(ngModel)]="user.password" #password="ngModel"  ></ion-input>
+                    <ion-input mode="md" type="password"  placeholder="{{'password' | translate}}" name="password" [(ngModel)]="user.password" #password="ngModel"  ></ion-input>
                 </div>
 
             </ion-item><p mode="md" class="" style="" *ngIf="loginError!=''"><span class="end">{{"please check your password or username" | translate}}</span></p>
@@ -40,21 +40,21 @@
         </ion-list>
     </div>
     <ion-button size="large" class="btn login" (click)="login()" [disabled]="loginn==''">{{'login' | translate}}</ion-button>
-    <div>
-        <h3 class="ion-text-center">{{'or' | translate}}</h3>
-    </div>
-    <div class="form animate__animated animate__fadeInUp" >
-        <ion-list lines="none">
-            <ion-item lines="none">
-                <div class="item_inner d-flex">
-                    <h3>+1</h3>
-                    <ion-input mode="md" type="number" placeholder="{{'enter_mobile_number' | translate}}"></ion-input>
-                    <ion-button size="large" class="btn end"
-                                (click)="register()">{{'continue' | translate}}</ion-button>
-                </div>
-            </ion-item>
-        </ion-list>
-    </div>
+    <!-- <div>
+         <h3 class="ion-text-center">{{'or' | translate}}</h3>
+     </div>
+  !--<div class="form animate__animated animate__fadeInUp" >
+         <ion-list lines="none">
+             <ion-item lines="none">
+                 <div class="item_inner d-flex">
+                     <h3>+1</h3>
+                     <ion-input mode="md" type="number" placeholder="{{'enter_mobile_number' | translate}}"></ion-input>
+                     <ion-button size="large" class="btn end"
+                                 (click)="register()">{{'continue' | translate}}</ion-button>
+                 </div>
+             </ion-item>
+         </ion-list>
+     </div>-->
 
     <h5 class="ion-text-center">Don't have an account? <a routerLink="../register">Sign up now</a></h5>
 
