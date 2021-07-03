@@ -5,12 +5,15 @@ namespace App\Http\Controllers;
 use App\Models\Categorie;
 use App\Models\Plat;
 use Illuminate\Http\Request;
+use Stripe\Product;
 
 class CategorieController extends Controller
 {
     public function index()
     {
-        return Categorie::all();
+
+        $categories = Categorie::with('plats')->get();
+        return $categories;
     }
 
 

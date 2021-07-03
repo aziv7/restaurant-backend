@@ -149,5 +149,4 @@ class PlatController extends Controller
         $plat->Commandes()->save($commande);
         return $plat;
     }
-
 }

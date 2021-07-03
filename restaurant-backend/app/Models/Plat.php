@@ -18,7 +18,7 @@ class Plat extends Model
 
     public function categorie()
     {
-        return $this->HasOneOrZero(Categorie::class);
+        return $this->belongsToOneOrZero(Categorie::class);
     }
 
     public function images()
