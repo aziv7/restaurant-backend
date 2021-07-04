@@ -19,9 +19,9 @@ class Ingredient extends Model
     {
         return $this->belongsToMany(Plat::class);
     }
-    public function modificateur()
+    public function modificateurs()
     {
-        return $this->belongsTo(Modificateur::class);
+        return $this->belongsToMany(Modificateur::class);
     }
 
 }

@@ -17,12 +17,6 @@ class CreateIngredientsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->integer('quantite');
-            $table->enum('type', ['legume', 'viande','fromage']);
-            $table->float('stock', 6, 3);
-            $table->bigInteger('modificateur_id')->unsigned()->nullable();
-            
-            
-            $table->foreign('modificateur_id')->references('id')->on('modificateurs')->onDelete('cascade');
             $table->string('image');
             $table->double('prix', 6, 3);
             $table->timestamps();

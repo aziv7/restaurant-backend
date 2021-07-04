@@ -16,8 +16,7 @@ class IngredientController extends Controller
         $request->validate([
             'nom' => 'required',
             'quantite' => 'required',
-            'type' => 'required',
-            'stock' => 'required','prix' => 'required'
+            'prix' => 'required'
         ]);
         return Ingredient::create($request->all());
     }
@@ -45,7 +44,7 @@ class IngredientController extends Controller
     public function addIngredientToModificateur(Request $request, $id_ingredient,$id_modificateur)
     {
         $ingredient = Ingredient::find($id_ingredient);
-        
+
         $modificateur = Modificateur::find($id_modificateur);
         return $modificateur->ingredients()->save($ingredient);
     }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use App\Models\Ingredient;
+use App\Models\Modificateur;
 use App\Models\Plat;
 use App\Models\User;
 use Carbon\Carbon;
@@ -25,12 +27,50 @@ class CommandeController extends Controller
     public function index()
     {
         $commandes = Commande::with('plat','user')->get();
-
-        if ($commandes->isEmpty()) {
-            return response(array(
-                'message' => ' Not Found',
-            ), 404);
+        foreach ($commandes as $i => $cmd) {
+            foreach ($cmd->plat as $j => $plat) {
+                $p =Plat::with('modificateurs')
+                    ->where('id','like',$plat->id)
+                    ->first();
+                $plat = $p;
+                $commandes[$i]->plat[$j]= $p;
+                foreach ($plat->modificateurs as $k => $modif) {
+                    $m = Modificateur::with('ingredients')
+                        ->where('id', 'like',$modif->id)
+                        ->first();
+                    $commandes[$i]->plat[$j]->modificateurs[$k] = $m;
+                }
+            }
         }
+       /* $commandes = DB::table('commandes')
+            ->join('commande_plats', 'commandes.commande_id', '=', 'commande_plats.commande_id')
+            ->leftJoin('plats', 'commande_plats.plat_id', '=', 'plats.id')
+            ->select('commandes.*','commande_plats.*','plats.*')
+            ->get();*/
+
+        //$commandes = DB::select('select * from commandes as C, commande_plats as CP, plats as P where C.commande_id = CP.commande_id and CP.plat_id = P.id group by C.commande_id');
+        /*$plats = DB::table('commande_plats')->select('plat_id');
+        $commandes = DB::table('commandes')
+            ->joinSub($plats, 'commande_plats', function ($join) {
+                $join->on('commande_plats.plat_id', '=', 'plats.id');
+            })->get();*/
+        /*$commandes = DB::table('commandes')
+            ->leftjoin('commande_plats', 'commandes.commande_id', '=', 'commande_plats.commande_id')
+            ->leftjoin('plats', 'commande_plats.plat_id', '=', 'plats.id')
+            ->select('commandes.*', 'plats.*')->groupBy("commande_plats.commande_id")
+            ->get();*/
+
+
+        /*$commandes=DB::table('commandes','C')
+            ->leftjoin('commande_plats as CP', function($join) {
+                $join->on('C.commande_id', '=', 'CP.commande_id');
+            })
+            ->leftjoin('plats as P', function($join) {
+                $join->on('CP.plat_id', '=', 'P.id');
+            })
+            ->groupBy('C.user_id')
+            ->get();*/
+
         return $commandes;
     }
 

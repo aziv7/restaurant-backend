@@ -21,10 +21,7 @@ class Modificateur extends Model
 
     public function ingredients()
     {
-        return $this->hasMany(Ingredient::class);
-    }
-    public function supplements()
-    {
-        return $this->belongsToMany(Supplement::class, 'modificateur_supplement');
+        return $this->belongsToMany(Plat::class,'ingredient_modificateur','modificateur_id',
+        'ingredient_id','id','id');
     }
 }

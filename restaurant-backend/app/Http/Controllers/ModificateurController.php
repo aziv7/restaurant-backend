@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Ingredient;
 use App\Models\Modificateur;
 use Illuminate\Http\Request;
 
@@ -74,5 +75,13 @@ class ModificateurController extends Controller
     public function search($nom)
     {
         return Modificateur::where('nom', 'like', '%' . $nom . '%')->get();
+    }
+
+    public function affectIngredientToModificateur($modificateur_id, $ingredient_id) {
+        $modificateur = Modificateur::find($modificateur_id);
+        var_dump($modificateur->nom);
+        $ingredient = Ingredient::find($ingredient_id);
+        var_dump($ingredient->nom);
+        $modificateur->ingredients()->attach($ingredient);
     }
 }

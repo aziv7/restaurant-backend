@@ -28,7 +28,8 @@ class Plat extends Model
 
     public function modificateurs()
     {
-        return $this->belongsToMany(Modificateur::class);
+        return $this->belongsToMany(Modificateur::class, 'modificateur_plat',
+            'plat_id','modificateur_id','id','id');
     }
 
     public function Commandes()

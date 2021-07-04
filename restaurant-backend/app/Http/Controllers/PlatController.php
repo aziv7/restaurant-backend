@@ -17,7 +17,7 @@ class PlatController extends Controller
 {
     public function index()
     {
-        return Plat::all();
+        return Plat::with('modificateurs')->get();
     }
 
     public function store(Request $request)
@@ -102,7 +102,7 @@ class PlatController extends Controller
     }
 
     /** affecter un plat a un modificateur */
-    public function addPlatToModificateur(Request $request, $id_plat, $id_modificateur)
+    public function addPlatToModificateur($id_plat, $id_modificateur)
     {
         $plat = Plat::find($id_plat);
 

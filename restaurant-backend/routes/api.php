@@ -157,7 +157,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::post('ingredient', [IngredientController::class, 'store']);
     Route::delete('ingredient/{id}', [IngredientController::class, 'destroy']);
     Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
-
+    Route::put('affectingredientmodificateur/{modificateur_id}/{ingredient_id}', [ModificateurController::class, 'affectIngredientToModificateur']);
     //***************************            Supplement          *************************//
 
     Route::post('supplement', [SupplementController::class, 'store']);
@@ -169,8 +169,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::post('modificateur',  [ModificateurController::class, 'store']);
     Route::put('modificateur/{id}',  [ModificateurController::class, 'update']);
     Route::delete('modificateur/{id}',  [ModificateurController::class, 'destroy']);
-
-
+    Route::put('affectModificateurToPlat/{id_plat}/{id_modificateur}', [PlatController::class, 'addPlatToModificateur']);
 
 
     //***************************            Categorie         *************************//

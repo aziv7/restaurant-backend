@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->integer('numero_de_telephone')->nullable();
             $table->boolean('premium')->default(false);
-            $table->boolean('statut')->default(false);
             $table->integer('number_of_ban')->default(0);
             $table->dateTime('banned_at')->nullable()->default(null);
            $table->timestamp('email_verified_at')->nullable();
