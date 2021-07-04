@@ -1,3 +1,5 @@
+import {CoordonneesAuthentification} from "./CoordonneesAuthentification";
+
 export class User {
     id:bigint;
     nom:string;
@@ -5,6 +7,5 @@ export class User {
     date_de_naissance:string;
     email:string;
     numero_de_telephone:string;
-    password:string;
-    login:string;
+    coordonnees_authentification:CoordonneesAuthentification;
 }

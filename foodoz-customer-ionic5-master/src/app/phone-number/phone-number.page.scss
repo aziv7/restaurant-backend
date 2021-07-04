@@ -129,5 +129,57 @@ ion-footer {
           }
       }
 
+    .social_login {
+        width: 100%;
+
+        h3 {
+            margin: 0;
+            color: var(--text-black);
+            font-size: 1rem;
+            padding: 20px 0;
+        }
+
+        .button_container {
+            width: 100%;
+
+            .btn {
+                min-height: 55px;
+                padding: 0 20px;
+
+                .img_box {
+                    width: fit-content;
+                    min-width: 85px;
+
+                    img {
+                        width: 27px;
+                        margin: 0 auto;
+                    }
+                }
+
+                h6 {
+                    margin: 0;
+                    color: #fff;
+                    font-weight: 400;
+                    font-size: 0.9rem;
+                    letter-spacing: 0.3px;
+                    position: absolute;
+                    text-align: center;
+                    width: 100%;
+                    left: 0;
+
+                }
+
+                &.Google {
+                    background: #fff;
+                    --animate-duration: .35s;
+
+                    h6 {
+                        color: #000000 !important;
+                    }
+                }
+            }
+        }
+
+    }
 
 }

@@ -31,12 +31,12 @@
         <ion-list lines="none">
             <ion-item lines="none">
                 <div class="item_inner d-flex">
-                    <ion-input mode="md" type="text" name="loginn" [(ngModel)]="user.login" #loginn="ngModel"  placeholder="{{'login' | translate}}"></ion-input>
+                    <ion-input mode="md" type="text" name="loginn" [(ngModel)]="user.coordonnees_authentification.login" #loginn="ngModel"  placeholder="{{'login' | translate}}"></ion-input>
                 </div>
             </ion-item>
             <ion-item lines="none">
                 <div class="item_inner d-flex">
-                    <ion-input mode="md" type="password"  placeholder="{{'password' | translate}}" name="password" [(ngModel)]="user.password" #password="ngModel"  ></ion-input>
+                    <ion-input mode="md" type="password"  placeholder="{{'password' | translate}}" name="password" [(ngModel)]="user.coordonnees_authentification.password" #password="ngModel"  ></ion-input>
                 </div>
 
             </ion-item><p mode="md" class="" style="" *ngIf="loginError!=''"><span class="end">{{"please check your password or username" | translate}}</span></p>
@@ -62,28 +62,18 @@
 
     <h5 class="ion-text-center">{{"Don't have an account?" | translate }} <a routerLink="../register">{{"Sign up now" | translate }}</a></h5>
 
-    <!--
+
     <div class="social_login">
         <h3 class="ion-text-center">{{'or' | translate}}</h3>
         <div class="button_container">
-            <div class="btn Facebook d-flex  animate__animated animate__fadeInUp" (click)="socila_login()">
-                <div class="img_box ion-text-center">
-                    <img src="assets/images/ic_login_facebook.png">
-                </div>
-                <h6>{{'login_with' | translate}} <strong>Facebook</strong></h6>
-            </div>
+
             <div class="btn d-flex Google  animate__animated animate__fadeInUp" (click)="socila_login()">
                 <div class="img_box ion-text-center">
                     <img src="assets/images/ic_login_google.png">
                 </div>
                 <h6>{{'login_with' | translate}} <strong>Google</strong></h6>
             </div>
-            <div class="btn Apple d-flex  animate__animated animate__fadeInUp">
-                <div class="img_box ion-text-center" (click)="socila_login()">
-                    <img src="assets/images/ic_login_apple.png">
-                </div>
-                <h6>{{'login_with' | translate}} <strong>Apple</strong></h6>
-            </div>
+
         </div>
-    </div>-->
+    </div>
 </ion-footer>

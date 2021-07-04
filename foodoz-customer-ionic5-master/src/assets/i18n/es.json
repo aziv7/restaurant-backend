@@ -1,4 +1,5 @@
 {"password": "contraseña",
+    "modify": "modificar",
     "we_ll_send_email_verification_code":"Le enviaremos un correo electrónico de verificación",
     "login": "el login",
     "birthday": "fecha de nacimiento",

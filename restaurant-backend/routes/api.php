@@ -101,7 +101,8 @@ Route::middleware(['auth:sanctum','json.response'])->group(function () {
     Route::post('logout', [UserController::class, 'logout']);
     Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
     Route::get('connected', [UserController::class, 'Connected']);
-    Route::get('getuser/login/{login}', [UserController::class, 'GetUserByLogin']);
+    Route::get('getuser/id/{id}', [UserController::class, 'GetUserByIdWithCoordonnes']);
+    Route::get('getuser', [UserController::class, 'GetUsersWithCoordonnes']);
     Route::put('user/{id}', [UserController::class, 'update']);
 
     //***************************            Ingrédient          *************************//

@@ -3,8 +3,11 @@
         <ion-buttons slot="start">
             <ion-back-button text="" icon="chevron-back-outline"></ion-back-button>
         </ion-buttons>
-        <ion-title>
+        <ion-title *ngIf="userservice.userConnected==null">
             {{'register' | translate}}
+        </ion-title>
+        <ion-title *ngIf="userservice.userConnected!=null">
+            {{'modify' | translate}}
         </ion-title>
     </ion-toolbar>
 </ion-header>
@@ -19,7 +22,7 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/ic_name.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"first_name" | translate}}</ion-label>
-                        <ion-input mode="md"  name="prenom" [(ngModel)]="user.prenom" #prenom="ngModel"  class="light" type="text" placeholder="" value="saman"></ion-input>
+                        <ion-input mode="md"  name="prenom"  required [(ngModel)]="user.prenom" #prenom="ngModel"  class="light" type="text" placeholder="" value="saman"></ion-input>
                     </div>
                 </div>
             </ion-item>
@@ -28,7 +31,7 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/ic_name.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"last_name" | translate}}</ion-label>
-                        <ion-input mode="md" name="lastname" [(ngModel)]="user.nom" #nom="ngModel"   class="light" type="text" placeholder="" value="samanath"></ion-input>
+                        <ion-input mode="md" name="lastname" required [(ngModel)]="user.nom" #nom="ngModel"   class="light" type="text" placeholder="" value="samanath"></ion-input>
                     </div>
                 </div>
             </ion-item>
@@ -37,7 +40,7 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/ic_name.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"login" | translate}}</ion-label>
-                        <ion-input mode="md" name="llogin" [(ngModel)]="user.login" #login="ngModel"   class="light" type="text" placeholder="" value="samanath"></ion-input>
+                        <ion-input mode="md" name="llogin" required [(ngModel)]="user.coordonnees_authentification.login" #login="ngModel"   class="light" type="text" placeholder="" value="samanath"></ion-input>
                     </div>
                 </div>
             </ion-item>
@@ -46,7 +49,7 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/ic_mail.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"email_address" | translate}}</ion-label>
-                        <ion-input mode="md"  name="email" [(ngModel)]="user.email" #email="ngModel"  class="light" type="email" placeholder="" value="samanthasmith@mail.com"></ion-input>
+                        <ion-input mode="md"  name="email"  required [(ngModel)]="user.email" #email="ngModel"  class="light" type="email" placeholder="" value="samanthasmith@mail.com"></ion-input>
                     </div>
                 </div>
             </ion-item>
@@ -65,7 +68,7 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/1719662671537184109-512.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"password" | translate}}</ion-label>
-                        <ion-input mode="md"  name="password" [(ngModel)]="user.password" #password="ngModel"  class="light" type="password" placeholder="" value=""></ion-input>
+                        <ion-input mode="md" required name="password" [(ngModel)]="user.coordonnees_authentification.password" #password="ngModel"  class="light" type="password" placeholder="" value=""></ion-input>
                     </div>
                 </div>
             </ion-item>
@@ -77,7 +80,7 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/1719662671537184109-512.png"></div>
                     <div class="input_box">
                         <ion-label mode="md"  position="stacked">{{"confirm password" | translate}}</ion-label>
-                        <ion-input mode="md"  name="confirm" ngModel #confirm="ngModel" class="light" type="password" placeholder="" value=""></ion-input>
+                        <ion-input mode="md" required  name="confirm" ngModel #confirm="ngModel" class="light" type="password" placeholder="" value=""></ion-input>
                     </div>
 
                 </div>
@@ -88,7 +91,7 @@
                     <div class="icon_box ion-text-start"><img src="assets/images/ic_phone.png"></div>
                     <div class="input_box">
                         <ion-label mode="md" position="stacked">{{"phone_number" | translate}}</ion-label>
-                        <ion-input mode="md"  name="numero_de_telephone" [(ngModel)]="user.numero_de_telephone" #numero_de_telephone="ngModel" class="light" type="number" placeholder="" value="+1 987 654 3210"></ion-input>
+                        <ion-input mode="md" required name="numero_de_telephone" [(ngModel)]="user.numero_de_telephone" #numero_de_telephone="ngModel" class="light" type="number" placeholder="" value="+1 987 654 3210"></ion-input>
                     </div>
                 </div>
             </ion-item>

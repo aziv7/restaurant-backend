@@ -89,7 +89,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {/*********** update cordonne and user at the same time ********/
         $user = User::find($id);
         $user->update($request->all());
 try{        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
@@ -103,16 +103,15 @@ try{        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like'
          $coordonnesauthh->password=Hash::make($request->input('password'));
 
      }catch (Throwable $e){
-         var_dump('there is no passwor');
+        // var_dump('there is no passwor');
      }
     try{
         $coordonnesauthh->login=$request->input('login');
 
     }catch (Throwable $e){
-        var_dump('there is no login');
+      //  var_dump('there is no login');
 
     }
-//$coordonnesauthh->password=Hash::make($request->password);
         $editdata = array(
             'login'=> $coordonnesauthh->login,
             'password'=>$coordonnesauthh->password
@@ -205,8 +204,15 @@ catch (Throwable $e){
 
         public function Connected()
     {return Auth::user();}
+////////************   GetUserByIDWithCooordonnes ***************////
+    public function GetUserByIdWithCoordonnes($id)
+    {
+       return User::with(['CoordonneesAuthentification'])->where('id',$id)->get()->first();
 
-    public function GetUserByLogin($login)
-    {return CoordonneesAuthentification::where('login', 'like', $login)->get();
+    }
+    public function GetUsersWithCoordonnes()
+    {
+        return User::with(['CoordonneesAuthentification'])->get();
+
     }
 }
