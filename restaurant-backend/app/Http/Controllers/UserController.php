@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -90,16 +91,37 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $user = User::find($id);
-        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
         $user->update($request->all());
-        DB::delete('delete from coordonnees_authentifications where user_id= ?',[$id]);
-       $coordonnesauthh=new CoordonneesAuthentification();
-       $coordonnesauthh->id=$coordonnesauth->id;
-$coordonnesauthh->login=$request->login;
-$password =Hash::make($request->password);
-        $coordonnesauthh->password=$password;
-      $user->coordonneesAuthentification()->save($coordonnesauthh);
+try{        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
+    //var_dump($coordonnesauth);
+    $coordonnesauthh=new CoordonneesAuthentification();
+    $coordonnesauthh->login=$coordonnesauth->login;
 
+    $coordonnesauthh->password=$coordonnesauth->password;
+    var_dump($coordonnesauthh);
+     try{
+         $coordonnesauthh->password=Hash::make($request->input('password'));
+
+     }catch (Throwable $e){
+         var_dump('there is no passwor');
+     }
+    try{
+        $coordonnesauthh->login=$request->input('login');
+
+    }catch (Throwable $e){
+        var_dump('there is no login');
+
+    }
+//$coordonnesauthh->password=Hash::make($request->password);
+        $editdata = array(
+            'login'=> $coordonnesauthh->login,
+            'password'=>$coordonnesauthh->password
+    );
+     $coordonnesauth->update($editdata );
+}
+catch (Throwable $e){
+
+}
         return $user;
     }
 
