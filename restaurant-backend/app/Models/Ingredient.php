@@ -23,5 +23,9 @@ class Ingredient extends Model
     {
         return $this->belongsToMany(Modificateur::class);
     }
+    public function customs()
+    {
+        return $this->belongsToMany(custom::class);
+    }
 
 }

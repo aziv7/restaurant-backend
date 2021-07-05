@@ -8,6 +8,7 @@ use App\Models\Commande;
 use App\Models\Plat;
 use App\Models\Ingredient;
 use App\Models\Image;
+use App\Models\Custom;
 use Illuminate\Http\Request;
 
 use App\Models\Supplement;
@@ -105,11 +106,17 @@ class PlatController extends Controller
     public function addPlatToModificateur($id_plat, $id_modificateur)
     {
         $plat = Plat::find($id_plat);
-
         $modificateur = Modificateur::find($id_modificateur);
-
-
         $plat->modificateurs()->attach($modificateur);
+        return $plat;
+    }
+
+    /** affecter un plat a un custom */
+    public function addPlatToCustom($id_plat, $id_custom)
+    {
+        $plat = Plat::find($id_plat);
+        $custom = Custom::find($id_custom);
+        $plat->customs()->attach($custom);
         return $plat;
     }
 

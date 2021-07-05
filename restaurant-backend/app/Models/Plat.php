@@ -45,4 +45,10 @@ class Plat extends Model
     {
         return $this->belongsToMany(Rating::class);
     }
+
+    public function customs()
+    {
+        return $this->belongsToMany(custom::class,'plat_custom',
+            'plat_id','custom_id','id','id');
+    }
 }
