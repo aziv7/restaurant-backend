@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-verification',
@@ -8,13 +9,14 @@ import { Router } from '@angular/router';
 })
 export class VerificationPage implements OnInit {
 
-  constructor( private route: Router) { }
+  constructor( private route: Router,private cookieService:CookieService) { }
 
   ngOnInit() {
+
   }
 
 set_location() {
-    this.route.navigate(['./set-location']);
+    this.route.navigate(['./tabs']);
   } 
 }
  

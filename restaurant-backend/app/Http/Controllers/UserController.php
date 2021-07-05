@@ -69,7 +69,9 @@ class UserController extends Controller
         if($user != null){
             $user->is_verified = 1;
             $user->save();}
-        return $user;}
+        $cookie = cookie('response', $user->is_verified, 60 * 24); // cookie valid for 1 day
+
+        redirect('http://localhost:8100/verification')->withCookie($cookie);}
     /**
      * Display the specified resource.
      *

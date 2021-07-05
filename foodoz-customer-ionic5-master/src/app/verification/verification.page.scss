@@ -1,40 +1,22 @@
 .form {
     border-top: 6px solid var(--bg-color);
-    padding-top: 34px;
+    padding-top: 50%;
 
     h2 {
         margin: 0;
         font-size: 1.13rem;
         line-height: 21px;
         width: calc(100% - 33px);
-        padding-bottom: 45px;
         font-weight: 600;
+        color: var(--text-light);
+
     }
 
     ion-list {
-        ion-item {
-            ion-label {
-                margin-bottom: 14px !important;
-            }
 
-            ion-input {
-                letter-spacing: 4px !important;
-                font-size: 1.1rem !important;
-            }
-        }
     }
 
-    p {
-        margin: 0;
-        color: var(--text-light);
-        font-size: .7rem;
-        letter-spacing: .5px;
-        font-weight: 400;
 
-        span {
-            width: calc(100% - 35px);
-        }
-    }
 }
 
 .animate__animated.animate__fadeInUp {
@@ -77,17 +59,20 @@
 ion-footer {
     --animate-duration: .4s !important;
 
-    h3 {
-        padding: 0 20px;
-        margin: 0;
-        font-size: 1.15rem;
-        font-weight: 500;
-        padding-bottom: 16px;
-
-        span {
-            color: var(--secondary);
-            font-weight: 500;
-            letter-spacing: .4px;
-        }
-    }
+}
+.Aligner {
+    display: flex!important;
+    align-items: center!important;
+    justify-content: center!important;
+}
+.Aligner-item--top{
+    padding-bottom: 23%;
+}
+.Aligner-item {
+    max-width: 100%;
+}
+.Aligner-item--bottom{
+margin-left: 20px}
+.content{
+    --background: var(--bg-color) !important;
 }

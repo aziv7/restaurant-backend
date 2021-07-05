@@ -15,7 +15,7 @@ public userConnected:User;
   AddUser(user: User) {
     return this.http.post(`${this.env}register?login=${user.coordonnees_authentification.login}&password=${user.coordonnees_authentification.password}&nom=${user.nom}&prenom=${user.prenom}
     &date_de_naissance=${user.date_de_naissance}&numero_de_telephone=${user.numero_de_telephone}&email=${user.email}`,
-        user,{ withCredentials: true });
+        {},{ withCredentials: true });
   }
 
   ModifyUser(id,user:User) {
