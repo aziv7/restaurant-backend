@@ -13,28 +13,25 @@
     <ion-list lines="none">
         <div class="list_header d-flex">
             <div class="text_box">
-                <h2>Fresh Red Onions</h2>
-                <h3 class="d-flex"> <img src="assets/images/ic_veg.png">&nbsp;&nbsp; $ 5.00</h3>
+                <h2>{{plat.nom}}</h2>
+                <h3 class="d-flex"> <img src="assets/images/ic_veg.png">&nbsp;&nbsp; {{prix|currency:"EUR":"symbol"}}</h3>
             </div>
             <h6 class="end" (click)="dismiss()">{{'add' | translate}}</h6>
         </div>
-        <ion-item class="animate__animated animate__fadeInUp">
+        <div *ngFor="let modificateur of plat.modificateurs; let i=index">
+            <div class="list_header d-flex">
+        <div class="text_box">
+            <h2>{{modificateur.nom}}</h2>
+           
+        </div></div>
+        <ion-item *ngFor="let ingredient of modificateur.ingredients"  class="animate__animated animate__fadeInUp">
             <div class="item_inner d-flex">
-                <ion-checkbox checked="true"></ion-checkbox>
-                <h2 class="d-flex">Extra Cheese <span class="end">$ 3.00</span></h2>
+                <ion-checkbox checked="true" [(ngModel)]="ingredient.checked"  (ionChange)="addIngredient($event,ingredient,plat.modificateurs[i].prix)"  ></ion-checkbox>
+                <h2 class="d-flex">{{ingredient.nom}}<span class="end">{{plat.modificateurs[i].prix|currency:"EUR":"symbol"}}</span></h2>
             </div>
         </ion-item>
-        <ion-item class="animate__animated animate__fadeInUp">
-            <div class="item_inner d-flex">
-                <ion-checkbox></ion-checkbox>
-                <h2 class="d-flex">Extra Mayones<span class="end">$ 2.00</span></h2>
-            </div>
-        </ion-item>
-        <ion-item class="animate__animated animate__fadeInUp">
-            <div class="item_inner d-flex">
-                <ion-checkbox></ion-checkbox>
-                <h2 class="d-flex">Extra Veggies <span class="end">$ 1.50</span></h2>
-            </div>
-        </ion-item>
+    </div>
+        
+        
     </ion-list>
 </ion-footer>

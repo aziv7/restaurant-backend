@@ -41,11 +41,11 @@
     </div>
 -->
     <ion-segment mode="ios" (ionChange)="segmentChanged()" [(ngModel)]="segment" scrollable>
-       
-        <ion-segment-button *ngFor="let c of categories;let i=index" mode="ios" value={{i}}>
-            <ion-label>{{c.nom}} {{i}}</ion-label>
+       <div *ngFor="let c of categories;let i=index">
+        <ion-segment-button *ngIf="c.plats.length>0"  mode="ios" value={{i}}>
+            <ion-label>{{c.nom}} </ion-label>
         </ion-segment-button>
-        
+        </div>
        
     </ion-segment>
 </ion-header>
@@ -57,7 +57,7 @@
                 <ion-list  lines="none">
                     <div class="list_inner">
                         <h2>{{c.nom}}</h2>
-                        <ion-item *ngFor="let p of c.plats"  class="animate__animated animate__fadeInUp" (click)="variation_selection()">
+                        <ion-item *ngFor="let p of c.plats"  class="animate__animated animate__fadeInUp" (click)="variation_selection(p)">
                             <div class="item_inner d-flex">
                                 <div class="img_box">
                                     <img src="assets/images/food_1.png">
@@ -67,15 +67,15 @@
                                         <h3>{{p.nom}}</h3>
                                         <h4 class="d-flex">
                                             <img src="assets/images/ic_veg.png">&nbsp;&nbsp;
-                                            $ 5.00
+                                            
                                             &nbsp;&nbsp; <span>{{'customise' | translate}}</span>
                                         </h4>
                                     </div>
                                     <!--                            <h6 class="end">{{'add' | translate}}</h6>-->
                                     <p class="end">
-                                        <span>-</span>
-                                        <strong>1</strong>
-                                        <span>+</span>
+                                        
+                                        <strong>{{p.prix|currency:'EUR':'symbol'}}</strong>
+                                        
                                     </p>
                                 </div>
                             </div>

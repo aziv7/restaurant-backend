@@ -6,6 +6,7 @@ import { IonSlides } from '@ionic/angular';
 import { CategorieService } from '../services/categorie.service';
 import { Categorie } from 'src/models/categorie.model';
 import {Subscription} from 'rxjs';
+import { PlatService } from '../services/plat.service';
 @Component({ 
   selector: 'app-items',
   templateUrl: './items.page.html',
@@ -17,7 +18,7 @@ export class ItemsPage implements OnInit {
  @ViewChild('slides', { static: true }) slider: IonSlides;   
  categories:Categorie[]=[];  
  FavoriteIcon = false;    
-  constructor(private route: Router,private modalController: ModalController,private serviceCategorie:CategorieService) { }
+  constructor(private route: Router,private modalController: ModalController,private serviceCategorie:CategorieService,private servicePlat:PlatService) { }
 
   ngOnInit() {
     this.segment=this.serviceCategorie.selected
@@ -49,7 +50,9 @@ export class ItemsPage implements OnInit {
     this.route.navigate(['./reviews']);
   }
     
-  variation_selection(){
+  variation_selection(p:Object){
+    
+    this.servicePlat.providePlat(p)
     this.modalController.create({component:VariationSelectionPage}).then((modalElement)=>
     {
       modalElement.present();
