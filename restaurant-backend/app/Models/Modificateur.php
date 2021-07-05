@@ -21,7 +21,13 @@ class Modificateur extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Plat::class,'ingredient_modificateur','modificateur_id',
-        'ingredient_id','id','id');
+        return $this->belongsToMany(
+            Ingredient::class,
+            'ingredient_modificateur',
+            'modificateur_id',
+            'ingredient_id',
+            'id',
+            'id'
+        );
     }
 }

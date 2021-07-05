@@ -30,6 +30,8 @@ use App\Http\Controllers\CodeReductionController;
 
 
 
+
+Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
