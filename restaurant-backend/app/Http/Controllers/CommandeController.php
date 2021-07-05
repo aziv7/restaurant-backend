@@ -26,8 +26,10 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('plat','user')->get();
-        foreach ($commandes as $i => $cmd) {
+        $commandes = Commande::with('plat','user','plat.modificateurs','plat.modificateurs.ingredients')->get();
+        //sajjil ya tari5 3 ayyem lehna
+        
+        /*foreach ($commandes as $i => $cmd) {
             foreach ($cmd->plat as $j => $plat) {
                 $p =Plat::with('modificateurs')
                     ->where('id','like',$plat->id)
@@ -41,11 +43,12 @@ class CommandeController extends Controller
                     $commandes[$i]->plat[$j]->modificateurs[$k] = $m;
                 }
             }
-        }
-       /* $commandes = DB::table('commandes')
+        }*/
+        /*$commandes = DB::table('commandes')
             ->join('commande_plats', 'commandes.commande_id', '=', 'commande_plats.commande_id')
             ->leftJoin('plats', 'commande_plats.plat_id', '=', 'plats.id')
             ->select('commandes.*','commande_plats.*','plats.*')
+            ->groupBy('commandes.commande_id')
             ->get();*/
 
         //$commandes = DB::select('select * from commandes as C, commande_plats as CP, plats as P where C.commande_id = CP.commande_id and CP.plat_id = P.id group by C.commande_id');
