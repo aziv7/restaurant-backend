@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -68,7 +69,9 @@ class UserController extends Controller
         if($user != null){
             $user->is_verified = 1;
             $user->save();}
-        return $user;}
+        $cookie = cookie('response', $user->is_verified, 60 * 24); // cookie valid for 1 day
+
+        redirect('http://localhost:8100/verification')->withCookie($cookie);}
     /**
      * Display the specified resource.
      *
@@ -88,18 +91,38 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
+    {/*********** update cordonne and user at the same time ********/
         $user = User::find($id);
-        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
         $user->update($request->all());
-        DB::delete('delete from coordonnees_authentifications where user_id= ?',[$id]);
-       $coordonnesauthh=new CoordonneesAuthentification();
-       $coordonnesauthh->id=$coordonnesauth->id;
-$coordonnesauthh->login=$request->login;
-$password =Hash::make($request->password);
-        $coordonnesauthh->password=$password;
-      $user->coordonneesAuthentification()->save($coordonnesauthh);
+try{        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
+    //var_dump($coordonnesauth);
+    $coordonnesauthh=new CoordonneesAuthentification();
+    $coordonnesauthh->login=$coordonnesauth->login;
 
+    $coordonnesauthh->password=$coordonnesauth->password;
+    var_dump($coordonnesauthh);
+     try{
+         $coordonnesauthh->password=Hash::make($request->input('password'));
+
+     }catch (Throwable $e){
+        // var_dump('there is no passwor');
+     }
+    try{
+        $coordonnesauthh->login=$request->input('login');
+
+    }catch (Throwable $e){
+      //  var_dump('there is no login');
+
+    }
+        $editdata = array(
+            'login'=> $coordonnesauthh->login,
+            'password'=>$coordonnesauthh->password
+    );
+     $coordonnesauth->update($editdata );
+}
+catch (Throwable $e){
+
+}
         return $user;
     }
 
@@ -183,8 +206,15 @@ $password =Hash::make($request->password);
 
         public function Connected()
     {return Auth::user();}
+////////************   GetUserByIDWithCooordonnes ***************////
+    public function GetUserByIdWithCoordonnes($id)
+    {
+       return User::with(['CoordonneesAuthentification'])->where('id',$id)->get()->first();
 
-    public function GetUserByLogin($login)
-    {return CoordonneesAuthentification::where('login', 'like', $login)->get();
+    }
+    public function GetUsersWithCoordonnes()
+    {
+        return User::with(['CoordonneesAuthentification'])->get();
+
     }
 }
