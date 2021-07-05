@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -13,12 +14,9 @@ class Ingredient extends Model
     protected $fillable = [
         'nom',
         'prix',
-        'quantite','type','stock','image'
+        'quantite', 'type', 'stock', 'image'
     ];
-    public function plats()
-    {
-        return $this->belongsToMany(Plat::class);
-    }
+
     public function modificateurs()
     {
         return $this->belongsToMany(Modificateur::class);

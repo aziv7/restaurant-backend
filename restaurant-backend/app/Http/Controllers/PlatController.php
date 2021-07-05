@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use App\Events\test;
 use App\Models\Modificateur;
 use App\Models\Commande;
@@ -68,13 +69,7 @@ class PlatController extends Controller
         return Plat::find($id);
     }
 
-    public function addSupplementToPlat($id, $id_supplement)
-    {
-        $plat = Plat::find($id);
-        $supplement = Supplement::find($id_supplement);
-        $supplement->plats()->attach($plat);
-        return $plat;
-    }
+
     //get plats supplements
     public function getSupplements($id)
     {
@@ -149,6 +144,12 @@ class PlatController extends Controller
     /**
      *affectation commande plat
      */
+    public function getPlat()
+    {
+        // $plat = DB::table('plats')->leftJoin('modificateur_plat','=','')->leftJoin('modificateurs')->leftJoin('ingredient_modificateur')->leftJoin('ingredients')->get();
+        $plat = Plat::with('modificateurs', 'modificateurs.ingredients')->get();
+        return $plat;
+    }
     public function addCommande($id_commande, $id_plat)
     {
         $plat = Plat::find($id_plat);
