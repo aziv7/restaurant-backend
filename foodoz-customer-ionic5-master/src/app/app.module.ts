@@ -15,6 +15,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { APP_CONFIG, BaseAppConfig } from './app.config';
+import {Stripe} from "@ionic-native/stripe/ngx";
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -38,7 +39,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     })
   ],
   providers: [
-    StatusBar,
+    StatusBar,Stripe,
     SplashScreen,CookieService,
     { provide: APP_CONFIG, useValue: BaseAppConfig },
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
