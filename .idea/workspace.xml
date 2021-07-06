@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="dd698f4a-915d-43fb-bda2-2e4d40311a15" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/restaurant-backend.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/restaurant-backend.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/.editorconfig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/.env.example" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/.styleci.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Console/Kernel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Enums/Statut.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Events/test.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Exceptions/Handler.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/Auth/ConfirmPasswordController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/Auth/ForgotPasswordController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/Auth/LoginController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/Auth/RegisterController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/Auth/ResetPasswordController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/Auth/VerificationController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/CategorieController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/ChangePasswordController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/CodeReductionController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/CommandeController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/Controller.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/CoordonnesAuthentifications.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/HomeController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/ImageController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/ImageUploadController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/IngredientController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/ModificateurController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/PasswordResetRequestController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/PlatController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/RatingController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/RoleController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/StripeController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/SupplementController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/UserController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Controllers/mailController.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Kernel.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/Authenticate.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/EncryptCookies.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/ForceJsonResponse.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/IsAdmin.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/IsCostumer.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/PreventRequestsDuringMaintenance.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/RedirectIfAuthenticated.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/TrimStrings.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/TrustHosts.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/TrustProxies.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Middleware/VerifyCsrfToken.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Http/Requests/UpdatePasswordRequest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Mail/SendMailreset.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Mail/SignupEmail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Categorie.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/CodeReduction.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Commande.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/CoordonneesAuthentification.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Image.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Ingredient.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Modificateur.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Plat.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Rating.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Role.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/RoleUser.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/Supplement.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Models/User.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Providers/AppServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Providers/AuthServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Providers/BroadcastServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Providers/EventServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/app/Providers/RouteServiceProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/artisan" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/bootstrap/app.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/bootstrap/cache/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/composer.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/composer.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/app.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/auth.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/broadcasting.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/cache.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/cors.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/database.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/filesystems.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/hashing.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/logging.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/mail.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/queue.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/sanctum.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/services.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/session.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/view.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/config/websockets.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/factories/UserFactory.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/0000_00_00_000000_create_websockets_statistics_entries_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2019_08_19_000000_create_failed_jobs_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2019_12_14_000001_create_personal_access_tokens_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_10_131035_create_plats_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_10_135813_updating_status_default_value.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_10_231720_create_categories_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_11_003111_categorie_id_fix.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_11_111121_create_commandes_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_11_120338_create_ingredients_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_11_190425_create_modificateurs_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_11_215627_create_roles_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_12_001036_create_code_reductions_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_12_010104_create_modificateur_plat_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_12_011034_create_role_users_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_12_024813_create_coordonnees_authentifications_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_12_175537_create_images_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_12_202425_create_suplements_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_14_141417_supplement_modificateur_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_14_215853_augmentationlongueurpwd.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/migrations/2021_06_15_215620_create_ratings_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/seeders/DatabaseSeeder.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/database/seeders/UsersTableSeeder.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/phpunit.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/.htaccess" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623504556.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623504751.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623504800.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623504996.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623537638.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623720340.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623721316.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1623721390.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1624038222.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1624042491.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1624046181.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1624046620.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/1624052602.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/images/file.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/index.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/public/web.config" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/css/app.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/js/app.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/js/bootstrap.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/js/components/ExampleComponent.vue" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/lang/en/auth.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/lang/en/pagination.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/lang/en/passwords.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/lang/en/validation.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/mail/passwordReset.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/mail/signup-email.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/sass/_variables.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/sass/app.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/Email/passwordReset.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/auth/login.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/auth/passwords/confirm.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/auth/passwords/email.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/auth/passwords/reset.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/auth/register.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/auth/verify.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/home.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/layouts/app.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/mail/signup-email.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/mail/signup-mail.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/resources/views/welcome.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/routes/api.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/routes/channels.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/routes/console.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/routes/web.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/server.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/app/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/app/public/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/framework/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/framework/cache/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/framework/cache/data/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/framework/sessions/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/framework/testing/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/framework/views/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/storage/logs/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/tests/CreatesApplication.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/tests/Feature/ExampleTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/tests/TestCase.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/tests/Unit/ExampleTest.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/restaurant-backend/webpack.mix.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test-test/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/yarn.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/package-lock.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/public/logo512.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/public/robots.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/index.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/reportWebVitals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/src/setupTests.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test1/yarn.lock" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1uuyJrNC5bfQPzYky8mkfCUN96z" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="dd698f4a-915d-43fb-bda2-2e4d40311a15" name="Default Changelist" comment="" />
+      <created>1625529724737</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1625529724737</updated>
+      <workItem from="1625529724741" duration="342000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
