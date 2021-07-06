@@ -1,0 +1,1563 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            <div class="title_inner d-flex">
+                <div class="form">
+                    <ion-item lines="none">
+                        <div class="item_inner d-flex">
+                            <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                            <h6>New York, USA</h6>
+                            <ion-icon class="zmdi zmdi-chevron-down ion-text-end"></ion-icon>
+                        </div>
+                    </ion-item>
+                </div>
+                <ion-icon class="zmdi zmdi-search ion-text-end end"></ion-icon>
+            </div>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="what_do_you_lick">
+        <h2>{{'what_do_you_like_to_eat_today' | translate}}?</h2>
+        <div class="category_row">
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_fastfood.png">
+                </div>
+                <h3>Fast Food</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_Seafood.png">
+                </div>
+                <h3>Sea Food</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_chinese.png">
+                </div>
+                <h3>Chinese</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_dessert.png">
+                </div>
+                <h3>Dessert</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_fastfood.png">
+                </div>
+                <h3>Fast Food</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_Seafood.png">
+                </div>
+                <h3>Sea Food</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_chinese.png">
+                </div>
+                <h3>Chinese</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_dessert.png">
+                </div>
+                <h3>Dessert</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_fastfood.png">
+                </div>
+                <h3>Fast Food</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_Seafood.png">
+                </div>
+                <h3>Sea Food</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_chinese.png">
+                </div>
+                <h3>Chinese</h3>
+            </div>
+            <div class="category ion-text-center animate__animated animate__zoomIn" (click)="stores()">
+                <div class="img_box">
+                    <img src="assets/images/ic_dessert.png">
+                </div>
+                <h3>Dessert</h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="offers_for_you animate__animated animate__fadeInUp">
+        <h2 class="d-flex" (click)="offers()">{{'offers_for_you' | translate}} <span class="end">{{'see_all' | translate}}</span></h2>
+        <div class="scroll_container">
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_1.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_2.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_1.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_2.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_1.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_2.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_1.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_2.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_1.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_2.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_1.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_2.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_1.png" class="crop_img">
+            </div>
+            <div class="offer center_img" (click)="offers()">
+                <img src="assets/images/banner_2.png" class="crop_img">
+            </div>
+        </div>
+    </div>
+
+
+    <ion-list class="animate__animated animate__fadeInUp" lines="none">
+        <h2 class="d-flex" (click)="stores()">{{'quick_deliveries' | translate}} <span class="end">{{'see_all' | translate}}</span></h2>
+        <div class="scroll_container">
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+        </div>
+    </ion-list>
+
+
+
+    <ion-list class="animate__animated animate__fadeInUp" lines="none">
+        <h2 class="d-flex" (click)="stores()">{{'best_rated' | translate}} <span class="end">{{'see_all' | translate}}</span></h2>
+        <div class="scroll_container">
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+        </div>
+    </ion-list>
+
+    <ion-list class="animate__animated animate__fadeInUp" lines="none">
+        <h2 class="d-flex" (click)="stores()">{{'recent_searches' | translate}} <span class="end">{{'see_all' | translate}}</span></h2>
+        <div class="scroll_container">
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_1.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food Junction</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_2.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Hunger Spot</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_3.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Food by Jesica</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_4.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Fishchef</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                2.4 km | Fish Street
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+            <div class="list_inner">
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_5.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Seven Star Restro</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+
+                <ion-item (click)="items()">
+                    <div class="item_inner d-flex">
+                        <div class="img_box center_img">
+                            <img src="assets/images/rs_6.png" class="crop_img">
+                        </div>
+                        <div class="text_box">
+                            <h3>Operum Food Plaza</h3>
+                            <h4>Fast Food, Italian, Chinese</h4>
+                            <h4 class="d-flex">
+                                <ion-icon class="zmdi zmdi-pin ion-text-start"></ion-icon>
+                                5.6 km | City Food Park
+                            </h4>
+                        </div>
+                    </div>
+                </ion-item>
+            </div>
+        </div>
+    </ion-list>
+</ion-content>
