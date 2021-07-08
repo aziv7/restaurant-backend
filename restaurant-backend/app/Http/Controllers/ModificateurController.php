@@ -17,6 +17,7 @@ class ModificateurController extends Controller
     {
         $request->validate([
             'nom' => 'required',
+            'prix' => 'required',
 
         ]);
         return Modificateur::create($request->all());
@@ -32,33 +33,6 @@ class ModificateurController extends Controller
         $modificateur = Modificateur::find($id);
         $modificateur->update($request->all());
         return $modificateur;
-    }
-
-    public function getIngredients($id)
-    {
-        $modificateur = Modificateur::find($id);
-
-
-
-
-        return $modificateur->ingredients;
-    }
-
-
-
-
-    public function getPlats(Request $request, $id)
-    {
-        $modificateur = Modificateur::find($id);
-
-
-
-
-        return $modificateur->plats;
-    }
-    public function getSupplements($id)
-    {
-        return Modificateur::find($id)->supplements;
     }
 
     public function destroy($id)

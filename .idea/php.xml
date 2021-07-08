@@ -138,6 +138,8 @@
       <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/dns" />
       <path value="$PROJECT_DIR$/restaurant-backend/vendor/react/cache" />
       <path value="$PROJECT_DIR$/restaurant-backend/vendor/pusher/pusher-php-server" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/laravel/socialite" />
+      <path value="$PROJECT_DIR$/restaurant-backend/vendor/league/oauth1-client" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />

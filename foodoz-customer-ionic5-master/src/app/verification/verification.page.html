@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button text="" icon="chevron-back-outline"></ion-back-button>
+        </ion-buttons>
+        <ion-title>
+            {{'verification' | translate}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen class="content">
+    <div class="form">
+        <ion-list lines="none">
+           <!-- <h2 class="animate__animated animate__fadeInUp"> {{'enter_verification_code__we_ve_sent_on_given_number' | translate}}.</h2>
+            <ion-item class="animate__animated animate__fadeInUp" lines="none">
+                <div class="item_inner d-flex">
+&lt;!&ndash;                    <div class="icon_box ion-text-start"><img src="assets/images/ic_profile.png"></div>&ndash;&gt;
+                    <div class="input_box">
+                        <ion-label mode="md" position="stacked">{{"enter_verification_code" | translate}}</ion-label>
+                        <ion-input mode="md" type="name" placeholder="" value="578410"></ion-input>
+                    </div>
+                </div>
+            </ion-item>-->
+            <div class="Aligner">
+                <div class="Aligner-item Aligner-item--top">
+                    <img src="assets/images/jh.png">
+                </div>
+            </div>
+            <div class="Aligner">
+            <div class="Aligner-item Aligner-item--bottom"><h2 style="text-align: center;">{{'you have successfully registred to our application' | translate}}                </h2>
+                </div>
+          </div>
+    </ion-list>
+    </div>
+</ion-content>
+<ion-footer class="ion-no-border animate__animated animate__fadeInUp">
+    <ion-button size="large" expand="full" class="btn" (click)="set_location()">{{'back to home' | translate}}</ion-button>
+</ion-footer>

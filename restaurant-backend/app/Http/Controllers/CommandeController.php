@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Commande;
+use App\Models\custom;
 use App\Models\Ingredient;
 use App\Models\Modificateur;
 use App\Models\Plat;
@@ -15,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use MongoDB\BSON\Timestamp;
+use PayPal\Api\CustomAmount;
 use PhpParser\Node\Expr\Array_;
 
 class CommandeController extends Controller
@@ -26,53 +28,8 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('plat','user','plat.modificateurs','plat.modificateurs.ingredients')->get();
-        //sajjil ya tari5 3 ayyem lehna
-        
-        /*foreach ($commandes as $i => $cmd) {
-            foreach ($cmd->plat as $j => $plat) {
-                $p =Plat::with('modificateurs')
-                    ->where('id','like',$plat->id)
-                    ->first();
-                $plat = $p;
-                $commandes[$i]->plat[$j]= $p;
-                foreach ($plat->modificateurs as $k => $modif) {
-                    $m = Modificateur::with('ingredients')
-                        ->where('id', 'like',$modif->id)
-                        ->first();
-                    $commandes[$i]->plat[$j]->modificateurs[$k] = $m;
-                }
-            }
-        }*/
-        /*$commandes = DB::table('commandes')
-            ->join('commande_plats', 'commandes.commande_id', '=', 'commande_plats.commande_id')
-            ->leftJoin('plats', 'commande_plats.plat_id', '=', 'plats.id')
-            ->select('commandes.*','commande_plats.*','plats.*')
-            ->groupBy('commandes.commande_id')
-            ->get();*/
+        $commandes = Commande::with('plat','user','plat.customs','plat.customs.ingredients')->get();
 
-        //$commandes = DB::select('select * from commandes as C, commande_plats as CP, plats as P where C.commande_id = CP.commande_id and CP.plat_id = P.id group by C.commande_id');
-        /*$plats = DB::table('commande_plats')->select('plat_id');
-        $commandes = DB::table('commandes')
-            ->joinSub($plats, 'commande_plats', function ($join) {
-                $join->on('commande_plats.plat_id', '=', 'plats.id');
-            })->get();*/
-        /*$commandes = DB::table('commandes')
-            ->leftjoin('commande_plats', 'commandes.commande_id', '=', 'commande_plats.commande_id')
-            ->leftjoin('plats', 'commande_plats.plat_id', '=', 'plats.id')
-            ->select('commandes.*', 'plats.*')->groupBy("commande_plats.commande_id")
-            ->get();*/
-
-
-        /*$commandes=DB::table('commandes','C')
-            ->leftjoin('commande_plats as CP', function($join) {
-                $join->on('C.commande_id', '=', 'CP.commande_id');
-            })
-            ->leftjoin('plats as P', function($join) {
-                $join->on('CP.plat_id', '=', 'P.id');
-            })
-            ->groupBy('C.user_id')
-            ->get();*/
 
         return $commandes;
     }
@@ -87,7 +44,6 @@ class CommandeController extends Controller
     {
         $commande = new Commande();
         $commande->user_id = Auth::id();
-        $commande->prix = $request->prix;
         $commande->created_at = Carbon::now();
         $creation_datetime_string = $commande->created_at->toDateTimeString();
         //je vais avoir une liste des id des plats choisits pour les affecter au commande
@@ -101,15 +57,37 @@ class CommandeController extends Controller
         $chaine = ($request->user_id + $somme_plat_id) * 357;
         $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
         $commande->commande_id = Hash::make($chaine_string);
+        $commande->prix_total =0;
 
         //création de commande sans plats
         DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement) values (?,?,?,?,?)', [$commande->commande_id, $commande->user_id, $commande->created_at, "2021-06-25", "1993-04-29"]);
-        // affectation des plats au commande
-        foreach ($list_plat_id as $plat_id) {
-            //fetch plat by id of plat sending in request
-            $plat = Plat::find($plat_id);
+        $custom = new custom();
+        // affectation des plats sans modificateur au commande
+        foreach ($request->plats as $i=> $plat) {
+            var_dump($plat["prix"]);
+            $commande->prix_total = $commande->prix_total + $plat["prix"];
             //affecter le plat à la commande
             $commande->plat()->attach($plat);
+            //parcourir les plats pour traiter les customs
+            foreach ($request->modificateurs as $modificateur) {
+                $custom->nom = $modificateur["nom"];
+                $custom->prix = $modificateur["prix"];
+                //insertion du custom dans la base
+                $custom= custom::create($modificateur);
+                //affectation du custm au plat
+                $plat1 = Plat::find($plat['id']);
+                $plat1->customs()->attach($custom);
+                $commande->prix_total = $commande->prix_total + $modificateur["prix"];
+                //parcourir les modificateurs pour traiter les ingrédients
+                foreach ($request->ingredients as $ingredient) {
+                    $ing = Ingredient::find($ingredient["id"]);
+                    //affecter ingrédient à son custom
+                    $custom->ingredients()->attach($ing);
+                    $commande->prix_total = $commande->prix_total + $ingredient["prix"];
+                }
+                //inserer le prix total dans la db
+                DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $commande->commande_id]);
+            }
         }
     }
 

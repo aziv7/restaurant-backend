@@ -28,6 +28,7 @@ class CreateCommandesTable extends Migration
             $table->foreign('code_reduction_id')->references('id')->on('code_reductions')->onDelete('cascade');
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
+            $table->double('prix_total')->nullable();
         });
     }
 

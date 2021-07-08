@@ -144,6 +144,8 @@
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/dns" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/react/cache" />
       <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/pusher/pusher-php-server" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/laravel/socialite" />
+      <excludeFolder url="file://$MODULE_DIR$/restaurant-backend/vendor/league/oauth1-client" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

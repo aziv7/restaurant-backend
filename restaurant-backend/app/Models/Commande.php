@@ -22,7 +22,8 @@ class Commande extends Model
         'user_id',
         'code_reduction_id',
         'created_at',
-        'updated_at'
+        'updated_at',
+        'prix_total'
     ];
 
     public function code_reduction()
