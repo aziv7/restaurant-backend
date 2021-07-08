@@ -11,7 +11,8 @@ class Modificateur extends Model
     use HasFactory;
     use SoftDeletes;
     protected $fillable = [
-        'nom', 'prix'
+        'nom',
+        'prix'
     ];
 
     public function plats()
