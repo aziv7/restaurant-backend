@@ -28,10 +28,6 @@ use App\Http\Controllers\CodeReductionController;
 |
 */
 
-
-
-
-Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -49,13 +45,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware(['json.response'])->group(function () {
     //***************************             USER           *************************//
-    Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
-    Route::post('/login', [UserController::class, 'login']);
+    Route::post('register', [\App\Http\Controllers\Auth\RegisterController::class, 'store'])->name('register');
+    Route::post('login', [UserController::class, 'login']);
     Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
     Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
     Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
     //***************************            modificateur          *************************//
-
+Route::get('push-test', function () {
+    broadcast(new test());
+});
 
     Route::get('modificateur/{id}', [ModificateurController::class, 'show']);
     Route::get('modificateur', [ModificateurController::class, 'index']);
@@ -82,6 +80,12 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('categorie/{id}', [CategorieController::class, 'show']);
     Route::get('categorie', [CategorieController::class, 'index']);
+    //***************************            Stripe          *************************//
+    Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
+
+
+
+
 });
 
 
@@ -96,7 +100,7 @@ Route::middleware(['json.response'])->group(function () {
 */
 
 
-Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
+Route::middleware(['auth:sanctum','json.response'])->group(function () {
 
     //***************************            User          *************************//
 
@@ -126,10 +130,13 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
 
     //***************************            Commande          *************************//
 
-    Route::get('commande/{id}', [CommandeController::class, 'show']);
-    Route::post('commande', [CommandeController::class, 'store']);
+    Route::get('commande/{id}', [CommandeController::class,'show']);
+    Route::post('commande', [CommandeController::class,'store']);
+
+
+
 });
-Route::get('/stripe', [\App\Http\Controllers\StripeController::class, 'getbananas']);
+Route::get('/stripe', [\App\Http\Controllers\StripeController::class,'getbananas']);
 
 /*
 |--------------------------------------------------------------------------
@@ -140,7 +147,7 @@ Route::get('/stripe', [\App\Http\Controllers\StripeController::class, 'getbanana
 |
 */
 
-Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function () {
+Route::middleware(['auth:sanctum', 'admin','json.response'])->group(function () {
 
     //***************************           User        *************************//
 
@@ -150,58 +157,59 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     //***************************           Roles         *************************//
 
-    Route::put('/role/{role_id}/{user_id}', [RoleController::class, 'addRoleUser']);
+    Route::put('/role/{role_id}/{user_id}',[RoleController::class,'addRoleUser']);
     Route::get('/role/{nom}', [RoleController::class, 'search']);
     Route::resource('role', RoleController::class);
 
     //***************************            Ingrédient          *************************//
 
-    Route::put('ingredient/{id}', [IngredientController::class, 'update']);
-    Route::post('ingredient', [IngredientController::class, 'store']);
-    Route::delete('ingredient/{id}', [IngredientController::class, 'destroy']);
+    Route::put('ingredient/{id}', [IngredientController::class,'update']);
+    Route::post('ingredient', [IngredientController::class,'store']);
+    Route::delete('ingredient/{id}', [IngredientController::class,'destroy']);
     Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
-    Route::put('affectingredientmodificateur/{modificateur_id}/{ingredient_id}', [ModificateurController::class, 'affectIngredientToModificateur']);
+
     //***************************            Supplement          *************************//
 
-    Route::post('supplement', [SupplementController::class, 'store']);
-    Route::put('supplement/{id}', [SupplementController::class, 'update']);
-    Route::delete('supplement/{id}', [SupplementController::class, 'destroy']);
+    Route::post('supplement', [SupplementController::class,'store']);
+    Route::put('supplement/{id}', [SupplementController::class,'update']);
+    Route::delete('supplement/{id}', [SupplementController::class,'destroy']);
 
     //***************************            modificateur          *************************//
 
-    Route::post('modificateur',  [ModificateurController::class, 'store']);
-    Route::put('modificateur/{id}',  [ModificateurController::class, 'update']);
-    Route::delete('modificateur/{id}',  [ModificateurController::class, 'destroy']);
-    Route::put('affectModificateurToPlat/{id_plat}/{id_modificateur}', [PlatController::class, 'addPlatToModificateur']);
+    Route::post('modificateur',  [ModificateurController::class,'store']);
+    Route::put('modificateur/{id}',  [ModificateurController::class,'update']);
+    Route::delete('modificateur/{id}',  [ModificateurController::class,'destroy']);
+
+
 
 
     //***************************            Categorie         *************************//
 
-    Route::post('categorie', [CategorieController::class, 'store']);
-    Route::put('categorie/{id}', [CategorieController::class, 'update']);
-    Route::delete('categorie/{id}', [CategorieController::class, 'destroy']);
+    Route::post('categorie', [CategorieController::class,'store']);
+    Route::put('categorie/{id}', [CategorieController::class,'update']);
+    Route::delete('categorie/{id}', [CategorieController::class,'destroy']);
     Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
 
 
     //***************************           Plat        *************************//
 
-    Route::post('plat/{id}/image', [PlatController::class, 'addImageToPlat']);
-    Route::post('plat',  [PlatController::class, 'store']);
-    Route::put('plat/{id}',  [PlatController::class, 'update']);
-    Route::delete('plat/{id}',  [PlatController::class, 'destroy']);
-    Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost']);
-    Route::post('plat/{plat_id}/modificateur/{modificateur_id}', [PlatController::class, 'addPlatToModificateur']);
-    Route::post('plat/{id}/supplement/{supplement_id}', [PlatController::class, 'addSupplementToPlat']);
+    Route::post('plat/{id}/image', [ PlatController::class, 'addImageToPlat' ]);
+    Route::post('plat',  [PlatController::class,'store']);
+    Route::put('plat/{id}',  [PlatController::class,'update']);
+    Route::delete('plat/{id}',  [PlatController::class,'destroy']);
+    Route::post('image-upload', [ ImageUploadController::class, 'imageUploadPost' ]);
+    Route::post('plat/{plat_id}/modificateur/{modificateur_id}',[PlatController::class, 'addPlatToModificateur'] );
+    Route::post('plat/{id}/supplement/{supplement_id}',[PlatController::class, 'addSupplementToPlat'] );
 
 
     //***************************           Commande        *************************//
 
     Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
-    Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']); //even the deleted ones
-    Route::get('commande', [CommandeController::class, 'index']);
-    Route::put('commande/{id}', [CommandeController::class, 'update']);
-    Route::delete('commande/{id}', [CommandeController::class, 'destroy']);
-    Route::get('verifcommand/{id}', [CommandeController::class, 'VerifCommande']);
+    Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']);//even the deleted ones
+    Route::get('commande', [CommandeController::class,'index']);
+    Route::put('commande/{id}', [CommandeController::class,'update']);
+    Route::delete('commande/{id}', [CommandeController::class,'destroy']);
+    Route::get('verifcommand/{id}', [CommandeController::class,'VerifCommande']);
 
     //***************************          Code de reduction       *************************//
 
@@ -212,5 +220,8 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::resource('codereduction', CodeReductionController::class);
     Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
     Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
-    Route::put('/affectcode/{id_reduction}/{id_user}', [CodeReductionController::class, 'AffecterUserReduction']);
+    Route::put('/affectcode/{id_reduction}/{id_user}',[CodeReductionController::class,'AffecterUserReduction']);
+
+
 });
+
