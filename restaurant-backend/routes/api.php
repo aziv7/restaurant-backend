@@ -83,7 +83,10 @@ Route::get('push-test', function () {
     //***************************            Stripe          *************************//
     Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
 
+    //***************************            Plat          *************************//
+    //***************************            code reduction          *************************//
 
+    Route::get('reduction/{code}/{prix}', [CodeReductionController::class, 'Reduction']);
 
 
 });
