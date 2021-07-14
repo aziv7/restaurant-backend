@@ -17,7 +17,6 @@ class CreateIngredientsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->integer('quantite');
-            $table->string('image');
             $table->double('prix', 6, 3);
             $table->timestamps();
             $table->softDeletes();

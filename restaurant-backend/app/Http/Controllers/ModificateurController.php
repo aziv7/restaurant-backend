@@ -10,7 +10,7 @@ class ModificateurController extends Controller
 {
     public function index()
     {
-        return Modificateur::all();
+        return Modificateur::with('plats', 'ingredients', 'plats.images')->get();
     }
 
     public function store(Request $request)
@@ -28,9 +28,9 @@ class ModificateurController extends Controller
         return Modificateur::find($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $modificateur = Modificateur::find($id);
+        $modificateur = Modificateur::find($request->id);
         $modificateur->update($request->all());
         return $modificateur;
     }
@@ -53,9 +53,7 @@ class ModificateurController extends Controller
 
     public function affectIngredientToModificateur($modificateur_id, $ingredient_id) {
         $modificateur = Modificateur::find($modificateur_id);
-        var_dump($modificateur->nom);
         $ingredient = Ingredient::find($ingredient_id);
-        var_dump($ingredient->nom);
         $modificateur->ingredients()->attach($ingredient);
     }
 }

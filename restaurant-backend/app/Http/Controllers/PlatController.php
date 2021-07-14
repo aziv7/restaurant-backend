@@ -19,7 +19,7 @@ class PlatController extends Controller
 {
     public function index()
     {
-        return Plat::with('modificateurs')->get();
+        return Plat::with('modificateurs', 'images')->get();
     }
 
     public function store(Request $request)
@@ -33,16 +33,29 @@ class PlatController extends Controller
         ]);
         $plat = Plat::create([
             'nom' => $request->get('nom'),
-            'prix' => $request->get('prix'), 'description' => $request->get('description'),
-        ]);
-        $image = Image::create([
-            'nom' => $request->get('image-name'),
-            'src' => $request->get('image-src'), 'plat_id' => $plat->id
+            'prix' => $request->get('prix'),
+            'description' => $request->get('description'),
         ]);
 
-        if ($plat) {
-            broadcast(new Test($plat));
+        /*foreach ($request->get('image-name') as $i => $item) {
+            var_dump($i);
+            var_dump($item);
+            var_dump($request->get('image-src')[$i]);
+        }*/
+
+        foreach ($request->get('image-name') as $i => $item) {
+            $image_name = $item;
+            $image_src = $request->get('image-src')[$i];
+            Image::create([
+                'nom' => $image_name,
+                'src' => $image_src,
+                'plat_id' => $plat->id
+            ]);
         }
+
+        /*if ($plat) {
+            broadcast(new Test($plat));
+        }*/
         return $plat;
     }
 
@@ -57,7 +70,8 @@ class PlatController extends Controller
         $plat = Plat::find($id);
         $image = Image::create([
             'nom' => $request->get('image-name'),
-            'src' => $request->get('image-src'), 'plat_id' => $plat->id
+            'src' => $request->get('image-src'),
+            'plat_id' => $plat->id
         ]);
 
 
@@ -78,9 +92,20 @@ class PlatController extends Controller
         return $plat->supplements;
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $plat = Plat::find($id);
+        $plat = Plat::find($request->get('id'));
+        if ($request->get('image-src')) {
+            foreach ($request->get('image-name') as $i => $item) {
+                $image_name = $item;
+                $image_src = $request->get('image-src')[$i];
+                Image::create([
+                    'nom' => $image_name,
+                    'src' => $image_src,
+                    'plat_id' => $plat->id
+                ]);
+            }
+        }
         $plat->update($request->all());
         return $plat;
     }
