@@ -20,8 +20,6 @@ class CreateModificateursTable extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
-
-
     }
 
     /**

@@ -74,6 +74,7 @@ class CodeReductionController extends Controller
         return $code;
     }
 
+
     public function destroy($id)
     {
         if (CodeReduction::destroy($id) == 0) {
@@ -152,7 +153,7 @@ class CodeReductionController extends Controller
                 return response(array(
                     'message' => 'Code Reduction invalid',
                 ), 406);
-            }
+            }var_dump('true');
             return true;
         }
         return response(array(
@@ -160,6 +161,21 @@ class CodeReductionController extends Controller
         ), 404);
     }
 
+    /**
+     * Reduction prix  if valid
+     **/
+
+    public function Reduction($code,$prix){
+if($this->VerifCode($code)==true)
+{$codered=$this->searchByCodeExact($code);
+    $prixreduit=($prix*$codered->taux_reduction)/100;var_dump($prixreduit);
+    $prixfinal=$prix-$prixreduit;
+    return $prixfinal;
+}
+    else    return response(array(
+            'message' => 'Code Reduction Not Found',
+        ), 404);
+    }
     /**
      * display all deleted codes
      **/
@@ -184,6 +200,8 @@ class CodeReductionController extends Controller
     {
         $codered = CodeReduction::find($id_reduction);
         $user = User::find($id_user);
+        if($codered->user_id!=null)
+            CodeReduction::destroy($codered->id);
         if (!$codered) {
             return response(array(
                 'message' => 'Code Reduction Not Found',
