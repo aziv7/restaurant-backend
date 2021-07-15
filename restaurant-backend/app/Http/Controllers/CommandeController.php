@@ -28,9 +28,8 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('plat','user','plat.customs','plat.customs.ingredients')->get();
-
-
+        $commandes = Commande::with('plat','user','plat.customs','plat.customs.ingredients')
+            ->get();
         return $commandes;
     }
 
@@ -143,16 +142,11 @@ class CommandeController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $commande = Commande::find($id);
-        if (!$commande) {
-            return response(array(
-                'message' => 'Commande Not Found',
-            ), 404);
-        }
-        $commande->update($request->all());
-        return $commande;
+        DB::table('commandes')
+            ->where('commande_id', $request->commande_id)
+            ->update(['status' => $request->status]);
     }
 
     /**

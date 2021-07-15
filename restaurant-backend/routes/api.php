@@ -13,8 +13,6 @@ use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SupplementController;
 
-
-
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CodeReductionController;
 /*
@@ -157,7 +155,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     //***************************            Ingrédient          *************************//
 
-    Route::put('ingredient/{id}', [IngredientController::class, 'update']);
+    Route::put('ingredient', [IngredientController::class, 'update']);
     Route::post('ingredient', [IngredientController::class, 'store']);
     Route::delete('ingredient/{id}', [IngredientController::class, 'destroy']);
     Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
@@ -171,7 +169,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     //***************************            modificateur          *************************//
 
     Route::post('modificateur',  [ModificateurController::class, 'store']);
-    Route::put('modificateur/{id}',  [ModificateurController::class, 'update']);
+    Route::put('modificateur',  [ModificateurController::class, 'update']);
     Route::delete('modificateur/{id}',  [ModificateurController::class, 'destroy']);
     Route::put('affectModificateurToPlat/{id_plat}/{id_modificateur}', [PlatController::class, 'addPlatToModificateur']);
 
@@ -188,7 +186,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     Route::post('plat/{id}/image', [PlatController::class, 'addImageToPlat']);
     Route::post('plat',  [PlatController::class, 'store']);
-    Route::put('plat/{id}',  [PlatController::class, 'update']);
+    Route::put('plat',  [PlatController::class, 'update']);
     Route::delete('plat/{id}',  [PlatController::class, 'destroy']);
     Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost']);
     Route::post('plat/{plat_id}/modificateur/{modificateur_id}', [PlatController::class, 'addPlatToModificateur']);
@@ -200,7 +198,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::get('/deletecommandes', [CommandeController::class, 'DisplayDeletedCommand']);
     Route::get('/allcommandes', [CommandeController::class, 'DisplayAllCommand']); //even the deleted ones
     Route::get('commande', [CommandeController::class, 'index']);
-    Route::put('commande/{id}', [CommandeController::class, 'update']);
+    Route::put('commande', [CommandeController::class, 'update']);
     Route::delete('commande/{id}', [CommandeController::class, 'destroy']);
     Route::get('verifcommand/{id}', [CommandeController::class, 'VerifCommande']);
 
@@ -214,4 +212,10 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
     Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
     Route::put('/affectcode/{id_reduction}/{id_user}', [CodeReductionController::class, 'AffecterUserReduction']);
+
+    //***************************          STATISTICS       *************************//
+
+    // this one is for current year
+    ROUTE::get('totalpermonththisyear', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMontheCurrentYear']);
+    ROUTE::get('totalpermonth/{year}', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMonthe']);
 });

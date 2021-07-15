@@ -185,7 +185,8 @@ catch (Throwable $e){
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $response = [
-            'user'=> $user,
+            'jwt'=> $token,
+            'user'=> $user
         ];
         return response($response, 201)->withCookie($cookie);
     }
@@ -198,7 +199,6 @@ catch (Throwable $e){
         $cookie = \Cookie::forget('jwt');
         $user = request()->user();
         $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
-
         return response([
             'message' => 'Success'
         ])->withCookie($cookie);

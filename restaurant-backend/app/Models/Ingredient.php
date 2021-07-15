@@ -14,7 +14,9 @@ class Ingredient extends Model
     protected $fillable = [
         'nom',
         'prix',
-        'quantite', 'type', 'stock', 'image'
+        'quantite',
+        'type',
+        'stock'
     ];
 
     public function modificateurs()

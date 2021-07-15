@@ -11,9 +11,9 @@ use BenSampo\Enum\Enum;
  */
 final class Statut extends Enum
 {
-    const non_vue=0;
-    const en_cours =   1;
+    const non_vue = 0;
+    const en_cours = 1;
     const pret = 2;
-    const  traite=3;
-    const annulee=4;
+    const  traite = 3;
+    const annulee = 4;
 }

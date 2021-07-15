@@ -34,9 +34,9 @@ class IngredientController extends Controller
         return Ingredient::find($id);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $ingredient = Ingredient::find($id);
+        $ingredient = Ingredient::find($request->id);
         $ingredient->update($request->all());
         return $ingredient;
     }
