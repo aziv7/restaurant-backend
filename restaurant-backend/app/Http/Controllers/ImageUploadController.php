@@ -17,23 +17,20 @@ class ImageUploadController extends Controller
 
         ]);
 
-    
 
-        $imageName = time().'.'.$request->image->extension();  
 
-     
+        $imageName = time() . '.' . $request->image->extension();
 
-        $request->image->move(public_path('images'), $imageName);
+        $filePath = $request->image->storeAs('public', $imageName);
 
-  
+        /*  $request->image->move(public_path('images'), $imageName);*/
+
+
 
         /* Store $imageName name in DATABASE from HERE */
 
-    
 
-        return 'images/'.$imageName; 
 
+        return 'images/' . $imageName;
     }
-
-
 }
