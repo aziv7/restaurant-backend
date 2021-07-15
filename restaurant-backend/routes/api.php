@@ -81,6 +81,8 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('categorie/{id}', [CategorieController::class, 'show']);
     Route::get('categorie', [CategorieController::class, 'index']);
+    //***************************            Stripe          *************************//
+    Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
 });
 
 
