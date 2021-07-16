@@ -128,6 +128,7 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     Route::post('commande', [CommandeController::class, 'store']);
 });
 Route::get('/stripe', [\App\Http\Controllers\StripeController::class, 'getbananas']);
+Route::get('/stripecharges', [\App\Http\Controllers\StripeController::class, 'charges']);
 
 /*
 |--------------------------------------------------------------------------

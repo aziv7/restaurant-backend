@@ -25,4 +25,12 @@ class StripeController extends Controller
             'description' => 'payment',
         ]);
     }
+
+    public function charges(Request $request){
+        $stripe = new \Stripe\StripeClient(
+            'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
+        );
+
+        return  $stripe->charges->all();
+    }
 }
