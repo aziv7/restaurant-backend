@@ -31,6 +31,6 @@ class ImageUploadController extends Controller
 
 
 
-        return 'images/' . $imageName;
+        return  $imageName;
     }
 }
