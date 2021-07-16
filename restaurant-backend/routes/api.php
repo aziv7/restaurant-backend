@@ -29,6 +29,7 @@ use App\Http\Controllers\CodeReductionController;
 
 
 
+
 Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -80,6 +81,10 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('categorie/{id}', [CategorieController::class, 'show']);
     Route::get('categorie', [CategorieController::class, 'index']);
+    //***************************            Stripe          *************************//
+    Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
+
+
 });
 
 
