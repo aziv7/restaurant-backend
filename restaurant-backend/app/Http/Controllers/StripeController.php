@@ -18,11 +18,25 @@ class StripeController extends Controller
             'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
         );
 
-       return  $stripe->charges->create([
+        
+      $pay= $stripe->charges->create([
             'amount' => 2000,
             'currency' => 'eur',
             'source' => $request->token,
             'description' => 'payment',
-        ]);
+      ]);
+    return   $response = [ 'checkout'=>$pay,
+        'prixtotal'=> $request->prixtot,
+        'cart'=>$request->card
+    ];
+      
+    }
+
+    public function charges(Request $request){
+        $stripe = new \Stripe\StripeClient(
+            'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
+        );
+
+        return  $stripe->charges->all();
     }
 }
