@@ -8,13 +8,10 @@ use Illuminate\Support\Facades\DB;
 
 class statisticsController extends Controller
 {
-    public function getTotalPricesPerMontheCurrentYear() {
-
-        return DB::select("SELECT SUM(prix_total) as CA, MONTH(created_at) as Month FROM `commandes` WHERE YEAR(created_at)= YEAR(SYSDATE()) GROUP BY MONTH(created_at)");
-    }
-
-    public function getTotalPricesPerMonthe($year) {
-
-        return DB::select("SELECT SUM(prix_total) as CA, MONTH(created_at) as Month FROM `commandes` WHERE YEAR(created_at)= $year GROUP BY MONTH(created_at)");
+    public function getTotalPricesPerMonthe($year)
+    {
+        $statut = 'annulee';
+        return DB::select("SELECT SUM(prix_total) as CA, MONTH(created_at) as Month FROM `commandes` WHERE YEAR(created_at)= $year and status not LIKE 'annulee' GROUP BY MONTH(created_at)
+");
     }
 }

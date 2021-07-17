@@ -40,9 +40,9 @@ class CategorieController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $categorie = Categorie::find($id);
+        $categorie = Categorie::find($request->id);
         $categorie->update($request->all());
         return $categorie;
     }
