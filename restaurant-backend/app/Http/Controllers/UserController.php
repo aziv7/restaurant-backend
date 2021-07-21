@@ -187,12 +187,12 @@ catch (Throwable $e){
                 'message' => 'verify your email',
             ), 403);
         }
-        //succés
-        $token = $user->createToken('my-app-token')->plainTextToken;
+        $user_test=User::with(['img'])->where('id',$user->id)->get()->first();//var_dump($user_test);
+        $token = $user->createToken('my-app-token')->plainTextToken; 
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $response = [
             'jwt'=> $token,
-            'user'=> $user
+            'user'=> $user_test
         ];
         return response($response, 201)->withCookie($cookie);
     }
@@ -231,6 +231,10 @@ $coor=CoordonneesAuthentification::where('login', '=',$newCoordonne->login)->fir
 //var_dump($newCoordonne);
 }
         $newUser->save();
+        $userr=User::where('email', '=',$newUser->email)->first();
+
+        DB::insert('insert into images (user_id, src,nom) values (?, ?,?)', [$userr->id, $request->imageUrl, 'google']);
+      
         $newUser->coordonneesAuthentification()->save($newCoordonne);
                         /************ donner le role Costumer****************/
 
@@ -241,7 +245,7 @@ $coor=CoordonneesAuthentification::where('login', '=',$newCoordonne->login)->fir
 
         Mail::to($newUser->email)->send(new googleSignup($newCoordonne->login,$passwordCoo,$newUser->email));  
     }
-    $user =User::with(['CoordonneesAuthentification'])->where('id',Auth::id())->get()->first();
+    $user =User::with(['CoordonneesAuthentification','img'])->where('id',Auth::id())->get()->first();
     $token = $user->createToken('my-app-token')->plainTextToken;
     $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
    
