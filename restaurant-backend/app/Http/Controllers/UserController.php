@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Mail\googleSignup;
+use App\Http\Controllers\RoleController;
 use App\Models\CoordonneesAuthentification;
 use App\Models\Image;
 use App\Models\RoleUser;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -12,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Throwable;
 
 class UserController extends Controller
@@ -102,12 +105,15 @@ try{        $coordonnesauth=CoordonneesAuthentification::where('user_id', 'like'
     $coordonnesauthh->password=$coordonnesauth->password;
     var_dump($coordonnesauthh);
      try{
+         if($request->input('password'))
          $coordonnesauthh->password=Hash::make($request->input('password'));
 
      }catch (Throwable $e){
         // var_dump('there is no passwor');
      }
     try{
+        if($request->input('login'))
+
         $coordonnesauthh->login=$request->input('login');
 
     }catch (Throwable $e){
@@ -190,6 +196,80 @@ catch (Throwable $e){
         ];
         return response($response, 201)->withCookie($cookie);
     }
+   
+   /**
+     * login or register by Google
+     *
+     */
+
+   
+public function GoogleSignIn(Request $request)
+{
+    $existingUser = User::where('email', $request->email)->first();
+    if($existingUser){
+        auth()->login($existingUser, true);
+    } else {
+        $newUser                  = new User;
+        $newCoordonne=new CoordonneesAuthentification;
+        $newUser->prenom          = $request->givenName;
+$newCoordonne->login=$request->displayName;
+$passwordCoo=$this->randomPassword(); //generate random pwd
+$newCoordonne->password=Hash::make($passwordCoo);
+//var_dump($passwordCoo);//var_dump($newCoordonne);
+
+        $newUser->nom             = $request->familyName;
+        $newUser->email           = $request->email;
+$newUser->image=$request->imageUrl;
+$newUser->is_verified=1;
+//search if login exist else add some caracter
+
+$coor=CoordonneesAuthentification::where('login', '=',$newCoordonne->login)->first();
+while($coor)
+{
+$newCoordonne->login=$newCoordonne->login.(string)rand(0,20000);
+$coor=CoordonneesAuthentification::where('login', '=',$newCoordonne->login)->first();
+//var_dump($newCoordonne);
+}
+        $newUser->save();
+        $newUser->coordonneesAuthentification()->save($newCoordonne);
+                        /************ donner le role Costumer****************/
+
+        $role_costumer =Role::where(['nom_des_roles' =>'costumer'])->first();//search for the role id of costumer
+        $newUser->roles()->save($role_costumer);
+        auth()->login($newUser, true);// var_dump($newCoordonne->password);
+                /************ send email to the user containg login et pwd****************/
+
+        Mail::to($newUser->email)->send(new googleSignup($newCoordonne->login,$passwordCoo,$newUser->email));  
+    }
+    $user =User::with(['CoordonneesAuthentification'])->where('id',Auth::id())->get()->first();
+    $token = $user->createToken('my-app-token')->plainTextToken;
+    $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
+   
+    $response = [   'jwt'=> $token,
+        'user'=> $user,
+    ];
+    //var_dump($user->google_id);
+    return response($response, 201)->withCookie($cookie);
+}
+
+function randomPassword() {
+    $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+    $pass = array(); //remember to declare $pass as an array
+    $alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+    for ($i = 0; $i < 8; $i++) {
+        $n = rand(0, $alphaLength);
+        $pass[] = $alphabet[$n];
+    }
+    return implode($pass); //turn the array into a string
+}
+   
+   
+   
+   
+   
+   
+   
+   
     /**
      * Delete the cookie
      *

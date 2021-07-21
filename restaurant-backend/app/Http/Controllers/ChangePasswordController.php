@@ -21,7 +21,6 @@ class ChangePasswordController extends Controller
     private function updatePasswordRow($request){
         $user= DB::table('users')->where('email' , $request->email)->first();
         if($user) {
-
                 return  DB::table('coordonnees_authentifications')
                     ->where('user_id' , $user->id);
 
@@ -39,14 +38,15 @@ class ChangePasswordController extends Controller
     private function resetPassword($request) {
         // find email
         $userData = DB::table('users')->where('email', $request->email)->first();
+        var_dump($userData);
         //finding coordonnees_authentification of this user
         if($userData) {
             $coordauth = DB::table('coordonnees_authentifications')->where('user_id', $userData->id)->first();
-            var_dump($coordauth->password);
+            var_dump($coordauth);
             if($coordauth) {
                 // update password and reset token
-                DB::table('coordonnees_authentifications')->update([
-                    'user_id' => $userData->id,
+                DB::table('coordonnees_authentifications')->where('user_id', $userData->id)->update([
+                
                     'password'=>Hash::make($request->password),
                     'token' => null
                 ]);

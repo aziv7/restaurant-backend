@@ -24,7 +24,7 @@ class PasswordResetRequestController extends Controller
 
     public function send($email)  //this is a function to send mail
     {
-        $token = $this->createToken($email);
+        $token = $this->createToken($email);//var_dump($token);
         Mail::to($email)->send(new SendMailreset($token, $email));  // token is important in send mail
     }
 
@@ -45,8 +45,7 @@ class PasswordResetRequestController extends Controller
 
     public function saveToken($token,$user_id)  // this function save new password
     {
-        DB::table('coordonnees_authentifications')->update([
-            'user_id' => $user_id,
+        DB::table('coordonnees_authentifications')->where('user_id', $user_id)->update([
             'token' => $token,
             'created_at' => Carbon::now()
         ]);
@@ -62,14 +61,14 @@ class PasswordResetRequestController extends Controller
     public function failedResponse()
     {
         return response()->json([
-            'error' => 'Email does\'t found on our database'
+            'error' => 'Email doesn\'t exist'
         ], Response::HTTP_NOT_FOUND);
     }
 
     public function successResponse()
     {
         return response()->json([
-            'data' => 'Reset Email is send successfully, please check your inbox.'
+            'data' => 'Reset Email is sent successfully, please check your inbox.'
         ], Response::HTTP_OK);
     }
 }

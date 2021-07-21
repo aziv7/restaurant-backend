@@ -50,6 +50,9 @@ Route::middleware(['json.response'])->group(function () {
     //***************************             USER           *************************//
     Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
     Route::post('/login', [UserController::class, 'login']);
+    Route::post('/Signin/google', [UserController::class, 'GoogleSignIn']);
+
+    Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
     Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
     Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
     Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
@@ -76,6 +79,7 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('plat', [PlatController::class, 'index']);
     Route::get('plat/{id}', [PlatController::class, 'show']);
     Route::get('/plat/{nom}', [PlatController::class, 'search']);
+    Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost']);
 
     //***************************            Categorie         *************************//
 
@@ -104,7 +108,6 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     //***************************            User          *************************//
 
     Route::post('logout', [UserController::class, 'logout']);
-    Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
     Route::get('connected', [UserController::class, 'Connected']);
     Route::get('getuser/id/{id}', [UserController::class, 'GetUserByIdWithCoordonnes']);
     Route::get('getuser', [UserController::class, 'GetUsersWithCoordonnes']);
@@ -193,7 +196,6 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::post('plat',  [PlatController::class, 'store']);
     Route::put('plat',  [PlatController::class, 'update']);
     Route::delete('plat/{id}',  [PlatController::class, 'destroy']);
-    Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost']);
     Route::post('plat/{plat_id}/modificateur/{modificateur_id}', [PlatController::class, 'addPlatToModificateur']);
     Route::post('plat/{id}/supplement/{supplement_id}', [PlatController::class, 'addSupplementToPlat']);
 
