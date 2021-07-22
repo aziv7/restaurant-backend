@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class IngredientController extends Controller
 {
     public function index() {
-        return Ingredient::all();
+        return DB::select('select * from ingredients where statut = true');
     }
 
     public function store(Request $request)
@@ -24,20 +24,24 @@ class IngredientController extends Controller
 
     public function showPlats($id)
     {
-       $ingredient=  Ingredient::find($id);
-
+       $ingredient=  DB::select('select * from ingredients where statut = true and id = ?', [$id]);
          return $ingredient->plats();
     }
 
 
     public function show($id)
     {
-        return Ingredient::find($id);
+        return DB::select('select * from ingredients where statut = true and id = ? or nom like ?', [$id, $id]);
+    }
+
+    public function showall()
+    {
+        return Ingredient::all();
     }
 
     public function update(Request $request)
     {
-        $ingredient = Ingredient::find($request->id);
+        $ingredient = Ingredient::where('id' == $request->id)->get();
         $ingredient->update($request->all());
         return $ingredient;
     }
@@ -64,7 +68,7 @@ class IngredientController extends Controller
      */
     public function search($nom)
     {
-        return Ingredient::where('nom', 'like', '%'.$nom.'%')->get();
+        return  Ingredient::where('nom', 'like', '%'.$nom.'%', '&&', 'statut', '==', 'true')->get();
     }
 
     public function changeStatus(Request $request)

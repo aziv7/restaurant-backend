@@ -175,6 +175,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::delete('ingredient/{id}', [IngredientController::class, 'destroy']);
     Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
     Route::put('affectingredientmodificateur/{modificateur_id}/{ingredient_id}', [ModificateurController::class, 'affectIngredientToModificateur']);
+    Route::get('ingredientAll', [IngredientController::class, 'showall']);
     //***************************            Supplement          *************************//
 
     Route::post('supplement', [SupplementController::class, 'store']);
