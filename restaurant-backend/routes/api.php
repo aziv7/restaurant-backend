@@ -15,6 +15,9 @@ use App\Http\Controllers\SupplementController;
 
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CodeReductionController;
+use App\Http\Controllers\RatingController;
+use App\Models\Rating;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -143,7 +146,8 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
 
     //***************************            image          *************************//
     Route::delete('image/{id}', [ImageController::class, 'destroy']);
-
+    //***************************            ratings          *************************//
+Route::post('rating',[RatingController::class,'AffectRatingToUser']);
 
 /*
 |--------------------------------------------------------------------------
