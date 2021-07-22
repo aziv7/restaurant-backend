@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use App\Models\Modificateur;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IngredientController extends Controller
 {
@@ -64,5 +65,11 @@ class IngredientController extends Controller
     public function search($nom)
     {
         return Ingredient::where('nom', 'like', '%'.$nom.'%')->get();
+    }
+
+    public function changeStatus(Request $request)
+    {
+        DB::update('update ingredients set statut = ? where id = ?', [$request->statut, $request->id]);
+        return DB::select('select * from ingredients where id = ?', [$request->id]);
     }
 }

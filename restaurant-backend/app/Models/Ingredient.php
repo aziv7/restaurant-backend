@@ -16,7 +16,6 @@ class Ingredient extends Model
         'prix',
         'quantite',
         'type',
-        'stock'
     ];
 
     public function modificateurs()

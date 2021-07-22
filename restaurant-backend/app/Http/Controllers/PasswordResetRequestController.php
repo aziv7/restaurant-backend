@@ -46,7 +46,6 @@ class PasswordResetRequestController extends Controller
     public function saveToken($token,$user_id)  // this function save new password
     {
         DB::table('coordonnees_authentifications')->update([
-            'user_id' => $user_id,
             'token' => $token,
             'created_at' => Carbon::now()
         ]);

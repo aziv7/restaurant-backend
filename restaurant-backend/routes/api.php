@@ -161,6 +161,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     //***************************            Ingrédient          *************************//
 
     Route::put('ingredient', [IngredientController::class, 'update']);
+    Route::put('ingredientstatut', [IngredientController::class, 'changeStatus']);
     Route::post('ingredient', [IngredientController::class, 'store']);
     Route::delete('ingredient/{id}', [IngredientController::class, 'destroy']);
     Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);

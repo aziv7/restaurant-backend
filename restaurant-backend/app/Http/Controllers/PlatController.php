@@ -53,9 +53,9 @@ class PlatController extends Controller
             ]);
         }
 
-        if ($plat) {
+        /* if ($plat) {
             broadcast(new Test($plat));
-        }
+        } */
         return $plat;
     }
 

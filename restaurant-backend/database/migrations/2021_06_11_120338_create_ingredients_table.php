@@ -17,7 +17,8 @@ class CreateIngredientsTable extends Migration
             $table->id();
             $table->string('nom');
             $table->integer('quantite');
-            $table->double('prix', 6, 3);
+            $table->double('prix');
+            $table->boolean('statut')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });
