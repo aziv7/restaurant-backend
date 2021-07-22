@@ -141,7 +141,7 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
 
 
     //***************************            image          *************************//
-    Route::delete('image/{id}', [ImageUpload::class, 'destroy']);
+    Route::delete('image/{id}', [ImageController::class, 'destroy']);
 
 
 /*
