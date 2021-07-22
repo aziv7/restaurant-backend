@@ -20,7 +20,7 @@ class SendMailreset extends Mailable
      * @return void
      */
     public function __construct($token, $email)
-    {
+    {//var_dump($token);
         $this->token = $token;
         $this->email = $email;
     }

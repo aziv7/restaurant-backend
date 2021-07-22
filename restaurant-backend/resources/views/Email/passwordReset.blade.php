@@ -1,12 +1,12 @@
-@component('mail::message')
-# Introduction
+@component('mail::panel')
+# Confirmation
 
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+Suite à votre demande pour la réinstalisation du mot de passe, <br>
+Veuillez cliquer sur ce bouton
+@component('mail::button', ['url' => 'http://localhost:8100/reset/password?email='.$email.'&token='.$token])
+confirm
 @endcomponent
 
 Thanks,<br>
-{{ config('app.name') }}
+MsFood
 @endcomponent
