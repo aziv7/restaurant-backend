@@ -24,6 +24,8 @@ class StripeController extends Controller
             'currency' => 'eur',
             'source' => $request->token,
             'description' => 'payment',
+            'id_code_reduction'=>$request->idCodRed
+
       ]);
     return   $response = [ 'checkout'=>$pay,
         'prixtotal'=> $request->prixtot,
