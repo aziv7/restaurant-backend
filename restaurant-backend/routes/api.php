@@ -50,6 +50,7 @@ Route::middleware(['json.response'])->group(function () {
     //***************************             USER           *************************//
     Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
     Route::post('/login', [UserController::class, 'login']);
+    Route::post('/loginadmin', [UserController::class, 'loginadmin']);
     Route::post('/Signin/google', [UserController::class, 'GoogleSignIn']);
 
     Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
