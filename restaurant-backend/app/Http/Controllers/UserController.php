@@ -188,7 +188,7 @@ catch (Throwable $e){
             ), 403);
         }
         $user_test=User::with(['img'])->where('id',$user->id)->get()->first();//var_dump($user_test);
-        $token = $user->createToken('my-app-token')->plainTextToken; 
+        $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $response = [
             'jwt'=> $token,
@@ -196,13 +196,48 @@ catch (Throwable $e){
         ];
         return response($response, 201)->withCookie($cookie);
     }
-   
+
+
+    /**
+     * login only admin
+     */
+    public function loginadmin(Request $request) {
+        //recuprération de login et mdp ou le login est identique au celui récupéré de la requete
+        $coodronnees = CoordonneesAuthentification::where('login',$request->login)->first();
+        //récupération de l'utilisateur ayan ce login et ce mdp
+        $user = $coodronnees->user;
+        //echec
+        if(!$user || !Hash::check($request->password, $coodronnees->password)){
+            return response(array(
+                'message' => 'this credentials don"t match',
+            ), 403);
+        }
+
+        if($user->is_verified==0){
+            return response(array(
+                'message' => 'verify your email',
+            ), 403);
+        }
+        $role = $coodronnees->user->role;
+        if ($user->role->id != 2) {
+            return  response(array('message' => 'not admin', 403));
+        }
+        $user_test=User::with(['img'])->where('id',$user->id)->get()->first();//var_dump($user_test);
+        $token = $user->createToken('my-app-token')->plainTextToken;
+        $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
+        $response = [
+            'jwt'=> $token,
+            'user'=> $user_test
+        ];
+        return response($response, 201)->withCookie($cookie);
+    }
+
    /**
      * login or register by Google
      *
      */
 
-   
+
 public function GoogleSignIn(Request $request)
 {
     $existingUser = User::where('email', $request->email)->first();
@@ -234,7 +269,7 @@ $coor=CoordonneesAuthentification::where('login', '=',$newCoordonne->login)->fir
         $userr=User::where('email', '=',$newUser->email)->first();
 
         DB::insert('insert into images (user_id, src,nom) values (?, ?,?)', [$userr->id, $request->imageUrl, 'google']);
-      
+
         $newUser->coordonneesAuthentification()->save($newCoordonne);
                         /************ donner le role Costumer****************/
 
@@ -243,12 +278,12 @@ $coor=CoordonneesAuthentification::where('login', '=',$newCoordonne->login)->fir
         auth()->login($newUser, true);// var_dump($newCoordonne->password);
                 /************ send email to the user containg login et pwd****************/
 
-        Mail::to($newUser->email)->send(new googleSignup($newCoordonne->login,$passwordCoo,$newUser->email));  
+        Mail::to($newUser->email)->send(new googleSignup($newCoordonne->login,$passwordCoo,$newUser->email));
     }
     $user =User::with(['CoordonneesAuthentification','img'])->where('id',Auth::id())->get()->first();
     $token = $user->createToken('my-app-token')->plainTextToken;
     $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
-   
+
     $response = [   'jwt'=> $token,
         'user'=> $user,
     ];
@@ -266,14 +301,14 @@ function randomPassword() {
     }
     return implode($pass); //turn the array into a string
 }
-   
-   
-   
-   
-   
-   
-   
-   
+
+
+
+
+
+
+
+
     /**
      * Delete the cookie
      *
