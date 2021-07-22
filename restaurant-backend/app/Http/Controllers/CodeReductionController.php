@@ -182,9 +182,13 @@ class CodeReductionController extends Controller
             $codered=$this->searchByCodeExact($code);
             $prixreduit=($prix*$codered->taux_reduction)/100;//var_dump($prixreduit);
             $prixfinal=$prix-$prixreduit;
-            return $prixfinal;
-         
+          $response = [
+            'prix'=> $prixfinal ,
+            'id'=> $codered->id
+        ];
+        return response($response, 201);
         }
+       
         return response(array(
             'message' => 'Code Reduction Not Found',
         ), 404);

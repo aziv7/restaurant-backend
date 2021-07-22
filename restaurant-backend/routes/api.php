@@ -130,6 +130,7 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     Route::get('/codere/{code}', [CodeReductionController::class, 'VerifExistanceCode']);
     Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
     Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
+    Route::get('/reduction/{code}/{prix}', [CodeReductionController::class, 'Reduction']);
 
     //***************************            Commande          *************************//
 
