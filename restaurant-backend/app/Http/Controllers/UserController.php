@@ -289,7 +289,10 @@ function randomPassword() {
     }
 
         public function Connected()
-    {return Auth::user();}
+    {$user= Auth::user();
+        return     User::with(['img','CoordonneesAuthentification'])->where('id',$user->id)->get()->first();
+
+    }
 ////////************   GetUserByIDWithCooordonnes ***************////
     public function GetUserByIdWithCoordonnes($id)
     {

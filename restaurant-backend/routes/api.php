@@ -138,6 +138,11 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     Route::get('/stripe', [\App\Http\Controllers\StripeController::class, 'getbananas']);
     Route::get('/stripecharges', [\App\Http\Controllers\StripeController::class, 'charges']);
 
+
+    //***************************            image          *************************//
+    Route::delete('image/{id}', [ImageUpload::class, 'destroy']);
+
+
 /*
 |--------------------------------------------------------------------------
 | protected routes for admin role
