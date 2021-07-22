@@ -73,7 +73,7 @@ class IngredientController extends Controller
 
     public function changeStatus(Request $request)
     {
-        DB::update('update ingredients set statut = ? where id = ?', [$request->statut, $request->id]);
-        return DB::select('select * from ingredients where id = ?', [$request->id]);
+        // DB::update('update ingredients set statut = ? where id = ?', [$request->statut, $request->id]);
+         Ingredient::where('id', $request->id)->update( array('statut'=>$request->statut) );
     }
 }
