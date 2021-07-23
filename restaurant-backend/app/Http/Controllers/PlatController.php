@@ -142,6 +142,15 @@ class PlatController extends Controller
         return $plat;
     }
 
+    /** détacher un plat d'un modificateur */
+    public function detachPlatFromModificateur($id_plat, $id_modificateur)
+    {
+        $plat = Plat::find($id_plat);
+        $modificateur = Modificateur::find($id_modificateur);
+        $plat->modificateurs()->detach($modificateur);
+        return $plat;
+    }
+
     /** affecter un plat a un custom */
     public function addPlatToCustom($id_plat, $id_custom)
     {
@@ -151,6 +160,14 @@ class PlatController extends Controller
         return $plat;
     }
 
+    /** detacher un plat a un custom */
+    public function detachPlatFromCustom($id_plat, $id_custom)
+    {
+        $plat = Plat::find($id_plat);
+        $custom = Custom::find($id_custom);
+        $plat->customs()->detach($custom);
+        return $plat;
+    }
 
     public function getModificateurs(Request $request, $id_plat)
     {

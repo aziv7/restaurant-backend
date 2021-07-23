@@ -193,6 +193,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::put('modificateur',  [ModificateurController::class, 'update']);
     Route::delete('modificateur/{id}',  [ModificateurController::class, 'destroy']);
     Route::put('affectModificateurToPlat/{id_plat}/{id_modificateur}', [PlatController::class, 'addPlatToModificateur']);
+    Route::put('detachModificateurFromPlat/{id_plat}/{id_modificateur}', [PlatController::class, 'detachPlatFromModificateur']);
 
 
     //***************************            Categorie         *************************//
