@@ -56,4 +56,10 @@ class ModificateurController extends Controller
         $ingredient = Ingredient::find($ingredient_id);
         $modificateur->ingredients()->attach($ingredient);
     }
+
+    public function DetachIngredientFromModificateur($modificateur_id, $ingredient_id) {
+        $modificateur = Modificateur::find($modificateur_id);
+        $ingredient = Ingredient::find($ingredient_id);
+        $modificateur->ingredients()->detach($ingredient);
+    }
 }

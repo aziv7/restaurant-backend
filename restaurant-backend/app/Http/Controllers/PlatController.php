@@ -122,6 +122,17 @@ class PlatController extends Controller
         return $plat;
     }
 
+    public function unsetIngredient(Request $request, $id)
+    {
+        $plat = Plat::find(1);
+
+        $ingredient = Ingredient::find($id);
+
+
+        $plat->ingredients()->detach($ingredient);
+        return $plat;
+    }
+
     /** affecter un plat a un modificateur */
     public function addPlatToModificateur($id_plat, $id_modificateur)
     {

@@ -75,4 +75,10 @@ class customController extends Controller
         $ingredient = Ingredient::find($ingredient_id);
         $custom->ingredients()->attach($ingredient);
     }
+
+    public function detachIngredientFromModificateur($custom_id, $ingredient_id) {
+        $custom = Custom::find($custom_id);
+        $ingredient = Ingredient::find($ingredient_id);
+        $custom->ingredients()->detach($ingredient);
+    }
 }

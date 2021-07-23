@@ -21,7 +21,7 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -35,7 +35,7 @@ class RoleController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -46,8 +46,8 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
@@ -60,7 +60,7 @@ class RoleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -69,19 +69,39 @@ class RoleController extends Controller
     }
 
     /** affecter un role a un utilisateur */
-    public function addRoleUser($role_id,$user_id)
+    public function addRoleUser($role_id, $user_id)
     {
         $user = User::find($user_id);
-        $role=Role::find($role_id);//var_dump($role);
-if($role!=null && $user!=null)
-{//check if the user has already the role or not
-    if($user->roles()->find($role_id)==null)//test pour voir si le user a ce role ou nn
-    {$role->users()->attach($user);//users() refers to the method user() in Role model
-        return $role;}
-    return response(array(
-        'message' => 'role exists already',
-    ), 403);
+        $role = Role::find($role_id);
+        if ($role != null && $user != null) {//check if the user has already the role or not
+            if ($user->roles()->find($role_id) == null)//test pour voir si le user a ce role ou nn
+            {
+                $role->users()->attach($user);//users() refers to the method user() in Role model
+                return $role;
+            }
+            return response(array(
+                'message' => 'role exists already',
+            ), 403);
+        }
+        return response(array(
+            'message' => 'role or user not found',
+        ), 404);
     }
+
+    public function unsetRoleFromUser($role_id, $user_id)
+    {
+        $user = User::find($user_id);
+        $role = Role::find($role_id);
+        if ($role != null && $user != null) {//check if the user has already the role or not
+            if ($user->roles()->find($role_id) != null)//test pour voir si le user a ce role ou nn
+            {
+                $role->users()->detach($user);//users() refers to the method user() in Role model
+                return $role;
+            }
+            return response(array(
+                'message' => 'role n \'appartien pas au user',
+            ), 403);
+        }
         return response(array(
             'message' => 'role or user not found',
         ), 404);
