@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RatingController extends Controller
 {
@@ -19,7 +20,8 @@ class RatingController extends Controller
     public function AffectRatingToUser(request $request)
     {
         $rating = $request->rate;
-        $rating = Rating::where('user_id', 'like', $request->user_id)->where('plat_id', 'like', $request->plat_id)->get()->first();
+
+        $rating = Rating::where('user_id', 'like', $request->Auth::id())->where('plat_id', 'like', $request->plat_id)->get()->first();
         //var_dump($rating);
         if ($rating) {
             $editdata = array(
@@ -29,7 +31,7 @@ class RatingController extends Controller
         }
         $editdata = array(
             'note' => $request->note,
-            'user_id' => $request->user_id,
+            'user_id' => Auth::id(),
             'plat_id' => $request->plat_id
         );
         return Rating::create($editdata);
