@@ -180,6 +180,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::delete('ingredient/{id}', [IngredientController::class, 'destroy']);
     Route::post('ingredient/{ingredient_id}/modificateur/{modificateur_id}', [IngredientController::class, 'addIngredientToModificateur']);
     Route::put('affectingredientmodificateur/{modificateur_id}/{ingredient_id}', [ModificateurController::class, 'affectIngredientToModificateur']);
+    Route::put('deleteingredientmodificateur/{modificateur_id}/{ingredient_id}', [ModificateurController::class, 'DetachIngredientFromModificateur']);
     Route::get('ingredientAll', [IngredientController::class, 'showall']);
     //***************************            Supplement          *************************//
 
