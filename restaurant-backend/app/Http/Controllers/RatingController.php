@@ -21,7 +21,7 @@ class RatingController extends Controller
     {
         $rating = $request->rate;
 
-        $rating = Rating::where('user_id', 'like', $request->Auth::id())->where('plat_id', 'like', $request->plat_id)->get()->first();
+        $rating = Rating::where('user_id', 'like', Auth::id())->where('plat_id', 'like', $request->plat_id)->get()->first();
         //var_dump($rating);
         if ($rating) {
             $editdata = array(

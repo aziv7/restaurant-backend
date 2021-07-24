@@ -6,6 +6,7 @@ use App\Mail\googleSignup;
 use App\Http\Controllers\RoleController;
 use App\Models\CoordonneesAuthentification;
 use App\Models\Image;
+use App\Models\Rating;
 use App\Models\RoleUser;
 use App\Models\Role;
 use App\Models\User;
@@ -193,10 +194,13 @@ class UserController extends Controller
                 'message' => 'verify your email',
             ), 403);
         }
-        $user_test = User::with(['img', 'ratings'])->where('id', $user->id)->get()->first(); //var_dump($user_test);
+        $user_test = User::with(['img'])->where('id', $user->id)->get()->first(); //var_dump($user_test);
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
+        $ratings = Rating::where('user_id', 'like', Auth::id())->get();
+
         $response = [
+            'ratings' => $ratings,
             'jwt' => $token,
             'user' => $user_test
         ];
