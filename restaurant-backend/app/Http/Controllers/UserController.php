@@ -194,7 +194,7 @@ class UserController extends Controller
                 'message' => 'verify your email',
             ), 403);
         }
-        $user_test = User::with(['img'])->where('id', $user->id)->get()->first(); //var_dump($user_test);
+        $user_test = User::with(['img'])->where('id', 'like', $user->id)->get()->first(); //var_dump($user_test);
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $ratings = Rating::where('user_id', 'like', Auth::id())->get();
