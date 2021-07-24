@@ -63,8 +63,6 @@ class UserController extends Controller
         /************enregistrer le login et pwd dans la base ****************/
         $user->coordonneesAuthentification()->save($coordonnesauth);
         return $user;
-
-
     }
 
     public function verifyUser(Request $request)
@@ -114,7 +112,6 @@ class UserController extends Controller
             try {
                 if ($request->input('password'))
                     $coordonnesauthh->password = Hash::make($request->input('password'));
-
             } catch (Throwable $e) {
                 // var_dump('there is no passwor');
             }
@@ -122,7 +119,6 @@ class UserController extends Controller
                 if ($request->input('login'))
 
                     $coordonnesauthh->login = $request->input('login');
-
             } catch (Throwable $e) {
                 //  var_dump('there is no login');
 
@@ -133,7 +129,6 @@ class UserController extends Controller
             );
             $coordonnesauth->update($editdata);
         } catch (Throwable $e) {
-
         }
         return $user;
     }
@@ -165,9 +160,12 @@ class UserController extends Controller
     {
         $user = User::find($id);
         Image::create(
-            ['nom' => $request->get('nomimage'),
+            [
+                'nom' => $request->get('nomimage'),
                 'src' => $request->get('image'),
-                'user_id' => $user->id]);
+                'user_id' => $user->id
+            ]
+        );
         return $user;
     }
 
@@ -195,7 +193,7 @@ class UserController extends Controller
                 'message' => 'verify your email',
             ), 403);
         }
-        $user_test = User::with(['img'])->where('id', $user->id)->get()->first();//var_dump($user_test);
+        $user_test = User::with(['img', 'ratings'])->where('id', $user->id)->get()->first(); //var_dump($user_test);
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $response = [
@@ -263,13 +261,13 @@ class UserController extends Controller
             $newCoordonne->login = $request->displayName;
             $passwordCoo = $this->randomPassword(); //generate random pwd
             $newCoordonne->password = Hash::make($passwordCoo);
-//var_dump($passwordCoo);//var_dump($newCoordonne);
+            //var_dump($passwordCoo);//var_dump($newCoordonne);
 
             $newUser->nom = $request->familyName;
             $newUser->email = $request->email;
             $newUser->image = $request->imageUrl;
             $newUser->is_verified = 1;
-//search if login exist else add some caracter
+            //search if login exist else add some caracter
 
             $coor = CoordonneesAuthentification::where('login', '=', $newCoordonne->login)->first();
             while ($coor) {
@@ -284,9 +282,9 @@ class UserController extends Controller
             $newUser->coordonneesAuthentification()->save($newCoordonne);
             /************ donner le role Costumer****************/
 
-            $role_costumer = Role::where(['nom_des_roles' => 'costumer'])->first();//search for the role id of costumer
+            $role_costumer = Role::where(['nom_des_roles' => 'costumer'])->first(); //search for the role id of costumer
             $newUser->roles()->save($role_costumer);
-            auth()->login($newUser, true);// var_dump($newCoordonne->password);
+            auth()->login($newUser, true); // var_dump($newCoordonne->password);
             /************ send email to the user containg login et pwd****************/
 
             Mail::to($newUser->email)->send(new googleSignup($newCoordonne->login, $passwordCoo, $newUser->email));
@@ -295,7 +293,8 @@ class UserController extends Controller
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
 
-        $response = ['jwt' => $token,
+        $response = [
+            'jwt' => $token,
             'user' => $user,
         ];
         return response($response, 201)->withCookie($cookie);
@@ -332,19 +331,16 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return User::with(['img', 'CoordonneesAuthentification'])->where('id', $user->id)->get()->first();
-
     }
 
-////////************   GetUserByIDWithCooordonnes ***************////
+    ////////************   GetUserByIDWithCooordonnes ***************////
     public function GetUserByIdWithCoordonnes($id)
     {
         return User::with(['CoordonneesAuthentification'])->where('id', $id)->get()->first();
-
     }
 
     public function GetUsersWithCoordonnes()
     {
         return User::with(['CoordonneesAuthentification'])->get();
-
     }
 }

@@ -200,7 +200,7 @@ class PlatController extends Controller
     public function getPlat()
     {
         // $plat = DB::table('plats')->leftJoin('modificateur_plat','=','')->leftJoin('modificateurs')->leftJoin('ingredient_modificateur')->leftJoin('ingredients')->get();
-        $plat = Plat::with('modificateurs', 'ratings', 'modificateurs.ingredients')->get();
+        $plat = Plat::with('modificateurs', 'images', 'ratings', 'modificateurs.ingredients')->get();
         return $plat;
     }
     public function addCommande($id_commande, $id_plat)
