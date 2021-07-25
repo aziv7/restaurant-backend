@@ -8,6 +8,8 @@ use App\Models\Modificateur;
 use App\Models\Commande;
 use App\Models\Plat;
 use App\Models\Ingredient;
+use App\Models\Rating;
+
 use App\Models\Image;
 use App\Models\Custom;
 use Illuminate\Http\Request;
@@ -200,7 +202,11 @@ class PlatController extends Controller
     public function getPlat()
     {
         // $plat = DB::table('plats')->leftJoin('modificateur_plat','=','')->leftJoin('modificateurs')->leftJoin('ingredient_modificateur')->leftJoin('ingredients')->get();
-        $plat = Plat::with('modificateurs', 'images', 'ratings', 'modificateurs.ingredients')->get();
+        $plat = Plat::with('modificateurs', 'images', 'modificateurs.ingredients')->get();
+        foreach ($plat as $p){ 
+            $ratings = Rating::where('plat_id',  $p->id)->get();
+            $p->ratings=$ratings;
+            }
         return $plat;
     }
     public function addCommande($id_commande, $id_plat)
