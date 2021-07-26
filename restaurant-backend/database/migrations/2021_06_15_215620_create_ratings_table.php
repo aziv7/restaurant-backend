@@ -18,7 +18,13 @@ class CreateRatingsTable extends Migration
             $table->timestamps();
             $table->integer('note')->length(2)->unsigned();
             $table->bigInteger('user_id')->unsigned()->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
             $table->bigInteger('plat_id')->unsigned()->onDelete('cascade');
+            $table->foreign('plat_id')
+                ->references('id')
+                ->on('plats');
             $table->softDeletes();
         });
     }
