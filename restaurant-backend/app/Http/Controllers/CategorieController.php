@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categorie;
 use App\Models\Plat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Stripe\Product;
 
 class CategorieController extends Controller
@@ -24,6 +25,21 @@ class CategorieController extends Controller
         $categorie->plats()->save($plat);
         return $categorie;
     }
+
+    public function detachPlat($id_categorie, $id_plat)
+        {
+            /*$categorie = Categorie::find($id_categorie);
+            $plat = Plat::find($id_plat);
+            $categorie->plats()->delete($plat);*/
+            DB::table('plats')->where('id', $id_plat)->update(['categorie_id' => null]);
+               /* ->chunkById(100, function ($users) {
+                    foreach ($users as $user) {
+                        DB::table('users')
+                            ->where('id', $user->id)
+                            ->update(['active' => true]);
+                    }
+                });*/
+        }
 
     public function store(Request $request)
     {

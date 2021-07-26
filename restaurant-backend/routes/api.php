@@ -200,9 +200,10 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     //***************************            Categorie         *************************//
 
     Route::post('categorie', [CategorieController::class, 'store']);
-    Route::put('categorie/', [CategorieController::class, 'update']);
+    Route::put('categorie', [CategorieController::class, 'update']);
     Route::delete('categorie/{id}', [CategorieController::class, 'destroy']);
     Route::put('categorie/{id_categorie}/{id_plat}', [CategorieController::class, 'addPlat']);
+    Route::put('categorieDetachPlat/{id_categorie}/{id_plat}', [CategorieController::class, 'detachPlat']);
 
 
     //***************************           Plat        *************************//
