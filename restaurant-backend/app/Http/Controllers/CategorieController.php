@@ -25,6 +25,14 @@ class CategorieController extends Controller
         return $categorie;
     }
 
+    public function detachPlat($id_categorie, $id_plat)
+        {
+            $categorie = Categorie::find($id_categorie);
+            $plat = Plat::find($id_plat);
+            $plat->categories()->detach($categorie);
+            // $categorie->plats()->detach($plat);
+        }
+
     public function store(Request $request)
     {
         $request->validate([
