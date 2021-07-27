@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Categorie;
 use App\Models\Plat;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Stripe\Product;
 
 class CategorieController extends Controller
@@ -27,10 +28,7 @@ class CategorieController extends Controller
 
     public function detachPlat($id_categorie, $id_plat)
         {
-            $categorie = Categorie::find($id_categorie);
-            $plat = Plat::find($id_plat);
-            $plat->categories()->detach($categorie);
-            // $categorie->plats()->detach($plat);
+            DB::table('plats')->where('id', $id_plat)->update(['categorie_id' => null]);
         }
 
     public function store(Request $request)
