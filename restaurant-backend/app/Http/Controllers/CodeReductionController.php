@@ -168,7 +168,7 @@ class CodeReductionController extends Controller
 
     public function Reduction($code,$prix){
         $codered=$this->searchByCodeExact($code);
-        if (!$codered || $codered->status==0) {
+        if (!$codered || $codered->statut==0) {
             return response(array(
                 'message' => 'Code Reduction Not Found',
             ), 404);
