@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CodeReductionController extends Controller
 {
@@ -141,7 +142,7 @@ class CodeReductionController extends Controller
 
     public function VerifCode($code)
     {$codered=$this->searchByCodeExact($code);
-        if (!$codered) {
+        if (!$codered || $codered->status==0) {
             return response(array(
                 'message' => 'Code Reduction Not Found',
             ), 404);
@@ -167,7 +168,7 @@ class CodeReductionController extends Controller
 
     public function Reduction($code,$prix){
         $codered=$this->searchByCodeExact($code);
-        if (!$codered) {
+        if (!$codered || $codered->statut==0) {
             return response(array(
                 'message' => 'Code Reduction Not Found',
             ), 404);
@@ -218,11 +219,10 @@ class CodeReductionController extends Controller
     {
         $codered = CodeReduction::find($id_reduction);
         $user = User::find($id_user);
-        if($codered->user_id!=null)
-        CodeReduction::destroy($codered->id);
-        if (!$codered) {
+    
+        if (!$codered || $codered->statut==0) {
             return response(array(
-                'message' => 'Code Reduction Not Found',
+                'message' => ' Code Not Found',
             ), 404);
         }
         if (!$user) {
@@ -230,8 +230,50 @@ class CodeReductionController extends Controller
                 'message' => ' user Not Found',
             ), 404);
         }
-        $codered->user_id = $id_user;
+      //  $codered->user_id = $id_user;
+        $editdata = array(
+              'user_id' =>$id_user
+             );
+        $codered->update($editdata);
         return $codered;
     }
-    
+    //if staut =0 already used 
+    //if code reduction is only for one person statut after affecting it =>0
+    public function AffecterToCommandeCodeReduction($id_reduction, $id_commande)
+    {
+        $codered = CodeReduction::find($id_reduction);
+        $Commande = Commande::where('commande_id', 'like',$id_commande)->first();
+      //  var_dump($Commande);
+        if (!$codered) {
+            return response(array(
+                'message' => 'Code Reduction Not Found',
+            ), 404);
+        }
+        if (!$Commande) {
+            return response(array(
+                'message' => 'Commande Not Found',
+            ), 404);
+        }
+        if($codered->statut==0)
+        {
+            return response(array(
+                'message' => 'Code reduction already used',
+            ), 404);
+        }
+     //   $Commande->code_reduction_id=$codered->id;
+     //   $editdata = array(
+       //     'code_reduction_id' => $codered->id
+        //);
+      // $Commande->update($editdata);
+       DB::table('commandes')->where('commande_id', $id_commande)->update([
+                
+        'code_reduction_id'=>$codered->id
+    ]);
+        if($codered->user_id!=null)
+        {$editdata = array(
+           'statut'=>0
+           );
+           $codered->update($editdata);}
+        return $codered;
+    }
 }

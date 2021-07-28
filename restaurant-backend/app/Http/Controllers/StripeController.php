@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 
@@ -20,16 +21,21 @@ class StripeController extends Controller
 
         
       $pay= $stripe->charges->create([
-            'amount' => 2000,
+            'amount' => $request->prixtot*100,
             'currency' => 'eur',
             'source' => $request->token,
             'description' => 'payment',
-            'id_code_reduction'=>$request->idCodRed
 
       ]);
     return   $response = [ 'checkout'=>$pay,
         'prixtotal'=> $request->prixtot,
-        'cart'=>$request->card
+        'cart'=>$request->card,
+        'id_code_reduction'=>$request->idCodRed,
+        'address'=>$request->address,
+        'longitude'=>$request->longitude,
+        'latitude'=>$request->latitude,
+        'code_reduction'=>$request->codered,
+        'date_payment'=>Carbon::now()
     ];
       
     }
