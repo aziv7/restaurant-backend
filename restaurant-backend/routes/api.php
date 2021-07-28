@@ -32,8 +32,20 @@ use App\Models\Rating;
 
 
 
-
+Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
+Route::post('worktime',[\App\Http\Controllers\WorkTimeController::class, 'store']);
+Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
+Route::delete('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'destroy']);
+Route::put('worktime', [\App\Http\Controllers\WorkTimeController::class, 'update']);
 Route::get('/nos_plats', [PlatController::class, 'getPlat']);
+
+Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
+Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
+Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
+Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
+Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
+Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
+Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

@@ -296,8 +296,9 @@ class UserController extends Controller
         $user = User::with(['CoordonneesAuthentification', 'img'])->where('id', Auth::id())->get()->first();
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
-
+        $ratings = Rating::where('user_id',  Auth::id())->get();
         $response = [
+            'ratings' => $ratings,
             'jwt' => $token,
             'user' => $user,
         ];
