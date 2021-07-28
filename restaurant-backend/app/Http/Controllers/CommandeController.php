@@ -49,26 +49,31 @@ class CommandeController extends Controller
         $list_plat_id = $request->plats;
         //somme des plats id
         $somme_plat_id = 0;
-        foreach ($list_plat_id as $plat_id) {
+        foreach ($request->cart->id as $plat_id) {
             $somme_plat_id = $somme_plat_id + (int)$plat_id;
         }
         //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
-        $chaine = ($request->user_id + $somme_plat_id) * 357;
+        $chaine = (Auth::id() + $somme_plat_id) * 357;
         $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
         $commande->commande_id = Hash::make($chaine_string);
         $commande->prix_total =0;
 
+        if ($request->checkout)
+        {
+            $commande->datepaiment = $request->checkout->date;
+        } else $commande->datepaiment = null;
+
         //création de commande sans plats
-        DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement) values (?,?,?,?,?)', [$commande->commande_id, $commande->user_id, $commande->created_at, "2021-06-25", "1993-04-29"]);
+        DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement) values (?,?,?,?,?)', [$commande->commande_id, $commande->user_id, $commande->created_at, $commande->datepaiment, null]);
         $custom = new custom();
         // affectation des plats sans modificateur au commande
-        foreach ($request->plats as $i=> $plat) {
+        foreach ($request->cart as $i=> $plat) {
             var_dump($plat["prix"]);
-            $commande->prix_total = $commande->prix_total + $plat["prix"];
+            $commande->prix_total = $commande->prix_total + ($plat["prix"]*$plat["quantity"]);
             //affecter le plat à la commande
             $commande->plat()->attach($plat);
             //parcourir les plats pour traiter les customs
-            foreach ($request->modificateurs as $modificateur) {
+            foreach ($request->cart->modificateurs as $modificateur) {
                 $custom->nom = $modificateur["nom"];
                 $custom->prix = $modificateur["prix"];
                 //insertion du custom dans la base
@@ -84,8 +89,15 @@ class CommandeController extends Controller
                     $custom->ingredients()->attach($ing);
                     $commande->prix_total = $commande->prix_total + $ingredient["prix"];
                 }
+            }
+            if ($commande->prix_total === $request->cart->chechout->amount) {
                 //inserer le prix total dans la db
                 DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $commande->commande_id]);
+            } else {
+                DB::table("commandes")->delete($commande->commande_id);
+                return response(array(
+                    'message' => 'disordance de prix',
+                ), 403);
             }
         }
     }
