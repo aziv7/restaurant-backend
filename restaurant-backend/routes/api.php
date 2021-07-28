@@ -140,7 +140,7 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
 
     Route::get('commande/{id}', [CommandeController::class, 'show']);
     Route::post('commande', [CommandeController::class, 'store']);
-});
+
     Route::get('/stripe', [\App\Http\Controllers\StripeController::class, 'getbananas']);
     Route::get('/stripecharges', [\App\Http\Controllers\StripeController::class, 'charges']);
 
@@ -149,7 +149,7 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     Route::delete('image/{id}', [ImageController::class, 'destroy']);
     //***************************            ratings          *************************//
 Route::post('rating',[RatingController::class,'AffectRatingToUser']);
-
+});
 /*
 |--------------------------------------------------------------------------
 | protected routes for admin role

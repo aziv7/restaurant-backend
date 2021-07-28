@@ -123,6 +123,6 @@ class RegisterController extends Controller
         }
         $cookie = cookie('response', $user->is_verified, 60 * 24); // cookie valid for 1 day
 
-        return redirect('http://localhost:8100/verification')->withCookie($cookie);
+        return redirect('https://www.api.msfood.msdigital34.fr/restaurant_front/verification.html')->withCookie($cookie);
     }
 }

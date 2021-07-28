@@ -20,8 +20,9 @@ class RatingController extends Controller
     public function AffectRatingToUser(request $request)
     {
         $rating = $request->rate;
+        $user = Auth::user();
 
-        $rating = Rating::where('user_id', 'like', Auth::id())->where('plat_id', 'like', $request->plat_id)->get()->first();
+        $rating = Rating::where('user_id', $user->id)->where('plat_id', $request->plat_id)->get()->first();
         //var_dump($rating);
         if ($rating) {
             $editdata = array(
@@ -31,7 +32,7 @@ class RatingController extends Controller
         }
         $editdata = array(
             'note' => $request->note,
-            'user_id' => Auth::id(),
+            'user_id' => $user->id,
             'plat_id' => $request->plat_id
         );
         return Rating::create($editdata);
