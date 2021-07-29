@@ -197,8 +197,8 @@ class UserController extends Controller
         $user_test = User::with(['img'])->where('id', $user->id)->get()->first(); //var_dump($user_test);
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
-        $ratings = Rating::where('user_id',  Auth::id())->get();
-
+        $ratings = Rating::where('user_id',$user_test->id)->get();
+//var_dump(Auth::id());
         $response = [
             'ratings' => $ratings,
             'jwt' => $token,
@@ -258,6 +258,8 @@ class UserController extends Controller
         $existingUser = User::where('email', $request->email)->first();
         if ($existingUser) {
             auth()->login($existingUser, true);
+            $ratings = Rating::where('user_id',$existingUser->id)->get();
+
         } else {
             $newUser = new User;
             $newCoordonne = new CoordonneesAuthentification;
@@ -290,15 +292,16 @@ class UserController extends Controller
             $newUser->roles()->save($role_costumer);
             auth()->login($newUser, true); // var_dump($newCoordonne->password);
             /************ send email to the user containg login et pwd****************/
+            $ratings = Rating::where('user_id',$newUser->id)->get();
 
             Mail::to($newUser->email)->send(new googleSignup($newCoordonne->login, $passwordCoo, $newUser->email));
         }
         $user = User::with(['CoordonneesAuthentification', 'img'])->where('id', Auth::id())->get()->first();
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
-        $ratings = Rating::where('user_id',  Auth::id())->get();
+
         $response = [
-            'ratings' => $ratings,
+            'ratings'=>$ratings,
             'jwt' => $token,
             'user' => $user,
         ];
