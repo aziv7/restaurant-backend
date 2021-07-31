@@ -16,6 +16,9 @@ class CreateRestaurantInfosTable extends Migration
         Schema::create('restaurant_infos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('rib');
+            $table->string('address');
+            $table->integer('longitude');
+            $table->integer('latitude');
             $table->string('secret_key_stripe')
                 ->nullable();
             $table->string('public_key_stripe')
@@ -36,6 +39,12 @@ class CreateRestaurantInfosTable extends Migration
                 ->nullable();
             $table->string('numero_tva')
                 ->nullable();
+            $table->bigInteger('user_id')
+                ->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

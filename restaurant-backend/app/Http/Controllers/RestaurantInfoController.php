@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RestaurantInfo;
+use App\Models\User;
 use App\Models\WorkTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -75,5 +76,15 @@ class RestaurantInfoController extends Controller
     public function detachWorkTime($idworktime)
     {
         DB::table('work_times')->where('id', $idworktime)->update(['restaurant_info_id' => null]);
+    }
+
+    public function user($user_id, $restau_id)
+    {
+        return DB::update('update restaurant_infos set user_id = ? where id = ?', [$user_id , $restau_id]);
+    }
+
+    public function detachUser($restau_id)
+    {
+        return DB::update('update restaurant_infos set user_id = ? where id = ?', [null , $restau_id]);
     }
 }

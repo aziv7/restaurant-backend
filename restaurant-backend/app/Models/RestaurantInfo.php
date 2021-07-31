@@ -22,11 +22,19 @@ class RestaurantInfo extends Model
         'num_siren',
         'num_tva_intercommunautaire',
         'logo',
-        'numero_tva'
+        'numero_tva',
+        'address',
+        'longitude',
+        'latitude'
     ];
 
     public function work_times()
     {
         return $this->hasMany(WorkTime::class);
+    }
+
+    public function user()
+    {
+        return $this->hasOne(User::class);
     }
 }

@@ -46,6 +46,9 @@ Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 's
 Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
 Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
 Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
+Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
+Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
+// Route::put('affectUserToRestau/{user_id}/{restau_id}', [UserController::class, 'attachRestaurant_info']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

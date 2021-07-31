@@ -7,6 +7,7 @@ use App\Http\Controllers\RoleController;
 use App\Models\CoordonneesAuthentification;
 use App\Models\Image;
 use App\Models\Rating;
+use App\Models\RestaurantInfo;
 use App\Models\RoleUser;
 use App\Models\Role;
 use App\Models\User;
@@ -347,5 +348,10 @@ class UserController extends Controller
     public function GetUsersWithCoordonnes()
     {
         return User::with(['CoordonneesAuthentification'])->get();
+    }
+
+    public function attachRestaurant_info($user_id, $restau_id)
+    {
+        return DB::update('update restaurant_infos set user_id = ? where id = ?', [$user_id , $restau_id]);
     }
 }
