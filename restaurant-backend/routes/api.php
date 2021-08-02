@@ -30,25 +30,6 @@ use App\Models\Rating;
 */
 
 
-
-
-Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
-Route::post('worktime',[\App\Http\Controllers\WorkTimeController::class, 'store']);
-Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
-Route::delete('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'destroy']);
-Route::put('worktime', [\App\Http\Controllers\WorkTimeController::class, 'update']);
-Route::get('/nos_plats', [PlatController::class, 'getPlat']);
-
-Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
-Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
-Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
-Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
-Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
-Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
-Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
-Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
-Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
-// Route::put('affectUserToRestau/{user_id}/{restau_id}', [UserController::class, 'attachRestaurant_info']);
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -106,6 +87,11 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('categorie', [CategorieController::class, 'index']);
     //***************************            Stripe          *************************//
     Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
+
+    //***************************            worktime          *************************//
+
+    Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
+    Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
 
 
 });
@@ -257,4 +243,28 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     // this one is for current year
     ROUTE::get('totalpermonththisyear', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMontheCurrentYear']);
     ROUTE::get('totalpermonth/{year}', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMonthe']);
+
+    //***************************          WORKTIMES       *************************//
+
+    Route::post('worktime',[\App\Http\Controllers\WorkTimeController::class, 'store']);
+    Route::delete('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'destroy']);
+    Route::put('worktime', [\App\Http\Controllers\WorkTimeController::class, 'update']);
+
+    Route::get('/nos_plats', [PlatController::class, 'getPlat']);
+
+});
+
+Route::middleware(['auth:sanctum', 'msdigital', 'json.response'])->group(function () {
+
+//***************************          WORKTIMES       *************************//
+
+Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
+Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
+Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
+Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
+Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
+Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
+Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
+Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
+Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
 });
