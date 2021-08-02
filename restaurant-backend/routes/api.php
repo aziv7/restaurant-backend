@@ -94,13 +94,8 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
     Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
     //***************************            offre          *************************//
-    Route::post('offre', [\App\Http\Controllers\OffreController::class, 'store']);
     Route::get('get/offre', [\App\Http\Controllers\OffreController::class, 'index']);
-    Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
-    Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
-    Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
-    Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
-    Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
+  Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
 
 
 });
@@ -276,4 +271,14 @@ Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\
 Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
 Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
 Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
+
+    //***************************            offre          *************************//
+
+
+Route::post('offre', [\App\Http\Controllers\OffreController::class, 'store']);
+Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
+Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
+Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
+Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
+
 });
