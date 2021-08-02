@@ -15,6 +15,7 @@ use App\Http\Controllers\SupplementController;
 
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CodeReductionController;
+use App\Http\Controllers\OffreController;
 use App\Http\Controllers\RatingController;
 use App\Models\Rating;
 
@@ -92,6 +93,14 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
     Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
+    //***************************            offre          *************************//
+    Route::post('offre', [\App\Http\Controllers\OffreController::class, 'store']);
+    Route::get('get/offre', [\App\Http\Controllers\OffreController::class, 'index']);
+    Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
+    Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
+    Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
+    Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
+    Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
 
 
 });

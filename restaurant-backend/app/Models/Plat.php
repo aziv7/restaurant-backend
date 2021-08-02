@@ -51,4 +51,8 @@ class Plat extends Model
         return $this->belongsToMany(custom::class,'plat_custom',
             'plat_id','custom_id','id','id');
     }
+    public function Offres()
+    {
+        return $this->belongsToMany(Offre::class);
+    }
 }
