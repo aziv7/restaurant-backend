@@ -35,6 +35,5 @@ class IngredientCustom extends Migration
      */
     public function down()
     {
-        //
-    }
+        Schema::dropIfExists('ingredient_custom');      }
 }

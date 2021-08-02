@@ -81,6 +81,7 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('plat/{id}', [PlatController::class, 'show']);
     Route::get('/plat/{nom}', [PlatController::class, 'search']);
     Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost']);
+    Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 
     //***************************            Categorie         *************************//
 
@@ -254,7 +255,6 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::delete('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'destroy']);
     Route::put('worktime', [\App\Http\Controllers\WorkTimeController::class, 'update']);
 
-    Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 
 });
 
