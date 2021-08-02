@@ -15,7 +15,7 @@ class OffreController extends Controller
      */
     public function index()
     {
-return Offre::with('plats')->get();
+return Offre::with('plats','plats.modificateurs', 'plats.images', 'plats.modificateurs.ingredients')->get();
     }
 
     /**
