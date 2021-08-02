@@ -6,6 +6,7 @@ use App\Models\RestaurantInfo;
 use App\Models\User;
 use App\Models\WorkTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class RestaurantInfoController extends Controller
@@ -86,5 +87,12 @@ class RestaurantInfoController extends Controller
     public function detachUser($restau_id)
     {
         return DB::update('update restaurant_infos set user_id = ? where id = ?', [null , $restau_id]);
+    }
+
+    public function myRestau()
+    {
+        $user_id = Auth::id();
+        $restau_info = DB::select('select * from restaurant_infos where user_id = ?', [$user_id]);
+        return $restau_info;
     }
 }

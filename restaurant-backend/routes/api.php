@@ -252,19 +252,20 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 
-});
+    /*});
 
-Route::middleware(['auth:sanctum', 'msdigital', 'json.response'])->group(function () {
+    Route::middleware(['auth:sanctum', 'msdigital', 'json.response'])->group(function () {*/
 
 //***************************          WORKTIMES       *************************//
 
-Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
-Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
-Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
-Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
-Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
-Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
-Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
-Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
-Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
+    Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
+    Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
+    Route::get('myrestau/', [\App\Http\Controllers\RestaurantInfoController::class, 'myRestau']);
+    Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
+    Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
+    Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
+    Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
+    Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
+    Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
+    Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
 });

@@ -25,7 +25,8 @@ class RestaurantInfo extends Model
         'numero_tva',
         'address',
         'longitude',
-        'latitude'
+        'latitude',
+        'tel'
     ];
 
     public function work_times()

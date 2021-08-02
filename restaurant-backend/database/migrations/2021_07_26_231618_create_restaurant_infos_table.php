@@ -19,6 +19,7 @@ class CreateRestaurantInfosTable extends Migration
             $table->string('address');
             $table->integer('longitude');
             $table->integer('latitude');
+            $table->integer('tel');
             $table->string('secret_key_stripe')
                 ->nullable();
             $table->string('public_key_stripe')
