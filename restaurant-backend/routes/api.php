@@ -15,6 +15,7 @@ use App\Http\Controllers\SupplementController;
 
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CodeReductionController;
+use App\Http\Controllers\OffreController;
 use App\Http\Controllers\RatingController;
 use App\Models\Rating;
 
@@ -80,6 +81,7 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('plat/{id}', [PlatController::class, 'show']);
     Route::get('/plat/{nom}', [PlatController::class, 'search']);
     Route::post('image-upload', [ImageUploadController::class, 'imageUploadPost']);
+    Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 
     //***************************            Categorie         *************************//
 
@@ -92,6 +94,9 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
     Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
+    //***************************            offre          *************************//
+    Route::get('get/offre', [\App\Http\Controllers\OffreController::class, 'index']);
+  Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
 
 
 });
@@ -250,7 +255,6 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::delete('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'destroy']);
     Route::put('worktime', [\App\Http\Controllers\WorkTimeController::class, 'update']);
 
-    Route::get('/nos_plats', [PlatController::class, 'getPlat']);
 
     /*});
 
@@ -258,14 +262,23 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
 //***************************          WORKTIMES       *************************//
 
-    Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
-    Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
-    Route::get('myrestau/', [\App\Http\Controllers\RestaurantInfoController::class, 'myRestau']);
-    Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
-    Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
-    Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
-    Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
-    Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
-    Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
-    Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
+Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
+Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
+Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
+Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
+Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
+Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
+Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
+Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
+Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
+
+    //***************************            offre          *************************//
+
+
+Route::post('offre', [\App\Http\Controllers\OffreController::class, 'store']);
+Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
+Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
+Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
+Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
+
 });

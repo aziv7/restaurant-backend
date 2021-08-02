@@ -35,6 +35,5 @@ class IngredientModificateur extends Migration
      */
     public function down()
     {
-        //
-    }
+        Schema::dropIfExists('ingredient_modificateur');    }
 }
