@@ -101,7 +101,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         /*********** update cordonne and user at the same time ********/
-        $user = User::find($id);
+        $user = User::with(['img'])->where('id',$id)->get()->first();
         $user->update($request->all());
         try {
             $coordonnesauth = CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
@@ -110,7 +110,7 @@ class UserController extends Controller
             $coordonnesauthh->login = $coordonnesauth->login;
 
             $coordonnesauthh->password = $coordonnesauth->password;
-            var_dump($coordonnesauthh);
+            //var_dump($coordonnesauthh);
             try {
                 if ($request->input('password'))
                     $coordonnesauthh->password = Hash::make($request->input('password'));
@@ -356,5 +356,16 @@ class UserController extends Controller
     public function attachRestaurant_info($user_id, $restau_id)
     {
         return DB::update('update restaurant_infos set user_id = ? where id = ?', [$user_id , $restau_id]);
+    }
+    public function verifyExistanceOfLogin($login)
+    {
+        if(CoordonneesAuthentification::where('login', '=', $login)->first())
+        return response([
+            'message' => 'login existe deja!'
+        ]);
+        else
+        return response([
+            'message' => 'disponible'
+        ]);
     }
 }
