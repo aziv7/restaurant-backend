@@ -101,7 +101,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         /*********** update cordonne and user at the same time ********/
-        $user = User::with(['img'])->where('id',$id)->get()->first();
+        $user = User::with(['img','CoordonneesAuthentification'])->where('id',$id)->get()->first();
         $user->update($request->all());
         try {
             $coordonnesauth = CoordonneesAuthentification::where('user_id', 'like', $id)->get()->first();
