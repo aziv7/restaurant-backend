@@ -8,11 +8,13 @@ use App\Models\Ingredient;
 use App\Models\Modificateur;
 use App\Models\Plat;
 use App\Models\User;
+use App\Models\WorkTime;
 use Carbon\Carbon;
 use Faker\Core\Number;
 use Illuminate\Console\Command;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use MongoDB\BSON\Timestamp;
@@ -45,22 +47,22 @@ class CommandeController extends Controller
         $commande->user_id = Auth::id();
         $commande->created_at = Carbon::now();
         $creation_datetime_string = $commande->created_at->toDateTimeString();
-        //je vais avoir une liste des id des plats choisits pour les affecter au commande
-        $list_plat_id = $request->plats;
         //somme des plats id
         $somme_plat_id = 0;
-        foreach ($request->cart->id as $plat_id) {
-            $somme_plat_id = $somme_plat_id + (int)$plat_id;
+        // je vais avoir une liste des id des plats choisits pour les affecter au commande
+        foreach ($request->cart as $plat) {
+            $somme_plat_id = $somme_plat_id + $plat["id"];
         }
         //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
         $chaine = (Auth::id() + $somme_plat_id) * 357;
         $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
-        $commande->commande_id = Hash::make($chaine_string);
+        $id = Hash::make($chaine_string);
+        $commande->commande_id = $id;
         $commande->prix_total =0;
 
         if ($request->checkout)
         {
-            $commande->datepaiment = $request->checkout->date;
+            $commande->datepaiment = Carbon::now(); // $request->checkout["date_payment"];
         } else $commande->datepaiment = null;
 
         //création de commande sans plats
@@ -68,12 +70,12 @@ class CommandeController extends Controller
         $custom = new custom();
         // affectation des plats sans modificateur au commande
         foreach ($request->cart as $i=> $plat) {
-            var_dump($plat["prix"]);
             $commande->prix_total = $commande->prix_total + ($plat["prix"]*$plat["quantity"]);
+            $p = Plat::find($plat["id"]);
             //affecter le plat à la commande
-            $commande->plat()->attach($plat);
+            $commande->plat()->attach($p);
             //parcourir les plats pour traiter les customs
-            foreach ($request->cart->modificateurs as $modificateur) {
+            foreach ($plat["modificateurs"] as $modificateur) {
                 $custom->nom = $modificateur["nom"];
                 $custom->prix = $modificateur["prix"];
                 //insertion du custom dans la base
@@ -83,18 +85,19 @@ class CommandeController extends Controller
                 $plat1->customs()->attach($custom);
                 $commande->prix_total = $commande->prix_total + $modificateur["prix"];
                 //parcourir les modificateurs pour traiter les ingrédients
-                foreach ($request->ingredients as $ingredient) {
+                foreach ($modificateur["ingredients"] as $ingredient) {
                     $ing = Ingredient::find($ingredient["id"]);
                     //affecter ingrédient à son custom
                     $custom->ingredients()->attach($ing);
                     $commande->prix_total = $commande->prix_total + $ingredient["prix"];
                 }
             }
-            if ($commande->prix_total === $request->cart->chechout->amount) {
+            $priceStripe = $request->checkout["amount"];
+            if ($commande->prix_total == $priceStripe) {
                 //inserer le prix total dans la db
-                DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $commande->commande_id]);
+                DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $id]);
             } else {
-                DB::table("commandes")->delete($commande->commande_id);
+                DB::table("commandes")->delete($id);
                 return response(array(
                     'message' => 'disordance de prix',
                 ), 403);

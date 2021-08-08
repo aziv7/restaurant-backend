@@ -263,6 +263,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 //***************************          WORKTIMES       *************************//
 
 Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
+Route::get('myrestau', [\App\Http\Controllers\RestaurantInfoController::class, 'myrestau']);
 Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
 Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
 Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
