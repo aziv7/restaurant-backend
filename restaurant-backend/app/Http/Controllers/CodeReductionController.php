@@ -185,7 +185,9 @@ class CodeReductionController extends Controller
             $prixfinal=$prix-$prixreduit;
           $response = [
             'prix'=> $prixfinal ,
-            'id'=> $codered->id
+            'id'=> $codered->id,
+            'taux'=> $codered->taux_reduction
+
         ];
         return response($response, 201);
         }

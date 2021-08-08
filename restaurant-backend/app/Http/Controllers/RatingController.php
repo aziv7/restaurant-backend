@@ -28,7 +28,8 @@ class RatingController extends Controller
             $editdata = array(
                 'note' => $request->note
             );
-            return  $rating->update($editdata);
+             $rating->update($editdata);
+             return $rating;
         }
         $editdata = array(
             'note' => $request->note,
@@ -37,6 +38,11 @@ class RatingController extends Controller
         );
         return Rating::create($editdata);
     }
+public function GetUserRating()
+{
+  return  Rating::where('user_id',Auth::id())->get();
+
+}
 
 
 
