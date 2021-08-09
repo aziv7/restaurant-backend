@@ -17,16 +17,16 @@ class CreateOffresTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-$table->string('description');
-$table->string('nom');$table->double('prix');
-$table->string('image');
-$table->boolean('isDisponible');
+            $table->string('description');
+            $table->string('nom');$table->double('prix');
+            $table->string('image');
+            $table->boolean('isDisponible');
         });
         Schema::create('offre_plat', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->softDeletes(); 
-             $table->unsignedBigInteger('plat_id');
+            $table->softDeletes();
+            $table->unsignedBigInteger('plat_id');
             $table->unsignedBigInteger('offre_id');
             $table->foreign('offre_id')
                 ->references('id')
@@ -35,6 +35,21 @@ $table->boolean('isDisponible');
             $table->foreign('plat_id')
                 ->references('id')
                 ->on('plats')
+                ->onDelete('cascade');
+        });
+        Schema::create('offre_commande', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->softDeletes();
+            $table->unsignedBigInteger('commande_id');
+            $table->unsignedBigInteger('offre_id');
+            $table->foreign('offre_id')
+                ->references('id')
+                ->on('offres')
+                ->onDelete('cascade');
+            $table->foreign('commande_id')
+                ->references('id')
+                ->on('commandes')
                 ->onDelete('cascade');
         });
     }

@@ -6,6 +6,7 @@ use App\Models\Commande;
 use App\Models\custom;
 use App\Models\Ingredient;
 use App\Models\Modificateur;
+use App\Models\offre;
 use App\Models\Plat;
 use App\Models\User;
 use App\Models\WorkTime;
@@ -76,32 +77,44 @@ class CommandeController extends Controller
             $commande->plat()->attach($p);
             //parcourir les plats pour traiter les customs
             foreach ($plat["modificateurs"] as $modificateur) {
-                $custom->nom = $modificateur["nom"];
-                $custom->prix = $modificateur["prix"];
-                //insertion du custom dans la base
-                $custom= custom::create($modificateur);
-                //affectation du custm au plat
-                $plat1 = Plat::find($plat['id']);
-                $plat1->customs()->attach($custom);
-                $commande->prix_total = $commande->prix_total + $modificateur["prix"];
+                if($modificateur["checked"]) {
+                    $custom->nom = $modificateur["nom"];
+                    $custom->prix = $modificateur["prix"];
+                    //insertion du custom dans la base
+                    $custom= custom::create($modificateur);
+                    //affectation du custm au plat
+                    $plat1 = Plat::find($plat['id']);
+                    $plat1->customs()->attach($custom);
+                    $commande->prix_total = $commande->prix_total + $modificateur["prix"];
+                }
                 //parcourir les modificateurs pour traiter les ingrédients
                 foreach ($modificateur["ingredients"] as $ingredient) {
-                    $ing = Ingredient::find($ingredient["id"]);
-                    //affecter ingrédient à son custom
-                    $custom->ingredients()->attach($ing);
-                    $commande->prix_total = $commande->prix_total + $ingredient["prix"];
+                    if ($ingredient["checked"]){
+                        $ing = Ingredient::find($ingredient["id"]);
+                        //affecter ingrédient à son custom
+                        $custom->ingredients()->attach($ing);
+                        $commande->prix_total = $commande->prix_total + $ingredient["prix"];
+                    }
                 }
             }
-            $priceStripe = $request->checkout["amount"];
-            if ($commande->prix_total == $priceStripe) {
-                //inserer le prix total dans la db
-                DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $id]);
-            } else {
-                DB::table("commandes")->delete($id);
-                return response(array(
-                    'message' => 'disordance de prix',
-                ), 403);
+        }
+        if ($request->cartOffre)
+        {
+            foreach ($request->cartOffre as $i=> $offre) {
+                $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
+                $o = offre::find($offre["id"]);
+                $commande->Offres()->attach($o);
             }
+        }
+        $priceStripe = $request->checkout["amount"];
+        if ($commande->prix_total + 1.5 == $priceStripe) {
+            //inserer le prix total dans la db
+            DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $id]);
+        } else {
+            DB::table("commandes")->delete($id);
+            return response(array(
+                'message' => 'disordance de prix',
+            ), 403);
         }
     }
 
