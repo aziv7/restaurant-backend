@@ -27,7 +27,8 @@ class StripeController extends Controller
             'description' => 'payment',
 
       ]);
-    return   $response = [ 'checkout'=>$pay,
+   
+      return   $response = [ 'checkout'=>$pay,
         'prixtotal'=> $request->prixtot,
         'cart'=>$request->card,
         'id_code_reduction'=>$request->idCodRed,
@@ -35,7 +36,8 @@ class StripeController extends Controller
         'longitude'=>$request->longitude,
         'latitude'=>$request->latitude,
         'code_reduction'=>$request->codered,
-        'date_payment'=>Carbon::now()
+        'date_payment'=>Carbon::now(),
+        'cartOffre'=>$request->cartOffre
     ];
       
     }

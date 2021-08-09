@@ -56,9 +56,9 @@ Route::middleware(['json.response'])->group(function () {
     Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
     Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
     Route::post('resetCoddepwd/{code}', '\App\Http\Controllers\ResetCodeController@VerifCodeReset');
-    Route::post('sendEmailForResetCode', '\App\Http\Controllers\ResetCodeController@sendEmail');
-    Route::get('verifExistanceOfCode', '\App\Http\Controllers\PasswordResetRequestController@verifExistanceCode');
-    Route::get('existlogin/{login}', [UserController::class, 'verifyExistanceOfLogin']);
+    Route::get('verifExistanceOfCode/{code}', '\App\Http\Controllers\ResetCodeController@verifExistanceCode');
+    Route::post('sendEmailForResetCode', '\App\Http\Controllers\ResetCodeController@sendEmail'); 
+    Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
     Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
     Route::get('existlogin/{login}', [UserController::class, 'verifyExistanceOfLogin']);
     //***************************            modificateur          *************************//
