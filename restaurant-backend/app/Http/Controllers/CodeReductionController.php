@@ -241,11 +241,11 @@ class CodeReductionController extends Controller
     }
     //if staut =0 already used 
     //if code reduction is only for one person statut after affecting it =>0
-    public function AffecterToCommandeCodeReduction($id_reduction, $id_commande)
+    public function AffecterToCommandeCodeReduction(Request $request)
     {
-        $codered = CodeReduction::find($id_reduction);
-        $Commande = Commande::where('commande_id', 'like',$id_commande)->first();
-      //  var_dump($Commande);
+        $codered = CodeReduction::find($request->id_cod);
+        $Commande = Commande::where('commande_id',$request->id_com)->first();
+         var_dump($Commande);
         if (!$codered) {
             return response(array(
                 'message' => 'Code Reduction Not Found',
@@ -267,7 +267,7 @@ class CodeReductionController extends Controller
        //     'code_reduction_id' => $codered->id
         //);
       // $Commande->update($editdata);
-       DB::table('commandes')->where('commande_id', $id_commande)->update([
+       DB::table('commandes')->where('commande_id', $request->id_com)->update([
                 
         'code_reduction_id'=>$codered->id
     ]);

@@ -91,9 +91,7 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('categorie/{id}', [CategorieController::class, 'show']);
     Route::get('categorie', [CategorieController::class, 'index']);
-    //***************************            Stripe          *************************//
-    Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
-
+   
     //***************************            worktime          *************************//
 
     Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
@@ -144,7 +142,7 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     Route::get('/codeverifdate/{id}', [CodeReductionController::class, 'VerifDateExpire']);
     Route::get('/verifvalidite/{code}', [CodeReductionController::class, 'VerifCode']);
     Route::get('/reduction/{code}/{prix}', [CodeReductionController::class, 'Reduction']);
-    Route::get('/affect/{id_reduction}/{id_commande}', [CodeReductionController::class, 'AffecterToCommandeCodeReduction']);
+    Route::put('/affect', [CodeReductionController::class, 'AffecterToCommandeCodeReduction']);
 
     //***************************            Commande          *************************//
 
@@ -153,6 +151,8 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
 
     Route::get('/stripe', [\App\Http\Controllers\StripeController::class, 'getbananas']);
     Route::get('/stripecharges', [\App\Http\Controllers\StripeController::class, 'charges']);
+//***************************            Stripe          *************************//
+Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
 
 
     //***************************            image          *************************//
