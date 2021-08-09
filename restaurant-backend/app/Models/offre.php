@@ -25,8 +25,8 @@ class offre extends Model
     public function commandes()
     {
         return $this->belongsToMany(Commande::class,
-            'offre_plat',
-            'plat_id',
+            'offre_commande',
+            'commande_id',
             'offre_id',
             'id',
             'id');
