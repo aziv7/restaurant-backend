@@ -77,7 +77,7 @@ class ResetCodeController extends Controller
 
     public function verifExistanceCode($code){
         $code_reset = DB::table('reset_codes')->where('code', $code)->first();
-        if($code_reset)
+        if($code_reset && $code_reset->deleted_at==null)
         { 
             $to =  Carbon::parse($code_reset->created_at);
     
@@ -96,7 +96,7 @@ class ResetCodeController extends Controller
             else 
             return  response(array(
                 'message' => 'valid code',
-            ), 200);;    
+            ), 200);    
         }
         else  return response(array(
             'message' => 'Invalid code',
