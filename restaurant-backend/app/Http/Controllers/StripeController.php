@@ -97,8 +97,10 @@ class StripeController extends Controller
         {
             foreach ($request->cartOffre as $i=> $offre) {
                 $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
+                $c =  Commande::where('commande_id', 'like',$id)->first();
                 $o = offre::find($offre["id"]);
-                $commande->Offres()->attach($o);
+                DB::insert('insert into offre_commande (commande_id, offre_id, created_at) values (?, ?, ?)', [$id, $o->id, Carbon::now()]);
+                // $c->Offres()->attach($o);
             }
         }
         $priceStripe = $request->prixtot;
@@ -138,7 +140,7 @@ $commande->prix_total=($commande->prix_total*$taux)/100;//var_dump($prixreduit);
         'cartOffre'=>$request->cartOffre
 
     ];
-      
+
     }
 
     public function charges(Request $request){
@@ -177,7 +179,7 @@ $commande->prix_total=($commande->prix_total*$taux)/100;//var_dump($prixreduit);
         //);
       // $Commande->update($editdata);
        DB::table('commandes')->where('commande_id', $id_commande)->update([
-                
+
         'code_reduction_id'=>$codered->id
     ]);
         if($codered->user_id!=null)
@@ -186,6 +188,6 @@ $commande->prix_total=($commande->prix_total*$taux)/100;//var_dump($prixreduit);
            );
            $codered->update($editdata);}
         return $codered;
-    
+
     }
 }

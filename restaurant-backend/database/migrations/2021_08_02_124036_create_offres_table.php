@@ -41,14 +41,14 @@ class CreateOffresTable extends Migration
             $table->id();
             $table->timestamps();
             $table->softDeletes();
-            $table->unsignedBigInteger('commande_id');
+            $table->string('commande_id');
             $table->unsignedBigInteger('offre_id');
             $table->foreign('offre_id')
                 ->references('id')
                 ->on('offres')
                 ->onDelete('cascade');
             $table->foreign('commande_id')
-                ->references('id')
+                ->references('commande_id')
                 ->on('commandes')
                 ->onDelete('cascade');
         });

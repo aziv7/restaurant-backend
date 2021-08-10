@@ -31,7 +31,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('plat','user','plat.customs','plat.customs.ingredients')
+        $commandes = Commande::with('plat', 'user', 'plat.customs', 'plat.customs.ingredients')
             ->get();
         return $commandes;
     }
@@ -59,10 +59,9 @@ class CommandeController extends Controller
         $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
         $id = Hash::make($chaine_string);
         $commande->commande_id = $id;
-        $commande->prix_total =0;
+        $commande->prix_total = 0;
 
-        if ($request->checkout)
-        {
+        if ($request->checkout) {
             $commande->datepaiment = Carbon::now(); // $request->checkout["date_payment"];
         } else $commande->datepaiment = null;
 
@@ -70,18 +69,18 @@ class CommandeController extends Controller
         DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement) values (?,?,?,?,?)', [$commande->commande_id, $commande->user_id, $commande->created_at, $commande->datepaiment, null]);
         $custom = new custom();
         // affectation des plats sans modificateur au commande
-        foreach ($request->cart as $i=> $plat) {
-            $commande->prix_total = $commande->prix_total + ($plat["prix"]*$plat["quantity"]);
+        foreach ($request->cart as $i => $plat) {
+            $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
             $p = Plat::find($plat["id"]);
             //affecter le plat à la commande
             $commande->plat()->attach($p);
             //parcourir les plats pour traiter les customs
             foreach ($plat["modificateurs"] as $modificateur) {
-                if($modificateur["checked"]) {
+                if ($modificateur["checked"]) {
                     $custom->nom = $modificateur["nom"];
                     $custom->prix = $modificateur["prix"];
                     //insertion du custom dans la base
-                    $custom= custom::create($modificateur);
+                    $custom = custom::create($modificateur);
                     //affectation du custm au plat
                     $plat1 = Plat::find($plat['id']);
                     $plat1->customs()->attach($custom);
@@ -89,7 +88,7 @@ class CommandeController extends Controller
                 }
                 //parcourir les modificateurs pour traiter les ingrédients
                 foreach ($modificateur["ingredients"] as $ingredient) {
-                    if ($ingredient["checked"]){
+                    if ($ingredient["checked"]) {
                         $ing = Ingredient::find($ingredient["id"]);
                         //affecter ingrédient à son custom
                         $custom->ingredients()->attach($ing);
@@ -98,18 +97,17 @@ class CommandeController extends Controller
                 }
             }
         }
-        if ($request->cartOffre)
-        {
-            foreach ($request->cartOffre as $i=> $offre) {
+        if ($request->cartOffre) {
+            foreach ($request->cartOffre as $i => $offre) {
                 $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
                 $o = offre::find($offre["id"]);
-                $commande->Offres()->attach($o);
+                $o->commandes()->attach($commande);
             }
         }
         $priceStripe = $request->checkout["amount"];
         if ($commande->prix_total + 1.5 == $priceStripe) {
             //inserer le prix total dans la db
-            DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $id]);
+            DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total, $id]);
         } else {
             DB::table("commandes")->delete($id);
             return response(array(
