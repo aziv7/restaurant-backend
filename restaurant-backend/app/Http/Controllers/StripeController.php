@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Carbon\Carbon;
 use App\Models\CodeReduction;
 
@@ -33,7 +34,8 @@ class StripeController extends Controller
 
     }
 
-    public function payments(Request $request){
+    public function payments(Request $request)
+    {
         $stripe = new \Stripe\StripeClient(
             'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
         );
@@ -54,10 +56,9 @@ class StripeController extends Controller
         $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
         $id = Hash::make($chaine_string);
         $commande->commande_id = $id;
-        $commande->prix_total =0;
+        $commande->prix_total = 0;
 
-        if ($request->checkout)
-        {
+        if ($request->checkout) {
             $commande->datepaiment = Carbon::now(); // $request->checkout["date_payment"];
         } else $commande->datepaiment = null;
 
@@ -65,18 +66,18 @@ class StripeController extends Controller
         DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement) values (?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, $commande->datepaiment, null]);
         $custom = new custom();
         // affectation des plats sans modificateur au commande
-        foreach ($request->card as $i=> $plat) {
-            $commande->prix_total = $commande->prix_total + ($plat["prix"]*$plat["quantity"]);
+        foreach ($request->card as $i => $plat) {
+            $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
             $p = Plat::find($plat["id"]);
             //affecter le plat à la commande
             $commande->plat()->attach($p);
             //parcourir les plats pour traiter les customs
-            foreach ($plat["modificateurs"] as $j=>$modificateur) {
-                if($modificateur["checked"]==true) {
+            foreach ($plat["modificateurs"] as $j => $modificateur) {
+                if ($modificateur["checked"] == true) {
                     $custom->nom = $modificateur["nom"];
                     $custom->prix = $modificateur["prix"];
                     //insertion du custom dans la base
-                    $custom= custom::create($modificateur);
+                    $custom = custom::create($modificateur);
                     //affectation du custm au plat
                     $plat1 = Plat::find($plat['id']);
                     $plat1->customs()->attach($custom);
@@ -84,7 +85,7 @@ class StripeController extends Controller
                 }
                 //parcourir les modificateurs pour traiter les ingrédients
                 foreach ($modificateur["ingredients"] as $ingredient) {
-                    if ($ingredient["checked"]){
+                    if ($ingredient["checked"]) {
                         $ing = Ingredient::find($ingredient["id"]);
                         //affecter ingrédient à son custom
                         $custom->ingredients()->attach($ing);
@@ -93,70 +94,71 @@ class StripeController extends Controller
                 }
             }
         }
-        if ($request->cartOffre)
-        {
-            foreach ($request->cartOffre as $i=> $offre) {
+        if ($request->cartOffre) {
+            foreach ($request->cartOffre as $i => $offre) {
                 $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
-                $c =  Commande::where('commande_id', 'like',$id)->first();
+                $c = Commande::where('commande_id', 'like', $id)->first();
                 $o = offre::find($offre["id"]);
                 DB::insert('insert into offre_commande (commande_id, offre_id, created_at) values (?, ?, ?)', [$id, $o->id, Carbon::now()]);
                 // $c->Offres()->attach($o);
             }
         }
         $priceStripe = $request->prixtot;
-if($request->idCodRed)
-        $this->AffecterToCommandeCodeReduction($request->idCodRed,$id);
- {$code_reduction=CodeReduction::find($request->idCodRed);
-$taux=$code_reduction->taux_reduction;}
-$commande->prix_total=($commande->prix_total*$taux)/100;//var_dump($prixreduit);
+        if ($request->idCodRed)
+            $this->AffecterToCommandeCodeReduction($request->idCodRed, $id);
+        {
+            $code_reduction = CodeReduction::find($request->idCodRed);
+            $taux = $code_reduction->taux_reduction;
+        }
+        $commande->prix_total = ($commande->prix_total * $taux) / 100;//var_dump($prixreduit);
 
-        if ($commande->prix_total== $priceStripe) {
+        if ($commande->prix_total == $priceStripe) {
             //inserer le prix total dans la db
-            DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $id]);
+            DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total, $id]);
         } else {
-            DB::table("commandes")->delete($id);
+            DB::delete('DELETE FROM `commandes` WHERE `commandes`.`commande_id` =?', [$id]);
             return response(array(
                 'message' => 'disordance de prix',
             ), 403);
         }
-      $pay= $stripe->charges->create([
-            'amount' => $commande->prix_total*100,
+        $pay = $stripe->charges->create([
+            'amount' => $commande->prix_total * 100,
             'currency' => 'eur',
             'source' => $request->token,
             'description' => 'payment',
+        ]);
 
-      ]);
 
+        return $response = ['checkout' => $pay,
+            'prixtotal' => $request->prixtot,
+            'cart' => $request->card,
+            'id_code_reduction' => $request->idCodRed,
+            'address' => $request->address,
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'code_reduction' => $request->codered,
+            'date_payment' => Carbon::now(),
+            'cartOffre' => $request->cartOffre
 
-      return   $response = [ 'checkout'=>$pay,
-        'prixtotal'=> $request->prixtot,
-        'cart'=>$request->card,
-        'id_code_reduction'=>$request->idCodRed,
-        'address'=>$request->address,
-        'longitude'=>$request->longitude,
-        'latitude'=>$request->latitude,
-        'code_reduction'=>$request->codered,
-        'date_payment'=>Carbon::now(),
-        'cartOffre'=>$request->cartOffre
-
-    ];
+        ];
 
     }
 
-    public function charges(Request $request){
+    public function charges(Request $request)
+    {
         $stripe = new \Stripe\StripeClient(
             'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
         );
 
-        return  $stripe->charges->all();
+        return $stripe->charges->all();
     }
 
     public function AffecterToCommandeCodeReduction($id_reduction, $id_commande)
     {
 
         $codered = CodeReduction::find($id_reduction);
-        $Commande = Commande::where('commande_id', 'like',$id_commande)->first();
-      //  var_dump($Commande);
+        $Commande = Commande::where('commande_id', 'like', $id_commande)->first();
+        //  var_dump($Commande);
         if (!$codered) {
             return response(array(
                 'message' => 'Code Reduction Not Found',
@@ -167,26 +169,26 @@ $commande->prix_total=($commande->prix_total*$taux)/100;//var_dump($prixreduit);
                 'message' => 'Commande Not Found',
             ), 404);
         }
-        if($codered->statut==0)
-        {
+        if ($codered->statut == 0) {
             return response(array(
                 'message' => 'Code reduction already used',
             ), 404);
         }
-     //   $Commande->code_reduction_id=$codered->id;
-     //   $editdata = array(
-       //     'code_reduction_id' => $codered->id
+        //   $Commande->code_reduction_id=$codered->id;
+        //   $editdata = array(
+        //     'code_reduction_id' => $codered->id
         //);
-      // $Commande->update($editdata);
-       DB::table('commandes')->where('commande_id', $id_commande)->update([
+        // $Commande->update($editdata);
+        DB::table('commandes')->where('commande_id', $id_commande)->update([
 
-        'code_reduction_id'=>$codered->id
-    ]);
-        if($codered->user_id!=null)
-        {$editdata = array(
-           'statut'=>0
-           );
-           $codered->update($editdata);}
+            'code_reduction_id' => $codered->id
+        ]);
+        if ($codered->user_id != null) {
+            $editdata = array(
+                'statut' => 0
+            );
+            $codered->update($editdata);
+        }
         return $codered;
 
     }
