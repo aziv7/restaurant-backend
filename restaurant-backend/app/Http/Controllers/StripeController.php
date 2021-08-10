@@ -83,7 +83,7 @@ class StripeController extends Controller
                     $plat1 = Plat::find($plat['id']);
                     $plat1->customs()->attach($custom);
                     $commande->prix_total = $commande->prix_total + $modificateur["prix"];
-                    var_dump($commande->prix_total);
+               //     var_dump($commande->prix_total);
                 }
                 //parcourir les modificateurs pour traiter les ingrédients
                 foreach ($modificateur["ingredients"] as $ingredient) {
@@ -113,8 +113,8 @@ if($request->idCodRed)
 $taux=$code_reduction->taux_reduction;
 $commande->prix_total=($commande->prix_total*$taux)/100;//var_dump($prixreduit);
 
-  } var_dump($priceStripe);
-var_dump($commande->prix_total);   
+  } //var_dump($priceStripe);
+//var_dump($commande->prix_total);   
   if ($commande->prix_total== $priceStripe) {
             //inserer le prix total dans la db
             DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total , $id]);
