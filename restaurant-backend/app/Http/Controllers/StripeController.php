@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use App\Models\CodeReduction;
+use \App\Enums\Statut;
 
 use App\Models\Commande;
 use App\Models\custom;
@@ -63,8 +64,9 @@ class StripeController extends Controller
         } else $commande->datepaiment = null;
 
         //création de commande sans plats
-        DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement) values (?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, $commande->datepaiment, null]);
+        DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status) values (?,?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, $commande->datepaiment, null,Statut::getKey(0)]);
         $custom = new custom();
+    // var_dump(Statut::getKey(0));
         // affectation des plats sans modificateur au commande
         foreach ($request->card as $i => $plat) {
             $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
@@ -75,21 +77,22 @@ class StripeController extends Controller
             foreach ($plat["modificateurs"] as $j => $modificateur) {
                 if ($modificateur["checked"] == true) {
                     $custom->nom = $modificateur["nom"];
-                    $custom->prix = $modificateur["prix"];
+                    $custom->prix = $modificateur["prix"]*$plat["quantity"];
                     //insertion du custom dans la base
                     $custom = custom::create($modificateur);
                     //affectation du custm au plat
                     $plat1 = Plat::find($plat['id']);
                     $plat1->customs()->attach($custom);
                     $commande->prix_total = $commande->prix_total + $modificateur["prix"];
+                    var_dump($commande->prix_total);
                 }
                 //parcourir les modificateurs pour traiter les ingrédients
                 foreach ($modificateur["ingredients"] as $ingredient) {
-                    if ($ingredient["checked"]) {
+                    if ($ingredient["checked"]==true){
                         $ing = Ingredient::find($ingredient["id"]);
                         //affecter ingrédient à son custom
                         $custom->ingredients()->attach($ing);
-                        $commande->prix_total = $commande->prix_total + $ingredient["prix"];
+                        $commande->prix_total = $commande->prix_total + $ingredient["prix"]*$plat["quantity"];
                     }
                 }
             }
@@ -104,15 +107,15 @@ class StripeController extends Controller
             }
         }
         $priceStripe = $request->prixtot;
-        if ($request->idCodRed)
-            $this->AffecterToCommandeCodeReduction($request->idCodRed, $id);
-        {
-            $code_reduction = CodeReduction::find($request->idCodRed);
-            $taux = $code_reduction->taux_reduction;
-        }
-        $commande->prix_total = ($commande->prix_total * $taux) / 100;//var_dump($prixreduit);
+if($request->idCodRed)
+      {  $this->AffecterToCommandeCodeReduction($request->idCodRed,$id);
+ $code_reduction=CodeReduction::find($request->idCodRed);
+$taux=$code_reduction->taux_reduction;
+$commande->prix_total=($commande->prix_total*$taux)/100;//var_dump($prixreduit);
 
-        if ($commande->prix_total == $priceStripe) {
+  } var_dump($priceStripe);
+var_dump($commande->prix_total);   
+  if ($commande->prix_total== $priceStripe) {
             //inserer le prix total dans la db
             DB::update('update commandes set prix_total = ? where commande_id = ?', [$commande->prix_total, $id]);
         } else {
@@ -129,16 +132,11 @@ class StripeController extends Controller
         ]);
 
 
-        return $response = ['checkout' => $pay,
-            'prixtotal' => $request->prixtot,
-            'cart' => $request->card,
-            'id_code_reduction' => $request->idCodRed,
-            'address' => $request->address,
-            'longitude' => $request->longitude,
-            'latitude' => $request->latitude,
-            'code_reduction' => $request->codered,
-            'date_payment' => Carbon::now(),
-            'cartOffre' => $request->cartOffre
+      return   $response = [   'prixtotal'=> $request->prixtot,
+      'cart'=>$request->card,
+      'cartOffre'=>$request->cartOffre,
+      'idCommande'=>$c->commande_id,
+'status'=>$c->status
 
         ];
 
