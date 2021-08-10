@@ -12,7 +12,7 @@ class Categorie extends Model
 
     use SoftDeletes;
     protected $fillable = [
-        'nom',
+        'nom', 'img'
     ];
 
     public function plats()
