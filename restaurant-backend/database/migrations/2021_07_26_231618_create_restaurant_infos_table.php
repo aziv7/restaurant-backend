@@ -40,6 +40,8 @@ class CreateRestaurantInfosTable extends Migration
                 ->nullable();
             $table->string('numero_tva')
                 ->nullable();
+            $table->double('prixlivraison')
+                ->nullable();
             $table->bigInteger('user_id')
                 ->unsigned();
             $table->foreign('user_id')

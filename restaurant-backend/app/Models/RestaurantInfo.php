@@ -26,7 +26,8 @@ class RestaurantInfo extends Model
         'address',
         'longitude',
         'latitude',
-        'tel'
+        'tel',
+        'prixlivraison'
     ];
 
     public function work_times()
