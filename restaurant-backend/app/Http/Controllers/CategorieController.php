@@ -13,7 +13,7 @@ class CategorieController extends Controller
     public function index()
     {
 
-        $categories = Categorie::with('plats')->get();
+        $categories = Categorie::with('plats','plats.images')->get();
         return $categories;
     }
 
@@ -28,7 +28,17 @@ class CategorieController extends Controller
 
     public function detachPlat($id_categorie, $id_plat)
         {
+            /*$categorie = Categorie::find($id_categorie);
+            $plat = Plat::find($id_plat);
+            $categorie->plats()->delete($plat);*/
             DB::table('plats')->where('id', $id_plat)->update(['categorie_id' => null]);
+               /* ->chunkById(100, function ($users) {
+                    foreach ($users as $user) {
+                        DB::table('users')
+                            ->where('id', $user->id)
+                            ->update(['active' => true]);
+                    }
+                });*/
         }
 
     public function store(Request $request)
