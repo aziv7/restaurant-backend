@@ -17,6 +17,7 @@ class CreateCommandePlatTable extends Migration
             $table->id();
             $table->string('commande_id');
             $table->unsignedBigInteger('plat_id');
+            $table->integer('quantity')->nullable();
             $table->foreign('plat_id')->references('id')->on('plats')->onDelete('cascade');
             $table->foreign('commande_id')->references('commande_id')->on('commandes')->onDelete('cascade');
         });

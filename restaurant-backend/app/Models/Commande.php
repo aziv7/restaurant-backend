@@ -23,7 +23,8 @@ class Commande extends Model
         'code_reduction_id',
         'created_at',
         'updated_at',
-        'prix_total'
+        'prix_total',
+        'livraison_address'
     ];
 
     public function code_reduction()

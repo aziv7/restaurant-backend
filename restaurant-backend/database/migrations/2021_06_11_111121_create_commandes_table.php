@@ -16,6 +16,7 @@ class CreateCommandesTable extends Migration
         Schema::create('commandes', function (Blueprint $table) {
             $table->string('commande_id')->primary();
             $table->string('livraison')->nullable();
+            $table->string('livraison_address')->nullable();
             $table->enum('status',Statut::getKeys())->default(Statut::getKey(0));
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
