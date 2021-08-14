@@ -37,120 +37,130 @@ class StripeController extends Controller
 
     public function payments(Request $request)
     {
-        $stripe = new \Stripe\StripeClient(
-            'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
-        );
-
-        $commande = new Commande();
-        $commande->user_id = Auth::id();
-        $commande->created_at = Carbon::now();
-        $creation_datetime_string = $commande->created_at->toDateTimeString();
-        //somme des plats id
-        $somme_plat_id = 0;
-        // je vais avoir une liste des id des plats choisits pour les affecter au commande
-        foreach ($request->card as $plat) {
-            $somme_plat_id = $somme_plat_id + $plat["id"];
-
+        $access = false;
+        $temps = DB::select('select * from work_times where restaurant_info_id = ?', [1]);
+        var_dump($temps);
+        foreach ($temps as $t) {
+            if (Carbon::now()->between($t . start, $t . end) && Carbon::now() != $t . holiday) {
+                $access = true;
+            }
         }
-        //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
-        $chaine = (Auth::id() + $somme_plat_id) * 357;
-        $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
-        $id = Hash::make($chaine_string);
-        $commande->commande_id = $id;
-        $commande->prix_total = 0;
+        var_dump($access);
+        // in work time
+        if ($access) {
+            $stripe = new \Stripe\StripeClient(
+                'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
+            );
 
-        if ($request->checkout) {
-            $commande->datepaiment = Carbon::now(); // $request->checkout["date_payment"];
-        } else $commande->datepaiment = null;
+            $commande = new Commande();
+            $commande->user_id = Auth::id();
+            $commande->created_at = Carbon::now();
+            $creation_datetime_string = $commande->created_at->toDateTimeString();
+            //somme des plats id
+            $somme_plat_id = 0;
+            // je vais avoir une liste des id des plats choisits pour les affecter au commande
+            foreach ($request->card as $plat) {
+                $somme_plat_id = $somme_plat_id + $plat["id"];
 
-        //création de commande sans plats
-        DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status,longitude,latitude,livraison) values (?,?,?,?,?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, Carbon::now(), null, Statut::getKey(0), $request->longitude, $request->latitude, $request->livraison]);
-        $custom = new custom();
-        // var_dump(Statut::getKey(0));
-        // affectation des plats sans modificateur au commande
-        foreach ($request->card as $i => $plat) {
-            $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
-            $p = Plat::find($plat["id"]);
-            //affecter le plat à la commande
-            $commande->plat()->attach($p);
-            //parcourir les plats pour traiter les customs
-            foreach ($plat["modificateurs"] as $j => $modificateur) {
-                if ($modificateur["checked"] == true) {
-                    $custom->nom = $modificateur["nom"];
-                    $custom->prix = $modificateur["prix"] * $plat["quantity"];
-                    //insertion du custom dans la base
-                    $custom = custom::create($modificateur);
-                    //affectation du custm au plat
-                    $plat1 = Plat::find($plat['id']);
-                    $plat1->customs()->attach($custom);
-                    $commande->prix_total = $commande->prix_total + $modificateur["prix"];
-                    //     var_dump($commande->prix_total);
-                }
-                //parcourir les modificateurs pour traiter les ingrédients
-                foreach ($modificateur["ingredients"] as $ingredient) {
-                    if ($ingredient["checked"] == true) {
-                        $ing = Ingredient::find($ingredient["id"]);
-                        //affecter ingrédient à son custom
-                        $custom->ingredients()->attach($ing);
-                        $commande->prix_total = $commande->prix_total + $ingredient["prix"] * $plat["quantity"];
+            }
+            //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
+            $chaine = (Auth::id() + $somme_plat_id) * 357;
+            $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
+            $id = Hash::make($chaine_string);
+            $commande->commande_id = $id;
+            $commande->prix_total = 0;
+
+            if ($request->checkout) {
+                $commande->datepaiment = Carbon::now(); // $request->checkout["date_payment"];
+            } else $commande->datepaiment = null;
+
+            //création de commande sans plats
+            DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status,longitude,latitude,livraison) values (?,?,?,?,?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, Carbon::now(), null, Statut::getKey(0), $request->longitude, $request->latitude, $request->livraison]);
+            $custom = new custom();
+            // var_dump(Statut::getKey(0));
+            // affectation des plats sans modificateur au commande
+            foreach ($request->card as $i => $plat) {
+                $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
+                $p = Plat::find($plat["id"]);
+                //affecter le plat à la commande
+                $commande->plat()->attach($p);
+                //parcourir les plats pour traiter les customs
+                foreach ($plat["modificateurs"] as $j => $modificateur) {
+                    if ($modificateur["checked"] == true) {
+                        $custom->nom = $modificateur["nom"];
+                        $custom->prix = $modificateur["prix"] * $plat["quantity"];
+                        //insertion du custom dans la base
+                        $custom = custom::create($modificateur);
+                        //affectation du custm au plat
+                        $plat1 = Plat::find($plat['id']);
+                        $plat1->customs()->attach($custom);
+                        $commande->prix_total = $commande->prix_total + $modificateur["prix"];
+                        //     var_dump($commande->prix_total);
+                    }
+                    //parcourir les modificateurs pour traiter les ingrédients
+                    foreach ($modificateur["ingredients"] as $ingredient) {
+                        if ($ingredient["checked"] == true) {
+                            $ing = Ingredient::find($ingredient["id"]);
+                            //affecter ingrédient à son custom
+                            $custom->ingredients()->attach($ing);
+                            $commande->prix_total = $commande->prix_total + $ingredient["prix"] * $plat["quantity"];
+                        }
                     }
                 }
             }
-        }
-        if ($request->cartOffre) {
-            foreach ($request->cartOffre as $i => $offre) {
-                $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
-                $c = Commande::where('commande_id', 'like', $id)->first();
-                $o = offre::find($offre["id"]);
-                DB::insert('insert into offre_commande (commande_id, offre_id, created_at) values (?, ?, ?)', [$id, $o->id, Carbon::now()]);
-                // $c->Offres()->attach($o);
+            if ($request->cartOffre) {
+                foreach ($request->cartOffre as $i => $offre) {
+                    $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
+                    $c = Commande::where('commande_id', 'like', $id)->first();
+                    $o = offre::find($offre["id"]);
+                    DB::insert('insert into offre_commande (commande_id, offre_id, created_at) values (?, ?, ?)', [$id, $o->id, Carbon::now()]);
+                    // $c->Offres()->attach($o);
+                }
             }
+
+            $priceStripe = $request->prixtot;
+            if ($request->idCodRed) {
+                $this->AffecterToCommandeCodeReduction($request->idCodRed, $id);
+                $code_reduction = CodeReduction::find($request->idCodRed);
+                $taux = $code_reduction->taux_reduction;
+                $commande->prix_total = ($commande->prix_total * $taux) / 100;
+            }
+
+            // ajout prix de livraison
+            if ($request->livraison) {
+                $prix_livraison = DB::select('SELECT `prixlivraison` FROM `restaurant_infos`');
+                var_dump($prix_livraison);
+                $commande->prix_total = $commande->prix_total + $prix_livraison[0];
+            }
+
+            if ($commande->prix_total == $priceStripe) {
+                //inserer le prix total dans la db
+                DB::update('update commandes set prix_total = ? and longitude=? and latitude=? and livraison=? and date_paiement=?  where commande_id = ?', [$commande->prix_total, $request->longitude, $request->latitude, $request->livraison, Carbon::now(), $id]);
+            } else {
+                DB::delete('DELETE FROM `commandes` WHERE `commandes`.`commande_id` =?', [$id]);
+                return response(array(
+                    'message' => 'disordance de prix',
+                ), 403);
+            }
+            $pay = $stripe->charges->create([
+                'amount' => $commande->prix_total * 100,
+                'currency' => 'eur',
+                'source' => $request->token,
+                'description' => 'payment',
+
+            ]);
+
+            $c = Commande::where('commande_id', 'like', $id)->first();
+
+            return $response = ['prixtotal' => $request->prixtot,
+                'cart' => $request->card,
+                'cartOffre' => $request->cartOffre,
+                'idCommande' => $id,
+                'status' => $c->status,
+                'user_id' => Auth::id(),
+                'created_at' => Carbon::now()
+            ];
         }
-
-        $priceStripe = $request->prixtot;
-        if ($request->idCodRed) {
-            $this->AffecterToCommandeCodeReduction($request->idCodRed, $id);
-            $code_reduction = CodeReduction::find($request->idCodRed);
-            $taux = $code_reduction->taux_reduction;
-            $commande->prix_total = ($commande->prix_total * $taux) / 100;
-        }
-
-        // ajout prix de livraison
-        if($request->livraison)
-        {
-            $prix_livraison = DB::select('SELECT `prixlivraison` FROM `restaurant_infos`');
-            var_dump($prix_livraison);
-            $commande->prix_total = $commande->prix_total + $prix_livraison[0];
-        }
-
-        if ($commande->prix_total == $priceStripe) {
-            //inserer le prix total dans la db
-            DB::update('update commandes set prix_total = ? and longitude=? and latitude=? and livraison=? and date_paiement=?  where commande_id = ?', [$commande->prix_total, $request->longitude, $request->latitude, $request->livraison, Carbon::now(), $id]);
-        } else {
-            DB::delete('DELETE FROM `commandes` WHERE `commandes`.`commande_id` =?', [$id]);
-            return response(array(
-                'message' => 'disordance de prix',
-            ), 403);
-        }
-        $pay = $stripe->charges->create([
-            'amount' => $commande->prix_total * 100,
-            'currency' => 'eur',
-            'source' => $request->token,
-            'description' => 'payment',
-
-        ]);
-
-        $c = Commande::where('commande_id', 'like', $id)->first();
-
-        return $response = ['prixtotal' => $request->prixtot,
-            'cart' => $request->card,
-            'cartOffre' => $request->cartOffre,
-            'idCommande' => $id,
-            'status' => $c->status,
-            'user_id' => Auth::id(),
-            'created_at' => Carbon::now()
-        ];
-
     }
 
     public function charges(Request $request)
