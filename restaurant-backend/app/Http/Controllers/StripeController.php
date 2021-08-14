@@ -39,13 +39,11 @@ class StripeController extends Controller
     {
         $access = false;
         $temps = DB::select('select * from work_times where restaurant_info_id = ?', [1]);
-        var_dump($temps);
         foreach ($temps as $t) {
-            if (Carbon::now()->between($t . start, $t . end) && Carbon::now() != $t . holiday) {
+            if (Carbon::now()->between($t->start, $t->end) || Carbon::now() != $t->holiday) {
                 $access = true;
             }
         }
-        var_dump($access);
         // in work time
         if ($access) {
             $stripe = new \Stripe\StripeClient(
@@ -61,7 +59,6 @@ class StripeController extends Controller
             // je vais avoir une liste des id des plats choisits pour les affecter au commande
             foreach ($request->card as $plat) {
                 $somme_plat_id = $somme_plat_id + $plat["id"];
-
             }
             //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
             $chaine = (Auth::id() + $somme_plat_id) * 357;
@@ -77,13 +74,14 @@ class StripeController extends Controller
             //création de commande sans plats
             DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status,longitude,latitude,livraison) values (?,?,?,?,?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, Carbon::now(), null, Statut::getKey(0), $request->longitude, $request->latitude, $request->livraison]);
             $custom = new custom();
-            // var_dump(Statut::getKey(0));
             // affectation des plats sans modificateur au commande
             foreach ($request->card as $i => $plat) {
                 $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
                 $p = Plat::find($plat["id"]);
                 //affecter le plat à la commande
-                $commande->plat()->attach($p);
+                $commande->plat()->attach($p, ['quantity' => $plat["quantity"]]);
+                // add quantity to plat4
+                // DB::update('UPDATE `commande_plats` SET quantity = ?  where commande_id = ? and plat_id = ?', [$request->quantity, $id, $p->id]);
                 //parcourir les plats pour traiter les customs
                 foreach ($plat["modificateurs"] as $j => $modificateur) {
                     if ($modificateur["checked"] == true) {
@@ -95,7 +93,6 @@ class StripeController extends Controller
                         $plat1 = Plat::find($plat['id']);
                         $plat1->customs()->attach($custom);
                         $commande->prix_total = $commande->prix_total + $modificateur["prix"];
-                        //     var_dump($commande->prix_total);
                     }
                     //parcourir les modificateurs pour traiter les ingrédients
                     foreach ($modificateur["ingredients"] as $ingredient) {
@@ -113,7 +110,7 @@ class StripeController extends Controller
                     $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
                     $c = Commande::where('commande_id', 'like', $id)->first();
                     $o = offre::find($offre["id"]);
-                    DB::insert('insert into offre_commande (commande_id, offre_id, created_at) values (?, ?, ?)', [$id, $o->id, Carbon::now()]);
+                    DB::insert('insert into offre_commande (commande_id, offre_id, created_at, quantity) values (?, ?, ?, ?)', [$id, $o->id, Carbon::now(), $offre["quantity"]]);
                     // $c->Offres()->attach($o);
                 }
             }
@@ -129,8 +126,7 @@ class StripeController extends Controller
             // ajout prix de livraison
             if ($request->livraison) {
                 $prix_livraison = DB::select('SELECT `prixlivraison` FROM `restaurant_infos`');
-                var_dump($prix_livraison);
-                $commande->prix_total = $commande->prix_total + $prix_livraison[0];
+                $commande->prix_total = $commande->prix_total + $prix_livraison[0]->prixlivraison;
             }
 
             if ($commande->prix_total == $priceStripe) {
@@ -177,7 +173,6 @@ class StripeController extends Controller
 
         $codered = CodeReduction::find($id_reduction);
         $Commande = Commande::where('commande_id', 'like', $id_commande)->first();
-        //  var_dump($Commande);
         if (!$codered) {
             return response(array(
                 'message' => 'Code Reduction Not Found',

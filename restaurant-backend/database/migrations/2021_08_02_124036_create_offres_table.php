@@ -51,6 +51,7 @@ class CreateOffresTable extends Migration
                 ->references('commande_id')
                 ->on('commandes')
                 ->onDelete('cascade');
+            $table->integer('quantity')-> nullable();
         });
     }
 
