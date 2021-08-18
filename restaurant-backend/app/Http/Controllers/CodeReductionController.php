@@ -16,7 +16,7 @@ class CodeReductionController extends Controller
 
     public function index()
     {
-        $codered = CodeReduction::all();
+        $codered = CodeReduction::with('user')->get();
 
         if ($codered->isEmpty()) {
             return response(array(
@@ -63,9 +63,9 @@ class CodeReductionController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        $code = CodeReduction::find($id);
+        $code = CodeReduction::find($request->id);
         if (!$code) {
             return response(array(
                 'message' => 'Code Reduction Not Found',
@@ -191,11 +191,11 @@ class CodeReductionController extends Controller
         ];
         return response($response, 201);
         }
-       
+
         return response(array(
             'message' => 'Code Reduction Not Found',
         ), 404);
-        
+
             }
     /**
      * display all deleted codes
@@ -221,7 +221,7 @@ class CodeReductionController extends Controller
     {
         $codered = CodeReduction::find($id_reduction);
         $user = User::find($id_user);
-    
+
         if (!$codered || $codered->statut==0) {
             return response(array(
                 'message' => ' Code Not Found',
@@ -239,7 +239,7 @@ class CodeReductionController extends Controller
         $codered->update($editdata);
         return $codered;
     }
-    //if staut =0 already used 
+    //if staut =0 already used
     //if code reduction is only for one person statut after affecting it =>0
     public function AffecterToCommandeCodeReduction(Request $request)
     {
@@ -268,7 +268,7 @@ class CodeReductionController extends Controller
         //);
       // $Commande->update($editdata);
        DB::table('commandes')->where('commande_id', $request->id_com)->update([
-                
+
         'code_reduction_id'=>$codered->id
     ]);
         if($codered->user_id!=null)

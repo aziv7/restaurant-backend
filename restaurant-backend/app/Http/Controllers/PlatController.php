@@ -39,12 +39,6 @@ class PlatController extends Controller
             'description' => $request->get('description'),
         ]);
 
-        /*foreach ($request->get('image-name') as $i => $item) {
-            var_dump($i);
-            var_dump($item);
-            var_dump($request->get('image-src')[$i]);
-        }*/
-
         foreach ($request->get('image-name') as $i => $item) {
             $image_name = $item;
             $image_src = $request->get('image-src')[$i];
@@ -203,7 +197,7 @@ class PlatController extends Controller
     {
         // $plat = DB::table('plats')->leftJoin('modificateur_plat','=','')->leftJoin('modificateurs')->leftJoin('ingredient_modificateur')->leftJoin('ingredients')->get();
         $plat = Plat::with('modificateurs', 'images', 'modificateurs.ingredients')->get();
-        foreach ($plat as $p){ 
+        foreach ($plat as $p){
             $ratings = Rating::where('plat_id',  $p->id)->get();
             $p->ratings=$ratings;
             }

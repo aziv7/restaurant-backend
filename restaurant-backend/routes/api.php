@@ -57,7 +57,7 @@ Route::middleware(['json.response'])->group(function () {
     Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
     Route::post('resetCoddepwd/{code}', '\App\Http\Controllers\ResetCodeController@VerifCodeReset');
     Route::get('verifExistanceOfCode/{code}', '\App\Http\Controllers\ResetCodeController@verifExistanceCode');
-    Route::post('sendEmailForResetCode', '\App\Http\Controllers\ResetCodeController@sendEmail'); 
+    Route::post('sendEmailForResetCode', '\App\Http\Controllers\ResetCodeController@sendEmail');
     Route::post('sendresetpwd', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
     Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
     Route::get('existlogin/{login}', [UserController::class, 'verifyExistanceOfLogin']);
@@ -91,7 +91,7 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('categorie/{id}', [CategorieController::class, 'show']);
     Route::get('categorie', [CategorieController::class, 'index']);
-   
+
     //***************************            worktime          *************************//
 
     Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
@@ -244,7 +244,11 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::get('/codereduc/{code}', [CodeReductionController::class, 'searchByCode']);
     Route::get('/allcodes', [CodeReductionController::class, 'DisplayAllCodes']);
     Route::get('/getcodeverifdate/{date}', [CodeReductionController::class, 'getallVerifDate']);
-    Route::resource('codereduction', CodeReductionController::class);
+    Route::get('/codereduction', [CodeReductionController::class, 'index']);
+    Route::post('/codereduction', [CodeReductionController::class, 'store']);
+    Route::put('/codereduction', [CodeReductionController::class, 'update']);
+    Route::delete('/codereduction/{id}', [CodeReductionController::class, 'destroy']);
+    // Route::resource('codereduction', CodeReductionController::class);
     Route::get('/codereduct/{code}', [CodeReductionController::class, 'searchByCodeExact']);
     Route::get('/codedate/{date}', [CodeReductionController::class, 'searchByDate']);
     Route::put('/affectcode/{id_reduction}/{id_user}', [CodeReductionController::class, 'AffecterUserReduction']);
@@ -287,5 +291,13 @@ Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affe
 Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
 Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
 Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
+
+
+    //***************************            Requested_plat          *************************//
+
+    Route::get('requestedplats', [\App\Http\Controllers\RequestedPlatsController::class, 'index']);
+    Route::get('requestedplats/{$id}', [\App\Http\Controllers\RequestedPlatsController::class, 'show']);
+    Route::post('requestedplats', [\App\Http\Controllers\RequestedPlatsController::class, 'store']);
+    Route::post('requestedplats/{$id}', [\App\Http\Controllers\RequestedPlatsController::class, 'destroy']);
 
 });

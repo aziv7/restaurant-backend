@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RequestedPlat;
 use Carbon\Carbon;
 use App\Models\CodeReduction;
 use \App\Enums\Statut;
@@ -68,7 +69,8 @@ class StripeController extends Controller
             $commande->prix_total = 0;
 
             if ($request->checkout) {
-                $commande->datepaiment = Carbon::now(); // $request->checkout["date_payment"];
+                $commande->datepaiment = Carbon::now();
+                $commande->statut = Statut::en_cours;
             } else $commande->datepaiment = null;
 
             //création de commande sans plats
@@ -78,10 +80,17 @@ class StripeController extends Controller
             foreach ($request->card as $i => $plat) {
                 $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
                 $p = Plat::find($plat["id"]);
+                // create new requested_plat
+                $idrequestedplat = DB::table('requested_plats')->insertGetId(
+                    ['nom' => $plat["nom"], 'prix' => $plat["prix"], 'description' => $plat["description"]]
+                );
+                $requestedPlat = RequestedPlat::find($idrequestedplat);
+
                 //affecter le plat à la commande
-                $commande->plat()->attach($p, ['quantity' => $plat["quantity"]]);
-                // add quantity to plat4
-                // DB::update('UPDATE `commande_plats` SET quantity = ?  where commande_id = ? and plat_id = ?', [$request->quantity, $id, $p->id]);
+                $commande->requested_plat()->attach($requestedPlat, ['quantity' => $plat["quantity"]]);
+                $allrequestedplatid = array();
+                array_push($allrequestedplatid, $requestedPlat->id);
+
                 //parcourir les plats pour traiter les customs
                 foreach ($plat["modificateurs"] as $j => $modificateur) {
                     if ($modificateur["checked"] == true) {
@@ -89,8 +98,8 @@ class StripeController extends Controller
                         $custom->prix = $modificateur["prix"] * $plat["quantity"];
                         //insertion du custom dans la base
                         $custom = custom::create($modificateur);
-                        //affectation du custm au plat
-                        $plat1 = Plat::find($plat['id']);
+                        //affectation du custm au requested_plat
+                        $plat1 = RequestedPlat::find($allrequestedplatid[$j]);
                         $plat1->customs()->attach($custom);
                         $commande->prix_total = $commande->prix_total + $modificateur["prix"];
                     }
@@ -124,7 +133,7 @@ class StripeController extends Controller
             }
 
             // ajout prix de livraison
-            if ($request->livraison) {
+            if ($request->livraison == true) {
                 $prix_livraison = DB::select('SELECT `prixlivraison` FROM `restaurant_infos`');
                 $commande->prix_total = $commande->prix_total + $prix_livraison[0]->prixlivraison;
             }

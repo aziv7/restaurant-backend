@@ -15,7 +15,7 @@ class PlatCustom extends Migration
     {
         {
             Schema::create('plat_custom', function (Blueprint $table) {
-                $table->primary(['custom_id','plat_id']);
+                $table->primary(['custom_id', 'plat_id']);
                 $table->bigInteger('custom_id')->unsigned();
                 $table->bigInteger('plat_id')->unsigned();
                 $table->foreign('custom_id')
@@ -37,5 +37,6 @@ class PlatCustom extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('plat_custom');    }
+        Schema::dropIfExists('plat_custom');
+    }
 }

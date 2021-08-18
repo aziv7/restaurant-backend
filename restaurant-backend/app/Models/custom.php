@@ -20,6 +20,11 @@ class custom extends Model
         return $this->belongsToMany(Plat::class);
     }
 
+    public function requested_plats()
+    {
+        return $this->belongsToMany(RequestedPlat::class);
+    }
+
     public function ingredients()
     {
         return $this->belongsToMany(Ingredient::class,'ingredient_custom','custom_id',

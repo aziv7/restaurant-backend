@@ -44,6 +44,13 @@ class Commande extends Model
             'commande_id', 'id');
     }
 
+    public function requested_plat()
+    {
+        return $this->belongsToMany(RequestedPlat::class, 'commande_requested_plats',
+            'commande_id', 'requested_plat_id',
+            'commande_id', 'id');
+    }
+
     public function Offres()
     {
         return $this->belongsToMany(Offre::class,
