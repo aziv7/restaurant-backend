@@ -93,7 +93,8 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('categorie', [CategorieController::class, 'index']);
 
     //***************************            worktime          *************************//
-
+    Route::get('restaurent/work', [\App\Http\Controllers\WorkTimeController::class, 'Verif_Time_Work']);
+    Route::get('restaurent/info', [\App\Http\Controllers\RestaurantInfoController::class, 'getInfo']);
     Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
     Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
     //***************************            offre          *************************//
@@ -271,7 +272,6 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::middleware(['auth:sanctum', 'msdigital', 'json.response'])->group(function () {*/
 
 //***************************          WORKTIMES       *************************//
-
 Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
 Route::get('myrestau', [\App\Http\Controllers\RestaurantInfoController::class, 'myrestau']);
 Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);

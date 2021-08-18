@@ -20,6 +20,10 @@ class RestaurantInfoController extends Controller
     {
         return RestaurantInfo::all();
     }
+    public function getInfo()
+    {
+        return RestaurantInfo::all()->first();
+    }
 
     /**
      * Store a newly created resource in storage.

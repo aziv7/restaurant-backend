@@ -60,6 +60,7 @@ class StripeController extends Controller
             // je vais avoir une liste des id des plats choisits pour les affecter au commande
             foreach ($request->card as $plat) {
                 $somme_plat_id = $somme_plat_id + $plat["id"];
+
             }
             //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
             $chaine = (Auth::id() + $somme_plat_id) * 357;
@@ -74,7 +75,7 @@ class StripeController extends Controller
             } else $commande->datepaiment = null;
 
             //création de commande sans plats
-            DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status,longitude,latitude,livraison) values (?,?,?,?,?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, Carbon::now(), null, Statut::getKey(0), $request->longitude, $request->latitude, $request->livraison]);
+            DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status,longitude,latitude,livraison,livraison_address) values (?,?,?,?,?,?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, Carbon::now(), null, Statut::getKey(0), $request->longitude, $request->latitude, $request->livraison,$request->address]);
             $custom = new custom();
             // affectation des plats sans modificateur au commande
             foreach ($request->card as $i => $plat) {
@@ -101,7 +102,6 @@ class StripeController extends Controller
                         //affectation du custm au requested_plat
                         $plat1 = RequestedPlat::find($allrequestedplatid[$j]);
                         $plat1->customs()->attach($custom);
-                        $commande->prix_total = $commande->prix_total + $modificateur["prix"];
                     }
                     //parcourir les modificateurs pour traiter les ingrédients
                     foreach ($modificateur["ingredients"] as $ingredient) {
@@ -109,7 +109,7 @@ class StripeController extends Controller
                             $ing = Ingredient::find($ingredient["id"]);
                             //affecter ingrédient à son custom
                             $custom->ingredients()->attach($ing);
-                            $commande->prix_total = $commande->prix_total + $ingredient["prix"] * $plat["quantity"];
+                            $commande->prix_total = $commande->prix_total +$modificateur["prix"] * $plat["quantity"];
                         }
                     }
                 }
@@ -163,7 +163,10 @@ class StripeController extends Controller
                 'idCommande' => $id,
                 'status' => $c->status,
                 'user_id' => Auth::id(),
-                'created_at' => Carbon::now()
+                'created_at' => Carbon::now(),
+                'longitude'=> $request->longitude,
+                'latitude'=>$request->latitude,
+                'addresse'=>$request->address
             ];
         }
     }
