@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 
 use App\Models\User;
 use App\Models\WorkTime;
@@ -74,5 +75,16 @@ class WorkTimeController extends Controller
     public function deleteRestaurantInfoFromWorkTime() {
 
     }
-
+public function Verif_Time_Work(){
+  $access=false;
+    $temps = DB::select('select * from work_times where restaurant_info_id = ?', [1]);
+    foreach ($temps as $t) {
+        if (Carbon::now()->between($t->start, $t->end) && $t->deleted_at==null) {
+   $access=true;
+        }}      foreach ($temps as $t) {
+            if(Carbon::now() == $t->holiday)
+$access=false;
+    }
+    return $access;
+}
 }
