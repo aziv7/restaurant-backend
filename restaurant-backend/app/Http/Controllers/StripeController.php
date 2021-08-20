@@ -68,14 +68,14 @@ class StripeController extends Controller
             $id = Hash::make($chaine_string);
             $commande->commande_id = $id;
             $commande->prix_total = 0;
+            if ($request->method_payment != 'on_delivery') {
 
-            if ($request->checkout) {
-                $commande->datepaiment = Carbon::now();
-                $commande->statut = Statut::en_cours;
-            } else $commande->datepaiment = null;
+                //création de commande sans plats
+                DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status, prix_total) values (?,?,?,?,?,?,?)', [$id, Auth::id(), $commande->created_at, Carbon::now(), null, Statut::getKey(1), null]);
+            } else if ($request->method_payment == 'on_delivery')
+                DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement, prix_total) values (?,?,?,?,?,?)', [$id, Auth::id(), $commande->created_at, null, null, null]);
 
-            //création de commande sans plats
-            DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status,longitude,latitude,livraison,livraison_address) values (?,?,?,?,?,?,?,?,?,?)', [$commande->commande_id, Auth::id(), $commande->created_at, Carbon::now(), null, Statut::getKey(0), $request->longitude, $request->latitude, $request->livraison,$request->address]);
+
             $custom = new custom();
             // affectation des plats sans modificateur au commande
             foreach ($request->card as $i => $plat) {
@@ -91,7 +91,6 @@ class StripeController extends Controller
                 $commande->requested_plat()->attach($requestedPlat, ['quantity' => $plat["quantity"]]);
                 $allrequestedplatid = array();
                 array_push($allrequestedplatid, $requestedPlat->id);
-
                 //parcourir les plats pour traiter les customs
                 foreach ($plat["modificateurs"] as $j => $modificateur) {
                     if ($modificateur["checked"] == true) {
@@ -101,7 +100,8 @@ class StripeController extends Controller
                         $custom = custom::create($modificateur);
                         //affectation du custm au requested_plat
                         $plat1 = RequestedPlat::find($allrequestedplatid[$j]);
-                        $plat1->customs()->attach($custom);
+                        DB::insert('insert into requested_plats_custom (custom_id, requested_plats_id) values (?, ?)', [$custom->id, $allrequestedplatid[$j]]);
+                        // $plat1->customs()->attach($custom);
                     }
                     //parcourir les modificateurs pour traiter les ingrédients
                     foreach ($modificateur["ingredients"] as $ingredient) {
@@ -131,29 +131,44 @@ class StripeController extends Controller
                 $taux = $code_reduction->taux_reduction;
                 $commande->prix_total = ($commande->prix_total * $taux) / 100;
             }
-
             // ajout prix de livraison
             if ($request->livraison == true) {
                 $prix_livraison = DB::select('SELECT `prixlivraison` FROM `restaurant_infos`');
                 $commande->prix_total = $commande->prix_total + $prix_livraison[0]->prixlivraison;
+                $commande->longitude = $request->longitude;
+                $commande->latitude = $request->latitude;
+                $commande->livraison = $request->livraison;
+                $commande->date_paiement = Carbon::now();
+                $commande->livraison_address = $request->address;
             }
 
             if ($commande->prix_total == $priceStripe) {
                 //inserer le prix total dans la db
-                DB::update('update commandes set prix_total = ? and longitude=? and latitude=? and livraison=? and date_paiement=?  where commande_id = ?', [$commande->prix_total, $request->longitude, $request->latitude, $request->livraison, Carbon::now(), $id]);
+                DB::table('commandes')
+                    ->where ('commande_id', $id)
+                    ->update([
+                        'prix_total'=>$commande->prix_total ,
+                        'longitude'=>$commande->longitude,
+                        'latitude'=>$commande->latitude,
+                        'livraison'=>$request->livraison,
+                        'livraison_address'=> $commande->livraison_address
+                    ]);
+
             } else {
                 DB::delete('DELETE FROM `commandes` WHERE `commandes`.`commande_id` =?', [$id]);
                 return response(array(
                     'message' => 'disordance de prix',
                 ), 403);
             }
-            $pay = $stripe->charges->create([
-                'amount' => $commande->prix_total * 100,
-                'currency' => 'eur',
-                'source' => $request->token,
-                'description' => 'payment',
-
-            ]);
+            if ($request->method_payment == 'stripe' )
+            {
+                $pay = $stripe->charges->create([
+                    'amount' => $commande->prix_total * 100,
+                    'currency' => 'eur',
+                    'source' => $request->token,
+                    'description' => 'payment',
+                ]);
+            }
 
             $c = Commande::where('commande_id', 'like', $id)->first();
 

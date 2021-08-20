@@ -45,7 +45,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 
 
-
 Route::middleware(['json.response'])->group(function () {
     //***************************             USER           *************************//
     Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
@@ -96,14 +95,13 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('restaurent/work', [\App\Http\Controllers\WorkTimeController::class, 'Verif_Time_Work']);
     Route::get('restaurent/info', [\App\Http\Controllers\RestaurantInfoController::class, 'getInfo']);
     Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
-    Route::get('worktime/{id}',[\App\Http\Controllers\WorkTimeController::class, 'show']);
+    Route::get('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'show']);
     //***************************            offre          *************************//
     Route::get('get/offre', [\App\Http\Controllers\OffreController::class, 'index']);
-  Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
+    Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
 
 
 });
-
 
 
 /*
@@ -153,14 +151,14 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     Route::get('/stripe', [\App\Http\Controllers\StripeController::class, 'getbananas']);
     Route::get('/stripecharges', [\App\Http\Controllers\StripeController::class, 'charges']);
 //***************************            Stripe          *************************//
-Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
+    Route::post('payment/stripe', [\App\Http\Controllers\StripeController::class, 'payments']);
 
 
     //***************************            image          *************************//
     Route::delete('image/{id}', [ImageController::class, 'destroy']);
     //***************************            ratings          *************************//
-Route::post('rating',[RatingController::class,'AffectRatingToUser']);
-Route::get('getrating', [RatingController::class, 'GetUserRating']);
+    Route::post('rating', [RatingController::class, 'AffectRatingToUser']);
+    Route::get('getrating', [RatingController::class, 'GetUserRating']);
 
 });
 /*
@@ -204,9 +202,9 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     //***************************            modificateur          *************************//
 
-    Route::post('modificateur',  [ModificateurController::class, 'store']);
-    Route::put('modificateur',  [ModificateurController::class, 'update']);
-    Route::delete('modificateur/{id}',  [ModificateurController::class, 'destroy']);
+    Route::post('modificateur', [ModificateurController::class, 'store']);
+    Route::put('modificateur', [ModificateurController::class, 'update']);
+    Route::delete('modificateur/{id}', [ModificateurController::class, 'destroy']);
     Route::put('affectModificateurToPlat/{id_plat}/{id_modificateur}', [PlatController::class, 'addPlatToModificateur']);
     Route::put('detachModificateurFromPlat/{id_plat}/{id_modificateur}', [PlatController::class, 'detachPlatFromModificateur']);
 
@@ -223,9 +221,9 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     //***************************           Plat        *************************//
 
     Route::post('plat/{id}/image', [PlatController::class, 'addImageToPlat']);
-    Route::post('plat',  [PlatController::class, 'store']);
-    Route::put('plat',  [PlatController::class, 'update']);
-    Route::delete('plat/{id}',  [PlatController::class, 'destroy']);
+    Route::post('plat', [PlatController::class, 'store']);
+    Route::put('plat', [PlatController::class, 'update']);
+    Route::delete('plat/{id}', [PlatController::class, 'destroy']);
     Route::post('plat/{plat_id}/modificateur/{modificateur_id}', [PlatController::class, 'addPlatToModificateur']);
     Route::post('plat/{id}/supplement/{supplement_id}', [PlatController::class, 'addSupplementToPlat']);
 
@@ -262,7 +260,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     //***************************          WORKTIMES       *************************//
 
-    Route::post('worktime',[\App\Http\Controllers\WorkTimeController::class, 'store']);
+    Route::post('worktime', [\App\Http\Controllers\WorkTimeController::class, 'store']);
     Route::delete('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'destroy']);
     Route::put('worktime', [\App\Http\Controllers\WorkTimeController::class, 'update']);
 
@@ -272,25 +270,25 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::middleware(['auth:sanctum', 'msdigital', 'json.response'])->group(function () {*/
 
 //***************************          WORKTIMES       *************************//
-Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
-Route::get('myrestau', [\App\Http\Controllers\RestaurantInfoController::class, 'myrestau']);
-Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
-Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
-Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
-Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
-Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
-Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
-Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
-Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
+    Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
+    Route::get('myrestau', [\App\Http\Controllers\RestaurantInfoController::class, 'myrestau']);
+    Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
+    Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
+    Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
+    Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
+    Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
+    Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
+    Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
+    Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
 
     //***************************            offre          *************************//
 
 
-Route::post('offre', [\App\Http\Controllers\OffreController::class, 'store']);
-Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
-Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
-Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
-Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
+    Route::post('offre', [\App\Http\Controllers\OffreController::class, 'store']);
+    Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
+    Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
+    Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
+    Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
 
 
     //***************************            Requested_plat          *************************//
