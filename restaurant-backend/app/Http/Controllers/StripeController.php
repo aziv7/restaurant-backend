@@ -6,6 +6,7 @@ use App\Models\RequestedPlat;
 use Carbon\Carbon;
 use App\Models\CodeReduction;
 use \App\Enums\Statut;
+use App\Models\RestaurantInfo;
 
 use App\Models\Commande;
 use App\Models\custom;
@@ -45,12 +46,12 @@ class StripeController extends Controller
                 $access = true;
             }
         }
+        
+        $info = RestaurantInfo::all()->first();
         // in work time
-        if ($access) {
+                if ($access) {
             $stripe = new \Stripe\StripeClient(
-                'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
-            );
-
+            $info->public_key_stripe);
             $commande = new Commande();
             $commande->user_id = Auth::id();
             $commande->created_at = Carbon::now();
@@ -141,7 +142,6 @@ class StripeController extends Controller
                 $commande->date_paiement = Carbon::now();
                 $commande->livraison_address = $request->address;
             }
-
             if ($commande->prix_total == $priceStripe) {
                 //inserer le prix total dans la db
                 DB::table('commandes')
@@ -171,7 +171,6 @@ class StripeController extends Controller
             }
 
             $c = Commande::where('commande_id', 'like', $id)->first();
-
             return $response = ['prixtotal' => $request->prixtot,
                 'cart' => $request->card,
                 'cartOffre' => $request->cartOffre,
