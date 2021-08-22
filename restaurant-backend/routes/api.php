@@ -51,7 +51,7 @@ Route::middleware(['json.response'])->group(function () {
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/loginadmin', [UserController::class, 'loginadmin']);
     Route::post('/Signin/google', [UserController::class, 'GoogleSignIn']);
-
+    Route::post('/Signin/googleWebsite', [UserController::class, 'GoogleSignInWebSite']);
     Route::post('/uploadimguser/{id}', [UserController::class, 'uploadimg']);
     Route::post('resetpwd', '\App\Http\Controllers\ChangePasswordController@passwordResetProcess');
     Route::post('resetCoddepwd/{code}', '\App\Http\Controllers\ResetCodeController@VerifCodeReset');
