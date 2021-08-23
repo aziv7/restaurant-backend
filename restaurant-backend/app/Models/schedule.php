@@ -4,17 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
-class WorkTime extends Model
+class schedule extends Model
 {
     use HasFactory;
-    use SoftDeletes;
 
     protected $fillable = [
         'start',
-        'end',
-        'holiday'
+        'end'
     ];
 
     public function restaurant_infos()

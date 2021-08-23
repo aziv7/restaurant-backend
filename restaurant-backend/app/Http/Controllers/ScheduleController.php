@@ -2,15 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-
-use App\Models\User;
-use App\Models\WorkTime;
+use App\Models\schedule;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-class WorkTimeController extends Controller
+class ScheduleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,7 +14,7 @@ class WorkTimeController extends Controller
      */
     public function index()
     {
-        return WorkTime::all();
+        return schedule::all();
     }
 
     /**
@@ -30,7 +25,7 @@ class WorkTimeController extends Controller
      */
     public function store(Request $request)
     {
-        return WorkTime::create($request->all());
+        return schedule::create($request->all());
     }
 
     /**
@@ -41,8 +36,7 @@ class WorkTimeController extends Controller
      */
     public function show($id)
     {
-        $workTime = WorkTime::find($id);
-        return $workTime;
+        return schedule::find($id);
     }
 
     /**
@@ -54,11 +48,8 @@ class WorkTimeController extends Controller
      */
     public function update(Request $request)
     {
-        $time = WorkTime::find($request->id);
-        if ($time) {
-            $time->update($request->all());
-            return $time;
-        } else return response('WorkTime not found', 400);
+        $time = schedule::find($request->id);
+        return $time->update($request->all());
     }
 
     /**
@@ -69,22 +60,8 @@ class WorkTimeController extends Controller
      */
     public function destroy($id)
     {
-        return response(WorkTime::destroy($id), 200);
+        return schedule::destroy($id);
     }
 
-    public function deleteRestaurantInfoFromWorkTime() {
 
-    }
-public function Verif_Time_Work(){
-  $access=false;
-    $temps = DB::select('select * from work_times where restaurant_info_id = ?', [1]);
-    foreach ($temps as $t) {
-        if (Carbon::now()->between($t->start, $t->end) && $t->deleted_at==null) {
-   $access=true;
-        }}      foreach ($temps as $t) {
-            if(Carbon::now() == $t->holiday)
-$access=false;
-    }
-    return $access;
-}
 }

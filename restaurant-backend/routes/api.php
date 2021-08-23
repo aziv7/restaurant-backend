@@ -92,10 +92,12 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('categorie', [CategorieController::class, 'index']);
 
     //***************************            worktime          *************************//
-    Route::get('restaurent/work', [\App\Http\Controllers\WorkTimeController::class, 'Verif_Time_Work']);
+    Route::get('restaurent/holiday', [\App\Http\Controllers\HolidayController::class, 'Verif_Time_Work']);
     Route::get('restaurent/info', [\App\Http\Controllers\RestaurantInfoController::class, 'getInfo']);
-    Route::get('worktime', [\App\Http\Controllers\WorkTimeController::class, 'index']);
-    Route::get('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'show']);
+    Route::get('holiday', [\App\Http\Controllers\HolidayController::class, 'index']);
+    Route::get('holiday/{id}', [\App\Http\Controllers\HolidayController::class, 'show']);
+    Route::get('time', [\App\Http\Controllers\ScheduleController::class, 'index']);
+    Route::get('time/{id}', [\App\Http\Controllers\ScheduleController::class, 'show']);
     //***************************            offre          *************************//
     Route::get('get/offre', [\App\Http\Controllers\OffreController::class, 'index']);
     Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
@@ -260,24 +262,26 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     //***************************          WORKTIMES       *************************//
 
-    Route::post('worktime', [\App\Http\Controllers\WorkTimeController::class, 'store']);
-    Route::delete('worktime/{id}', [\App\Http\Controllers\WorkTimeController::class, 'destroy']);
-    Route::put('worktime', [\App\Http\Controllers\WorkTimeController::class, 'update']);
+    Route::post('holiday', [\App\Http\Controllers\HolidayController::class, 'store']);
+    Route::delete('holiday/{id}', [\App\Http\Controllers\HolidayController::class, 'destroy']);
+    Route::put('holiday', [\App\Http\Controllers\HolidayController::class, 'update']);
 
 
     /*});
 
     Route::middleware(['auth:sanctum', 'msdigital', 'json.response'])->group(function () {*/
 
-//***************************          WORKTIMES       *************************//
+//***************************          RESTAU       *************************//
     Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
     Route::get('myrestau', [\App\Http\Controllers\RestaurantInfoController::class, 'myrestau']);
     Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
     Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
     Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);
     Route::delete('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'destroy']);
-    Route::put('affectRestauToWorkTime/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectWorkTime']);
-    Route::put('deleteRestauFromWorkTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachWorkTime']);
+    Route::put('affectRestauToHoliday/{idWorkTime}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectHoliday']);
+    Route::put('affectRestauToTime/{idschedule}/{idRestaurantInfo}', [\App\Http\Controllers\RestaurantInfoController::class, 'affectTime']);
+    Route::put('deleteRestauFromHoliday/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachHoliday']);
+    Route::put('deleteRestauFromTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachTime']);
     Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
     Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
 
@@ -297,5 +301,10 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::get('requestedplats/{$id}', [\App\Http\Controllers\RequestedPlatsController::class, 'show']);
     Route::post('requestedplats', [\App\Http\Controllers\RequestedPlatsController::class, 'store']);
     Route::post('requestedplats/{$id}', [\App\Http\Controllers\RequestedPlatsController::class, 'destroy']);
+
+    //***************************            time          *************************//
+    Route::post('time', [\App\Http\Controllers\ScheduleController::class, 'store']);
+    Route::put('time', [\App\Http\Controllers\ScheduleController::class, 'update']);
+    Route::delete('time/{id}', [\App\Http\Controllers\ScheduleController::class, 'destroy']);
 
 });

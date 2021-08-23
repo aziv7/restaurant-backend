@@ -30,9 +30,14 @@ class RestaurantInfo extends Model
         'prixlivraison'
     ];
 
-    public function work_times()
+    public function holidays()
     {
-        return $this->hasMany(WorkTime::class);
+        return $this->hasMany(Holiday::class);
+    }
+
+    public function schedules()
+    {
+        return $this->hasMany(schedule::class);
     }
 
     public function user()

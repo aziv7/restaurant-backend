@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\RestaurantInfo;
+use App\Models\schedule;
 use App\Models\User;
-use App\Models\WorkTime;
+use App\Models\Holiday;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -71,16 +72,28 @@ class RestaurantInfoController extends Controller
         return RestaurantInfo::destroy($id);
     }
 
-    public function affectWorkTime($idWorkTime, $idRestaurantInfo) {
-        $worktime = WorkTime::find($idWorkTime);
+    public function affectHoliday($idWorkTime, $idRestaurantInfo) {
+        $worktime = Holiday::find($idWorkTime);
         $restaurantinfo = RestaurantInfo::find($idRestaurantInfo);
-        $restaurantinfo->work_times()->save($worktime);
+        $restaurantinfo->holidays()->save($worktime);
         return $restaurantinfo;
     }
 
-    public function detachWorkTime($idworktime)
+    public function detachHoliday($idworktime)
     {
-        DB::table('work_times')->where('id', $idworktime)->update(['restaurant_info_id' => null]);
+        DB::table('holidays')->where('id', $idworktime)->update(['restaurant_info_id' => null]);
+    }
+
+    public function affectTime($idschedule, $idRestaurantInfo) {
+        $worktime = schedule::find($idschedule);
+        $restaurantinfo = RestaurantInfo::find($idRestaurantInfo);
+        $restaurantinfo->schedules()->save($worktime);
+        return $restaurantinfo;
+    }
+
+    public function detachTime($idworktime)
+    {
+        DB::table('schedules')->where('id', $idworktime)->update(['restaurant_info_id' => null]);
     }
 
     public function user($user_id, $restau_id)

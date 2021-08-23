@@ -9,7 +9,7 @@ use App\Models\Modificateur;
 use App\Models\offre;
 use App\Models\Plat;
 use App\Models\User;
-use App\Models\WorkTime;
+use App\Models\Holiday;
 use Carbon\Carbon;
 use Faker\Core\Number;
 use Illuminate\Console\Command;

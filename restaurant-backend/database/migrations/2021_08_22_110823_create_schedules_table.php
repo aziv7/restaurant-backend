@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateWorkTimesTable extends Migration
+class CreateSchedulesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateWorkTimesTable extends Migration
      */
     public function up()
     {
-        Schema::create('work_times', function (Blueprint $table) {
+        Schema::create('schedules', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('start')->nullable();
-            $table->timestamp('end')->nullable();
-            $table->timestamp('holiday')->nullable();
+            $table->enum('day',
+                ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
+            $table->string('start');
+            $table->string('end');
             $table->bigInteger('restaurant_info_id')
                 ->unsigned()
                 ->nullable();
@@ -37,6 +38,6 @@ class CreateWorkTimesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('work_times');
+        Schema::dropIfExists('schedules');
     }
 }
