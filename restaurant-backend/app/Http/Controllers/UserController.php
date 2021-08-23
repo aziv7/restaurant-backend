@@ -249,7 +249,7 @@ class UserController extends Controller
     }
 
     /**
-     * login or register by Google
+     * login or register by Google android
      *
      */
 
@@ -320,7 +320,66 @@ class UserController extends Controller
         }
         return implode($pass); //turn the array into a string
     }
+ /**
+     * login or register by Google web
+     *
+     */
 
+
+    public function GoogleSignInWebSite(Request $request)
+    {
+        $existingUser = User::where('email', $request->email)->first();
+        if ($existingUser) {
+            auth()->login($existingUser, true);
+            $ratings = Rating::where('user_id',$existingUser->id)->get();
+
+        } else {
+            $newUser = new User;
+            $newCoordonne = new CoordonneesAuthentification;
+            $newUser->prenom = $request->firstName;
+            $newCoordonne->login = $request->name;
+            $passwordCoo = $this->randomPassword(); //generate random pwd
+            $newCoordonne->password = Hash::make($passwordCoo);
+            //var_dump($passwordCoo);//var_dump($newCoordonne);
+
+            $newUser->nom = $request->lastName;
+            $newUser->email = $request->email;
+            $newUser->image = $request->photoUrl;
+            $newUser->is_verified = 1;
+            //search if login exist else add some caracter
+
+            $coor = CoordonneesAuthentification::where('login', '=', $newCoordonne->login)->first();
+            while ($coor) {
+                $newCoordonne->login = $newCoordonne->login . (string)rand(0, 20000);
+                $coor = CoordonneesAuthentification::where('login', '=', $newCoordonne->login)->first();
+            }
+            $newUser->save();
+            $userr = User::where('email', '=', $newUser->email)->first();
+
+            DB::insert('insert into images (user_id, src,nom) values (?, ?,?)', [$userr->id, $request->photoUrl, 'google']);
+
+            $newUser->coordonneesAuthentification()->save($newCoordonne);
+            /************ donner le role Costumer****************/
+
+            $role_costumer = Role::where(['nom_des_roles' => 'costumer'])->first(); //search for the role id of costumer
+            $newUser->roles()->save($role_costumer);
+            auth()->login($newUser, true); // var_dump($newCoordonne->password);
+            /************ send email to the user containg login et pwd****************/
+            $ratings = Rating::where('user_id',$newUser->id)->get();
+
+            Mail::to($newUser->email)->send(new googleSignup($newCoordonne->login, $passwordCoo, $newUser->email));
+        }
+        $user = User::with(['CoordonneesAuthentification', 'img'])->where('id', Auth::id())->get()->first();
+        $token = $user->createToken('my-app-token')->plainTextToken;
+        $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
+
+        $response = [
+            'ratings'=>$ratings,
+            'jwt' => $token,
+            'user' => $user,
+        ];
+        return response($response, 201)->withCookie($cookie);
+    }
 
     /**
      * Delete the cookie
