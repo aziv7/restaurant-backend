@@ -25,7 +25,15 @@ class ScheduleController extends Controller
      */
     public function store(Request $request)
     {
-        return schedule::create($request->all());
+        /*DB::insert('insert into schedules (day,  start, end, restaurant_info_id) values (?,?,?,?)',
+            [$request->day, $request->start, $request->end, $request->restaurant_info_id]);*/
+        $id = schedule::insertGetId([
+            'day' => $request->day,
+            'start'=> $request->start,
+            'end'=> $request->end,
+            'restaurant_info_id' => $request->restaurant_info_id
+        ]);
+        return schedule::find($id);
     }
 
     /**
