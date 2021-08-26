@@ -289,8 +289,8 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
 
     Route::post('offre', [\App\Http\Controllers\OffreController::class, 'store']);
-    Route::put('offres/affect', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
-    Route::put('offres/destroy', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
+    Route::put('offres/affect/{id_offre}/{id_plat}', [\App\Http\Controllers\OffreController::class, 'affectPlatToOffre']);
+    Route::put('offres/destroy/{id_offre}/{id_plat}', [\App\Http\Controllers\OffreController::class, 'DetachPlatFromOffre']);
     Route::delete('offres/{id}', [\App\Http\Controllers\OffreController::class, 'destroy']);
     Route::put('offres/{id}', [\App\Http\Controllers\OffreController::class, 'update']);
 

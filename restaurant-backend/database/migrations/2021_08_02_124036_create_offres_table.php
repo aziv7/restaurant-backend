@@ -18,7 +18,8 @@ class CreateOffresTable extends Migration
             $table->timestamps();
             $table->softDeletes();
             $table->string('description');
-            $table->string('nom');$table->double('prix');
+            $table->string('nom');
+            $table->double('prix');
             $table->string('image');
             $table->boolean('isDisponible');
         });

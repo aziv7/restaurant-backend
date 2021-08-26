@@ -21,7 +21,7 @@ class PlatController extends Controller
 {
     public function index()
     {
-        return Plat::with('modificateurs', 'images')->get();
+        return Plat::with('modificateurs')->get();
     }
 
     public function store(Request $request)
@@ -39,16 +39,6 @@ class PlatController extends Controller
             'image-src' => $request->get('image-src')
         ]);
 
-       /* foreach ($request->get('image-name') as $i => $item) {
-            $image_name = $item;
-            $image_src = $request->get('image-src')[$i];
-            Image::create([
-                'nom' => $image_name,
-                'src' => $image_src,
-                'plat_id' => $plat->id
-            ]);
-        }*/
-
         /* if ($plat) {
             broadcast(new Test($plat));
         } */
@@ -65,11 +55,6 @@ class PlatController extends Controller
         $plat->update([
             'image-src' => $request->get('image-src')
         ]);
-        /*$image = Image::create([
-            'nom' => $request->get('image-name'),
-            'src' => $request->get('image-src'),
-            'plat_id' => $plat->id
-        ]);*/
 
 
         return $plat;
@@ -92,17 +77,6 @@ class PlatController extends Controller
     public function update(Request $request)
     {
         $plat = Plat::find($request->get('id'));
-       /* if ($request->get('image-src')) {
-            foreach ($request->get('image-name') as $i => $item) {
-                $image_name = $item;
-                $image_src = $request->get('image-src')[$i];
-                Image::create([
-                    'nom' => $image_name,
-                    'src' => $image_src,
-                    'plat_id' => $plat->id
-                ]);
-            }
-        }*/
         $plat->update($request->all());
         return $plat;
     }
@@ -196,8 +170,7 @@ class PlatController extends Controller
      */
     public function getPlat()
     {
-        // $plat = DB::table('plats')->leftJoin('modificateur_plat','=','')->leftJoin('modificateurs')->leftJoin('ingredient_modificateur')->leftJoin('ingredients')->get();
-        $plat = Plat::with('modificateurs', 'images', 'modificateurs.ingredients')->get();
+        $plat = Plat::with('modificateurs', 'modificateurs.ingredients')->get();
         foreach ($plat as $p){
             $ratings = Rating::where('plat_id',  $p->id)->get();
             $p->ratings=$ratings;

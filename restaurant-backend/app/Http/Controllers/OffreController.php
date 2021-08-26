@@ -67,15 +67,15 @@ return Offre::with('plats','plats.modificateurs', 'plats.images', 'plats.modific
     {
         return Offre::destroy($id);
     }
-    public function affectPlatToOffre(Request $request) {
-        $offre =$this->show($request->offre_id);
-        $plat = Plat::find($request->plat_id);
+    public function affectPlatToOffre($id_offre, $id_plat) {
+        $offre =$this->show($id_offre);
+        $plat = Plat::find($id_plat);
         $offre->plats()->attach($plat);
         return $offre;
     }
-    public function DetachPlatFromOffre(Request $request) {
-        $offre = Offre::find($request->offre_id);
-        $plat = Plat::find($request->plat_id);
+    public function DetachPlatFromOffre($id_offre, $id_plat) {
+        $offre = Offre::find($id_offre);
+        $plat = Plat::find($id_plat);
         $offre->plats()->detach($plat);
         return $offre;
     }
