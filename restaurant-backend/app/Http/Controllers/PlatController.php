@@ -30,16 +30,16 @@ class PlatController extends Controller
             'nom' => 'required',
             'prix' => 'required',
             'description' => 'required',
-            'image-name' => 'required',
             'image-src' => 'required'
         ]);
         $plat = Plat::create([
             'nom' => $request->get('nom'),
             'prix' => $request->get('prix'),
             'description' => $request->get('description'),
+            'image-src' => $request->get('image-src')
         ]);
 
-        foreach ($request->get('image-name') as $i => $item) {
+       /* foreach ($request->get('image-name') as $i => $item) {
             $image_name = $item;
             $image_src = $request->get('image-src')[$i];
             Image::create([
@@ -47,7 +47,7 @@ class PlatController extends Controller
                 'src' => $image_src,
                 'plat_id' => $plat->id
             ]);
-        }
+        }*/
 
         /* if ($plat) {
             broadcast(new Test($plat));
@@ -59,16 +59,17 @@ class PlatController extends Controller
     public function addImageToPlat(Request $request, $id)
     {
         $request->validate([
-
-            'image-name' => 'required',
             'image-src' => 'required'
         ]);
         $plat = Plat::find($id);
-        $image = Image::create([
+        $plat->update([
+            'image-src' => $request->get('image-src')
+        ]);
+        /*$image = Image::create([
             'nom' => $request->get('image-name'),
             'src' => $request->get('image-src'),
             'plat_id' => $plat->id
-        ]);
+        ]);*/
 
 
         return $plat;
@@ -91,7 +92,7 @@ class PlatController extends Controller
     public function update(Request $request)
     {
         $plat = Plat::find($request->get('id'));
-        if ($request->get('image-src')) {
+       /* if ($request->get('image-src')) {
             foreach ($request->get('image-name') as $i => $item) {
                 $image_name = $item;
                 $image_src = $request->get('image-src')[$i];
@@ -101,7 +102,7 @@ class PlatController extends Controller
                     'plat_id' => $plat->id
                 ]);
             }
-        }
+        }*/
         $plat->update($request->all());
         return $plat;
     }

@@ -18,6 +18,7 @@ class CreatePlatsTable extends Migration
             $table->string('nom');
             $table->decimal('prix',6,3);
             $table->string('description');
+            $table->string('image-src')->nullable();
             $table->boolean('statut')->default(false);
             $table->bigInteger('categorie_id')->unsigned();
             $table->foreign('categorie_id')->references('id')->on('plats')->onDelete('cascade');

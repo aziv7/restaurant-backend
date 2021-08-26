@@ -13,7 +13,8 @@ class Plat extends Model
     protected $fillable = [
         'nom',
         'prix',
-        'description'
+        'description',
+        'image-src'
     ];
 
     public function categorie()
