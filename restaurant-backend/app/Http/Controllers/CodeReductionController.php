@@ -46,7 +46,6 @@ class CodeReductionController extends Controller
             'code' => 'required',
             'taux_reduction' => 'required|gt:0',
             'statut' => 'required'
-
         ]);
         return CodeReduction::create($request->all());
     }

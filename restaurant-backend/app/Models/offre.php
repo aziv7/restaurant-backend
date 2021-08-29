@@ -16,8 +16,8 @@ class offre extends Model
     {
         return $this->belongsToMany(Plat::class,
         'offre_plat',
-        'plat_id',
         'offre_id',
+        'plat_id',
         'id',
         'id');
     }
