@@ -24,7 +24,7 @@ class CreateRequestedPlatsTable extends Migration
         });
 
         Schema::create('requested_plats_custom', function (Blueprint $table) {
-            $table->primary(['custom_id', 'requested_plats_id']);
+            $table->id();
             $table->bigInteger('custom_id')->unsigned();
             $table->bigInteger('requested_plats_id')->unsigned();
             $table->foreign('custom_id')

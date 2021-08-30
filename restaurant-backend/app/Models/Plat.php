@@ -14,7 +14,7 @@ class Plat extends Model
         'nom',
         'prix',
         'description',
-        'image-src'
+        'image'
     ];
 
     public function categorie()

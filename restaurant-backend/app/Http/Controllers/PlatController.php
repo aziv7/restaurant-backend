@@ -30,13 +30,13 @@ class PlatController extends Controller
             'nom' => 'required',
             'prix' => 'required',
             'description' => 'required',
-            'image-src' => 'required'
+            'image' => 'required'
         ]);
         $plat = Plat::create([
             'nom' => $request->get('nom'),
             'prix' => $request->get('prix'),
             'description' => $request->get('description'),
-            'image-src' => $request->get('image-src')
+            'image' => $request->get('image')
         ]);
 
         /* if ($plat) {
@@ -49,11 +49,11 @@ class PlatController extends Controller
     public function addImageToPlat(Request $request, $id)
     {
         $request->validate([
-            'image-src' => 'required'
+            'image' => 'required'
         ]);
         $plat = Plat::find($id);
         $plat->update([
-            'image-src' => $request->get('image-src')
+            'image' => $request->get('image')
         ]);
 
 

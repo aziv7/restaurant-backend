@@ -8,6 +8,7 @@ use App\Models\Ingredient;
 use App\Models\Modificateur;
 use App\Models\offre;
 use App\Models\Plat;
+use App\Models\RequestedPlat;
 use App\Models\User;
 use App\Models\Holiday;
 use Carbon\Carbon;
@@ -31,7 +32,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
-        $commandes = Commande::with('plat', 'user', 'plat.customs', 'plat.customs.ingredients')
+        $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients')
             ->get();
         return $commandes;
     }
@@ -56,7 +57,9 @@ class CommandeController extends Controller
         }
         //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
         $chaine = (Auth::id() + $somme_plat_id) * 357;
-        $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
+        // getting the nbr of all cmd to know the order of this cmd
+        $nbr_of_precedent_commandes = Commande::all()->count();
+        $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string . "/" . $nbr_of_precedent_commandes;
         $id = Hash::make($chaine_string);
         $commande->commande_id = $id;
         $commande->prix_total = 0;

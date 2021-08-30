@@ -76,8 +76,7 @@ class StripeController extends Controller
             $finH = (int)substr($t->end, 0, 2);
             $debutM = (int)substr($t->start, 3, 2);
             $finM = (int)substr($t->end, 3, 2);
-            if ($day == $t->day && $debutH <= $heure && $finH >= $heure && $debutM <= $minute && $finM >= $minute)
-            {
+            if ($day == $t->day && $debutH <= $heure && $finH >= $heure && $debutM <= $minute && $finM >= $minute) {
                 $access = true;
             }
         }
@@ -85,12 +84,12 @@ class StripeController extends Controller
             if (Carbon::now()->isoFormat('Y-MM-DD') == substr($h->holiday, 0, 10))
                 $access = false;
         }
-        
+
         $info = RestaurantInfo::all()->first();
         // in work time
-                if ($access) {
+        if ($access) {
             $stripe = new \Stripe\StripeClient(
-            $info->public_key_stripe);
+                $info->public_key_stripe);
             $commande = new Commande();
             $commande->user_id = Auth::id();
             $commande->created_at = Carbon::now();
@@ -105,6 +104,9 @@ class StripeController extends Controller
             //id de la commande = (userid+somme des platid)*357 puis un / puis la date de la création de commande
             $chaine = (Auth::id() + $somme_plat_id) * 357;
             $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string;
+            // getting the nbr of all cmd to know the order of this cmd
+            $nbr_of_precedent_commandes = Commande::all()->count();
+            $chaine_string = "id" . (string)$chaine . "/" . $creation_datetime_string . "/" . $nbr_of_precedent_commandes;
             $id = Hash::make($chaine_string);
             $commande->commande_id = $id;
             $commande->prix_total = 0;
@@ -149,7 +151,7 @@ class StripeController extends Controller
                             $ing = Ingredient::find($ingredient["id"]);
                             //affecter ingrédient à son custom
                             $custom->ingredients()->attach($ing);
-                            $commande->prix_total = $commande->prix_total +$modificateur["prix"] * $plat["quantity"];
+                            $commande->prix_total = $commande->prix_total + $modificateur["prix"] * $plat["quantity"];
                         }
                     }
                 }
@@ -184,13 +186,13 @@ class StripeController extends Controller
             if ($commande->prix_total == $priceStripe) {
                 //inserer le prix total dans la db
                 DB::table('commandes')
-                    ->where ('commande_id', $id)
+                    ->where('commande_id', $id)
                     ->update([
-                        'prix_total'=>$commande->prix_total ,
-                        'longitude'=>$commande->longitude,
-                        'latitude'=>$commande->latitude,
-                        'livraison'=>$request->livraison,
-                        'livraison_address'=> $commande->livraison_address
+                        'prix_total' => $commande->prix_total,
+                        'longitude' => $commande->longitude,
+                        'latitude' => $commande->latitude,
+                        'livraison' => $request->livraison,
+                        'livraison_address' => $commande->livraison_address
                     ]);
 
             } else {
@@ -199,8 +201,7 @@ class StripeController extends Controller
                     'message' => 'disordance de prix',
                 ), 403);
             }
-            if ($request->method_payment == 'stripe' )
-            {
+            if ($request->method_payment == 'stripe') {
                 $pay = $stripe->charges->create([
                     'amount' => $commande->prix_total * 100,
                     'currency' => 'eur',
@@ -217,9 +218,9 @@ class StripeController extends Controller
                 'status' => $c->status,
                 'user_id' => Auth::id(),
                 'created_at' => Carbon::now(),
-                'longitude'=> $request->longitude,
-                'latitude'=>$request->latitude,
-                'addresse'=>$request->address
+                'longitude' => $request->longitude,
+                'latitude' => $request->latitude,
+                'addresse' => $request->address
             ];
         }
     }

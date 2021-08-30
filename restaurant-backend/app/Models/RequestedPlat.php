@@ -25,6 +25,6 @@ class RequestedPlat extends Model
     public function customs()
     {
         return $this->belongsToMany(custom::class,'requested_plats_custom',
-            'requested_plats_custom_id','custom_id','id','id');
+            'custom_id','requested_plats_id','id','id');
     }
 }
