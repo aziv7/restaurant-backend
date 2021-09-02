@@ -27,7 +27,12 @@ class custom extends Model
 
     public function ingredients()
     {
-        return $this->belongsToMany(Ingredient::class,'ingredient_custom','custom_id',
-            'ingredient_id','id','id');
+        return $this->belongsToMany(
+            Ingredient::class,
+            'ingredient_custom',
+            'custom_id',
+            'ingredient_id',
+            'id',
+            'id');
     }
 }

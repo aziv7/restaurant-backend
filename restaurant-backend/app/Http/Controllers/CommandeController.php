@@ -32,6 +32,7 @@ class CommandeController extends Controller
      */
     public function index()
     {
+
         $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients')
             ->get();
         return $commandes;
