@@ -427,4 +427,15 @@ class UserController extends Controller
             'message' => 'disponible'
         ]);
     }
+    public function verifyExistanceOfEmail($email)
+    {
+        if(User::where('email', '=', $email)->first())
+        return response([
+            'message' => 'email existe deja!'
+        ]);
+        else
+        return response([
+            'message' => 'disponible'
+        ]);
+    }
 }
