@@ -22,12 +22,9 @@ class statisticsController extends Controller
         return DB::select('SELECT requested_plats.nom,SUM(commande_requested_plats.quantity) as quantity, SUM(commandes.prix_total) as total_price from requested_plats join commande_requested_plats on requested_plats.id = commande_requested_plats.requested_plat_id JOIN commandes on commande_requested_plats.commande_id = commandes.commande_id GROUP BY requested_plats.nom;');
     }
 
-    public function getNbrOfPayedPlatsGroupByPlatByMounth($start, $end)
+    public function getNbrOfPayedPlatsGroupByPlatByMounth(Request $request)
         {
-        $s = (string)$start;
-        $e = (string)$end;
-        var_dump($s);
-            $response =  DB::select("SELECT requested_plats.nom,SUM(commande_requested_plats.quantity) as quantity, SUM(commandes.prix_total) as total_price from requested_plats join commande_requested_plats on requested_plats.id = commande_requested_plats.requested_plat_id JOIN commandes on commande_requested_plats.commande_id = commandes.commande_id WHERE commandes.created_at BETWEEN $start and $end GROUP BY requested_plats.nom");
+            $response =  DB::select("SELECT requested_plats.nom,SUM(commande_requested_plats.quantity) as quantity, SUM(commandes.prix_total) as total_price from requested_plats join commande_requested_plats on requested_plats.id = commande_requested_plats.requested_plat_id JOIN commandes on commande_requested_plats.commande_id = commandes.commande_id WHERE commandes.created_at BETWEEN '$request->start' and '$request->end' GROUP BY requested_plats.nom");
             return $response;
         }
 }

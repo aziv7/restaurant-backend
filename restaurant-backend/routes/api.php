@@ -175,7 +175,7 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
 Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function () {
 
     Route::get('statisticplat', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlat']);
-    Route::get('statisticplat/{start}/{end}', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlatByMounth']);
+    Route::post('statisticplat/', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlatByMounth']);
 
     //***************************           User        *************************//
 
