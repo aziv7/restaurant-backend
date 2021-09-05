@@ -11,6 +11,15 @@ class Commande extends Model
     use HasFactory;
     use SoftDeletes;
 
+    // if your key name is not 'id'
+    // you can also set this to null if you don't have a primary key
+    protected $primaryKey = 'commande_id';
+
+    public $incrementing = false;
+
+    // In Laravel 6.0+ make sure to also set $keyType
+    protected $keyType = 'string';
+
     protected $fillable = [
         'livraison',
         'status',

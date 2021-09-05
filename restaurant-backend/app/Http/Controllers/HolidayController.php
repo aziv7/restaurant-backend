@@ -77,7 +77,7 @@ class HolidayController extends Controller
 
     }
 
-    public function Verif_Time_Work()
+    public static function Verif_Time_Work()
     {
         $access = false;
         $temps = DB::select('select * from schedules where restaurant_info_id = ?', [1]);
