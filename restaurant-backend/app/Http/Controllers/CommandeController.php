@@ -37,7 +37,7 @@ class CommandeController extends Controller
     public function index()
     {
 
-        $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients')
+        $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients', 'Offres', 'Offres.plats', 'Offres.plats.modificateurs', 'Offres.plats.modificateurs.ingredients')
             ->get();
         return $commandes;
     }
@@ -76,17 +76,15 @@ class CommandeController extends Controller
             foreach ($request->card as $i => $plat) {
                 $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
                 // create new requested_plat
-                $rp =  $this->createRequestedPlat($plat);
+                $rp = $this->createRequestedPlat($plat);
                 // list of all requested plats
                 $allrequestedPlats = array();
                 array_push($allrequestedPlats, $rp);
                 $commande->requested_plat()->attach($rp, ['quantity' => $plat["quantity"]]);
 
                 //parcourir les plats pour traiter les customs
-                foreach ($plat["modificateurs"] as $j => $modificateur)
-                {
-                    if ($modificateur["checked"] == true)
-                    {
+                foreach ($plat["modificateurs"] as $j => $modificateur) {
+                    if ($modificateur["checked"] == true) {
                         $cust = $this->createCustom($modificateur, $plat["quantity"]);
                         $allcustoms = array();
                         array_push($allcustoms, $cust);
@@ -114,7 +112,7 @@ class CommandeController extends Controller
                     $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
                     $o = offre::find($offre["id"]);
                     // DB::insert('insert into offre_commande (commande_id, offre_id, created_at, quantity) values (?, ?, ?, ?)', [$id, $o->id, Carbon::now(), $offre["quantity"]]);
-                    $commande->Offres()->attach($o);
+                    $commande->Offres()->attach($o, ['quantity' => $offre["quantity"]]);
                 }
             }
 
@@ -143,23 +141,21 @@ class CommandeController extends Controller
                         'source' => $request->token,
                         'description' => 'payment',
                     ]);
+                    $checkout = ['prixtotal' => $request->prixtot,
+                        'cart' => $request->card,
+                        'cartOffre' => $request->cartOffre,
+                        'idCommande' => $id,
+                        'status' => $commande->status,
+                        'user_id' => Auth::id(),
+                        'created_at' => Carbon::now(),
+                        'longitude' => $request->longitude,
+                        'latitude' => $request->latitude,
+                        'addresse' => $request->address
+                    ];
                 }
-
-                $checkout = ['prixtotal' => $request->prixtot,
-                    'cart' => $request->card,
-                    'cartOffre' => $request->cartOffre,
-                    'idCommande' => $id,
-                    'status' => $commande->status,
-                    'user_id' => Auth::id(),
-                    'created_at' => Carbon::now(),
-                    'longitude' => $request->longitude,
-                    'latitude' => $request->latitude,
-                    'addresse' => $request->address
-                ];
             }
 
-            if ($checkout)
-            {
+            if ($checkout != null) {
                 $commande->date_paiement = Carbon::now();
                 $commande->status = Statut::getKey(1);
             } else {
@@ -167,33 +163,48 @@ class CommandeController extends Controller
             }
 
             $success_command_insert = DB::insert('insert into commandes (commande_id, user_id,  created_at, date_paiement, date_traitement,status, prix_total, longitude, latitude, livraison, livraison_address, code_reduction_id) values (?,?,?,?,?,?,?,?,?,?,?,?)', [$id, Auth::id(), $commande->created_at, $commande->date_paiement, null, $commande->status, $commande->prix_total, $commande->longitude, $commande->latitude, $commande->livraison, $commande->livraison_address, $commande->code_reduction_id]);
-            if( !$success_command_insert) {
-                foreach ($allrequestedPlats as $r => $reqp)
-                {
+            if (!$success_command_insert) {
+                foreach ($allrequestedPlats as $r => $reqp) {
                     RequestedPlat::destroy($reqp->id);
                 }
 
-                foreach ($allcustoms as $cu => $custo)
-                {
+                foreach ($allcustoms as $cu => $custo) {
                     custom::destroy($custo->id);
                 }
 
-                foreach ($alling as $in => $ingred)
-                {
+                foreach ($alling as $in => $ingred) {
                     Ingredient::destroy($ingred->id);
                 }
 
                 $response = [
-                    'message'=>'problem'
+                    'message' => 'problem'
                 ];
                 return response($response, 500);
             }
-            return $checkout;
+            if ($checkout)
+            {
+                return $checkout;
+            } else
+            {
+                return ['prixtotal' => $request->prixtot,
+                    'cart' => $request->card,
+                    'cartOffre' => $request->cartOffre,
+                    'idCommande' => $id,
+                    'status' => $commande->status,
+                    'user_id' => Auth::id(),
+                    'created_at' => $commande->created_at,
+                    'longitude' => $commande->longitude,
+                    'latitude' => $commande->latitude,
+                    'addresse' => $commande->address
+                ];
+            }
+
         }
 
     }
 
-    function createRequestedPlat($p) {
+    function createRequestedPlat($p)
+    {
         $r = new RequestedPlat();
         $r->nom = $p["nom"];
         $r->prix = $p["prix"];
@@ -204,7 +215,8 @@ class CommandeController extends Controller
         return $requestedPlat;
     }
 
-    function createCustom($modificateur, $quantity) {
+    function createCustom($modificateur, $quantity)
+    {
         $c = new custom();
         $c->nom = $modificateur["nom"];
         $c->prix = $modificateur["prix"] * $quantity;

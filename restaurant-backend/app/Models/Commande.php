@@ -62,11 +62,11 @@ class Commande extends Model
 
     public function Offres()
     {
-        return $this->belongsToMany(Offre::class,
+        return $this->belongsToMany(offre::class,
             'offre_commande',
             'commande_id',
             'offre_id',
-            'id',
+            'commande_id',
             'id');
     }
 }
