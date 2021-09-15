@@ -184,4 +184,10 @@ class PlatController extends Controller
         $plat->Commandes()->save($commande);
         return $plat;
     }
+
+    public function changeStatus(Request $request)
+    {
+        DB::UPDATE('UPDATE `plats` SET `statut` = ? WHERE `plats`.`id` = ?', [$request->statut, $request->id]);
+        return Plat::find($request->id);
+    }
 }

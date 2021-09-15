@@ -230,6 +230,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::post('plat/{id}/image', [PlatController::class, 'addImageToPlat']);
     Route::post('plat', [PlatController::class, 'store']);
     Route::put('plat', [PlatController::class, 'update']);
+    Route::put('changeStatusplat', [PlatController::class, 'changeStatus']);
     Route::delete('plat/{id}', [PlatController::class, 'destroy']);
     Route::post('plat/{plat_id}/modificateur/{modificateur_id}', [PlatController::class, 'addPlatToModificateur']);
     Route::post('plat/{id}/supplement/{supplement_id}', [PlatController::class, 'addSupplementToPlat']);
