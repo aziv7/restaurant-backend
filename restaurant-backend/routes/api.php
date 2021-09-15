@@ -61,7 +61,6 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('verify', '\App\Http\Controllers\Auth\RegisterController@verifyUser')->name('verify.user');
     Route::get('existlogin/{login}', [UserController::class, 'verifyExistanceOfLogin']);
     Route::get('existemail/{email}', [UserController::class, 'verifyExistanceOfEmail']);
-
     //***************************            modificateur          *************************//
 
 
@@ -103,7 +102,8 @@ Route::middleware(['json.response'])->group(function () {
     //***************************            offre          *************************//
     Route::get('get/offre', [\App\Http\Controllers\OffreController::class, 'index']);
     Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
-
+    //***************************            Stripe          *************************//
+    Route::get('stripe/get/publicKey', [\App\Http\Controllers\StripeController::class, 'getPublicKeyStripe']);
 
 });
 
