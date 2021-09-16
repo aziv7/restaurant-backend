@@ -53,19 +53,19 @@ class CreateRequestedPlatsTable extends Migration
                 ->onDelete('cascade');
         });
 
-        Schema::create('offre_requested_plats', function (Blueprint $table) {
+        Schema::create('requested_plat_custom_offres', function (Blueprint $table) {
             $table->id();
             $table->string('offre_id');
             $table->unsignedBigInteger('requested_plat_id');
             $table->integer('quantity')
                 ->nullable();
+            $table->foreign('custom_offre_id')
+                ->references('id')
+                ->on('custom_offres')
+                ->onDelete('cascade');
             $table->foreign('requested_plat_id')
                 ->references('id')
                 ->on('requested_plats')
-                ->onDelete('cascade');
-            $table->foreign('offre_id')
-                ->references('id')
-                ->on('offres')
                 ->onDelete('cascade');
         });
     }

@@ -32,6 +32,20 @@ class CreateCommandesTable extends Migration
             $table->double('prix_total')->nullable();
             $table->string('paiement_modality')->nullable();
         });
+
+        Schema::create('commande_custom_offres', function (Blueprint $table) {
+            $table->id();
+            $table->bigInteger('custom_offre_id')->unsigned();
+            $table->bigInteger('command_id')->unsigned();
+            $table->foreign('custom_offre_id')
+                ->references('id')
+                ->on('customs');
+            $table->foreign('command_id')
+                ->references('command_id')
+                ->on('commandes');
+            $table->softDeletes();
+            $table->timestamps();
+        });
     }
 
     /**

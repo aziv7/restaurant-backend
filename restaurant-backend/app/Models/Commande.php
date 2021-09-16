@@ -47,17 +47,16 @@ class Commande extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function plat()
+    public function custom_offres()
     {
-        return $this->belongsToMany(Plat::class, 'commande_plats',
-            'commande_id', 'plat_id',
-            'commande_id', 'id');
+        return $this->belongsToMany(custom_offre::class,'commandes_custom_offres',
+            'command_id','custom_offre_id','commande_id','id');
     }
 
     public function requested_plat()
     {
-        return $this->belongsToMany(RequestedPlat::class, 'custom_offre_plats',
-            'custom_offre_id', 'requested_plat_id',
+        return $this->belongsToMany(RequestedPlat::class, 'commande_requested_plats',
+            'commande_id', 'requested_plat_id',
             'commande_id', 'id');
     }
 

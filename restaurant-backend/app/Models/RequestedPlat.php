@@ -22,9 +22,10 @@ class RequestedPlat extends Model
         return $this->hasMany(Commande::class);
     }
 
-    public function Offres()
+    public function custom_offres()
     {
-        return $this->hasMany(Commande::class);
+        return $this->belongsToMany(custom_offre::class,'requested_plat_custom_offres',
+            'requested_plat_id','custom_offre_id','id','id');
     }
 
     public function customs()

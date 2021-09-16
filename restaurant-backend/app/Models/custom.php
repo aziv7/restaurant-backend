@@ -15,11 +15,6 @@ class custom extends Model
         'prix'
     ];
 
-    public function plats()
-    {
-        return $this->belongsToMany(Plat::class);
-    }
-
     public function requested_plats()
     {
         return $this->belongsToMany(RequestedPlat::class);

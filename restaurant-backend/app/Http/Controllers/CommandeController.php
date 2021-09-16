@@ -6,6 +6,7 @@ use App\Enums\Statut;
 use App\Models\CodeReduction;
 use App\Models\Commande;
 use App\Models\custom;
+use App\Models\custom_offre;
 use App\Models\Ingredient;
 use App\Models\Modificateur;
 use App\Models\offre;
@@ -37,7 +38,7 @@ class CommandeController extends Controller
     public function index()
     {
 
-        $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients', 'Offres', 'Offres.plats', 'Offres.plats.modificateurs', 'Offres.plats.modificateurs.ingredients')
+        $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients', 'Offres', 'Offres.requested_plats', 'requested_plat.customs', 'requested_plat.customs.ingredients')
             ->get();
         return $commandes;
     }
@@ -110,34 +111,34 @@ class CommandeController extends Controller
             if ($request->cartOffre) {
                 foreach ($request->cartOffre as $i => $offre) {
                     $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
-                    $o = offre::find($offre["id"]);
-                    // DB::insert('insert into offre_commande (commande_id, offre_id, created_at, quantity) values (?, ?, ?, ?)', [$id, $o->id, Carbon::now(), $offre["quantity"]]);
-                    $commande->Offres()->attach($o, ['quantity' => $offre["quantity"]]);
+                    $o = offre::find($offre->id);
+                    $co = $this->createcustomoffre($o);
 
-                    // list of all requested plats
-                    $allrequestedPlats = array();
+                    // DB::insert('insert into offre_commande (commande_id, offre_id, created_at, quantity) values (?, ?, ?, ?)', [$id, $o->id, Carbon::now(), $offre["quantity"]]);
+                    $commande->custom_offres()->attach($o, ['quantity' => $offre["quantity"]]);
+
                     // creation of requested plats
                     foreach ($offre["plats"] as $c => $plat) {
                         // create new requested_plat
                         $rp = $this->createRequestedPlat($plat);
-                        array_push($allrequestedPlats, $rp);
-                        $o->requested_plats()->attach($rp, ['quantity' => 1]);
+                        $co->requested_plats()->attach($rp, ['quantity' => 1]);
                         //parcourir les plats pour traiter les customs
-                        foreach ($plat["modificateurs"] as $j => $modificateur) {
-                            if ($modificateur["checked"] == true)
-                            {
-                                $cust = $this->createCustom($modificateur, 1);
-                                //affectation du custm au requested_plat
-                                $rp->customs()->attach($cust);
-                                //parcourir les modificateurs pour traiter les ingrédients
-                                foreach ($modificateur["ingredients"] as $ingredient) {
-                                    if ($ingredient["checked"] == true) {
-                                        $ing = Ingredient::find($ingredient["id"]);
-                                        //affecter ingrédient à son custom
-                                        $cust->ingredients()->attach($ing);
+                        foreach ($plat["modificateurs"] as $m => $mod) {
+                                $checked = $mod['checked'];
+                                if ($checked == true)
+                                {
+                                    $cust = $this->createCustom($mod, 1);
+                                    //affectation du custm au requested_plat
+                                    $rp->customs()->attach($cust);
+                                    //parcourir les modificateurs pour traiter les ingrédients
+                                    foreach ($mod["ingredients"] as $ingredient) {
+                                        if ($ingredient["checked"] == true) {
+                                            $ing = Ingredient::find($ingredient["id"]);
+                                            //affecter ingrédient à son custom
+                                            $cust->ingredients()->attach($ing);
+                                        }
                                     }
                                 }
-                            }
                         }
                     }
                 }
@@ -241,6 +242,20 @@ class CommandeController extends Controller
         $r->created_at = Carbon::now();
         $requestedPlat = RequestedPlat::create($r->toArray());
         return $requestedPlat;
+    }
+
+    function createcustomoffre($o)
+    {
+        $custom_offre = new custom_offre();
+        $custom_offre->nom = $o->nom;
+        $custom_offre->prix = $o->prix;
+        $custom_offre->id = DB::table('custom_offres')
+            ->insertGetId(
+                [
+                    'nom' =>$custom_offre->nom, 'prix' =>$custom_offre->prix
+                ]
+            );
+        return $custom_offre;
     }
 
     function createCustom($modificateur, $quantity)
