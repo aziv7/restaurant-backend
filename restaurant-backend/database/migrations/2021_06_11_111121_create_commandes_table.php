@@ -36,7 +36,7 @@ class CreateCommandesTable extends Migration
         Schema::create('commandes_custom_offres', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('custom_offre_id')->unsigned();
-            $table->string('command_id')->unsigned();
+            $table->string('command_id');
             $table->foreign('custom_offre_id')
                 ->references('id')
                 ->on('customs');
