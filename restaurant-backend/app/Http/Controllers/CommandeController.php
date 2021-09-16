@@ -72,35 +72,35 @@ class CommandeController extends Controller
             $commande->commande_id = $id;
             $commande->prix_total = 0;
 
+            // list of all requested plats
+            $allrequestedPlats = array();
             // creation of requested plats
             foreach ($request->card as $i => $plat) {
                 $commande->prix_total = $commande->prix_total + ($plat["prix"] * $plat["quantity"]);
                 // create new requested_plat
                 $rp = $this->createRequestedPlat($plat);
-                // list of all requested plats
-                $allrequestedPlats = array();
                 array_push($allrequestedPlats, $rp);
                 $commande->requested_plat()->attach($rp, ['quantity' => $plat["quantity"]]);
 
                 //parcourir les plats pour traiter les customs
                 foreach ($plat["modificateurs"] as $j => $modificateur) {
-                    if ($modificateur["checked"] == true) {
+                    if ($modificateur["checked"] == true)
+                    {
                         $cust = $this->createCustom($modificateur, $plat["quantity"]);
                         $allcustoms = array();
                         array_push($allcustoms, $cust);
                         //affectation du custm au requested_plat
                         $rp->customs()->attach($cust);
-                    }
-
-                    //parcourir les modificateurs pour traiter les ingrédients
-                    foreach ($modificateur["ingredients"] as $ingredient) {
-                        if ($ingredient["checked"] == true) {
-                            $alling = array();
-                            array_push($alling, $ingredient);
-                            $ing = Ingredient::find($ingredient["id"]);
-                            //affecter ingrédient à son custom
-                            $cust->ingredients()->attach($ing);
-                            $commande->prix_total = $commande->prix_total + $modificateur["prix"] * $plat["quantity"];
+                        //parcourir les modificateurs pour traiter les ingrédients
+                        foreach ($modificateur["ingredients"] as $ingredient) {
+                            if ($ingredient["checked"] == true) {
+                                $alling = array();
+                                array_push($alling, $ingredient);
+                                $ing = Ingredient::find($ingredient["id"]);
+                                //affecter ingrédient à son custom
+                                $cust->ingredients()->attach($ing);
+                                $commande->prix_total = $commande->prix_total + $modificateur["prix"] * $plat["quantity"];
+                            }
                         }
                     }
                 }
@@ -113,6 +113,33 @@ class CommandeController extends Controller
                     $o = offre::find($offre["id"]);
                     // DB::insert('insert into offre_commande (commande_id, offre_id, created_at, quantity) values (?, ?, ?, ?)', [$id, $o->id, Carbon::now(), $offre["quantity"]]);
                     $commande->Offres()->attach($o, ['quantity' => $offre["quantity"]]);
+
+                    // list of all requested plats
+                    $allrequestedPlats = array();
+                    // creation of requested plats
+                    foreach ($offre["plats"] as $c => $plat) {
+                        // create new requested_plat
+                        $rp = $this->createRequestedPlat($plat);
+                        array_push($allrequestedPlats, $rp);
+                        $o->requested_plats()->attach($rp, ['quantity' => 1]);
+                        //parcourir les plats pour traiter les customs
+                        foreach ($plat["modificateurs"] as $j => $modificateur) {
+                            if ($modificateur["checked"] == true)
+                            {
+                                $cust = $this->createCustom($modificateur, 1);
+                                //affectation du custm au requested_plat
+                                $rp->customs()->attach($cust);
+                                //parcourir les modificateurs pour traiter les ingrédients
+                                foreach ($modificateur["ingredients"] as $ingredient) {
+                                    if ($ingredient["checked"] == true) {
+                                        $ing = Ingredient::find($ingredient["id"]);
+                                        //affecter ingrédient à son custom
+                                        $cust->ingredients()->attach($ing);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -133,7 +160,7 @@ class CommandeController extends Controller
             $priceStripe = $request->prixtot;
             if ($commande->prix_total == $priceStripe) {
                 $info = RestaurantInfo::all()->first();
-                $stripe = new \Stripe\StripeClient($info->public_key_stripe);
+                $stripe = new \Stripe\StripeClient($info->secret_key_stripe);
                 if ($request->method_payment == 'stripe') {
                     $pay = $stripe->charges->create([
                         'amount' => $request->prixtot * 100,
@@ -158,6 +185,7 @@ class CommandeController extends Controller
             if ($checkout != null) {
                 $commande->date_paiement = Carbon::now();
                 $commande->status = Statut::getKey(1);
+                $commande->paiement_modality = "Stripe";
             } else {
                 $commande->status = Statut::getKey(0);
             }
@@ -256,6 +284,11 @@ class CommandeController extends Controller
         ), 200);
     }
 
+
+    public function get_Command_id($commande_id)
+    {
+
+    }
     /**
      * Display the specified resource.
      *

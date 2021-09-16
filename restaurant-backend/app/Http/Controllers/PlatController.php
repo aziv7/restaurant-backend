@@ -21,7 +21,7 @@ class PlatController extends Controller
 {
     public function index()
     {
-        return Plat::with('modificateurs')->get();
+        return Plat::with('modificateurs', 'modificateurs.ingredients')->get();
     }
 
     public function store(Request $request)

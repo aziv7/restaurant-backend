@@ -27,4 +27,11 @@ class offre extends Model
         return $this->belongsToMany(Commande::class);
     }
 
+    public function requested_plats()
+    {
+        return $this->belongsToMany(RequestedPlat::class, 'offre_requested_plats',
+            'offre_id', 'requested_plat_id',
+            'id', 'id');
+    }
+
 }

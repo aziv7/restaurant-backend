@@ -30,6 +30,7 @@ class CreateCommandesTable extends Migration
             $table->dateTime('created_at');
             $table->dateTime('updated_at')->nullable();
             $table->double('prix_total')->nullable();
+            $table->string('paiement_modality')->nullable();
         });
     }
 

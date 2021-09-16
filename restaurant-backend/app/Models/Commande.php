@@ -33,7 +33,8 @@ class Commande extends Model
         'created_at',
         'updated_at',
         'prix_total',
-        'livraison_address'
+        'livraison_address',
+        'paiement_modality'
     ];
 
     public function code_reduction()
@@ -55,8 +56,8 @@ class Commande extends Model
 
     public function requested_plat()
     {
-        return $this->belongsToMany(RequestedPlat::class, 'commande_requested_plats',
-            'commande_id', 'requested_plat_id',
+        return $this->belongsToMany(RequestedPlat::class, 'custom_offre_plats',
+            'custom_offre_id', 'requested_plat_id',
             'commande_id', 'id');
     }
 
