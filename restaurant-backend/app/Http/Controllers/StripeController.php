@@ -90,8 +90,12 @@ class StripeController extends Controller
 
     }
 
-public  function getPublicKeyStripe()
+    public  function getPublicKeyStripe()
 {
     $info = RestaurantInfo::all()->first();
-    return $info->public_key_stripe;}
+    return response(array(
+        'message' => $info->public_key_stripe,
+    ));
+
+}
 }
