@@ -38,7 +38,7 @@ class CommandeController extends Controller
     public function index()
     {
 
-        $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients', 'Offres', 'Offres.requested_plats', 'requested_plat.customs', 'requested_plat.customs.ingredients')
+        $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients', 'custom_offres', 'custom_offres.requested_plats', 'custom_offres.requested_plat.customs', 'custom_offres.requested_plat.customs.ingredients')
             ->get();
         return $commandes;
     }
@@ -111,7 +111,7 @@ class CommandeController extends Controller
             if ($request->cartOffre) {
                 foreach ($request->cartOffre as $i => $offre) {
                     $commande->prix_total = $commande->prix_total + ($offre["prix"] * $offre["quantity"]);
-                    $o = offre::find($offre->id);
+                    $o = offre::find($offre['id']);
                     $co = $this->createcustomoffre($o);
 
                     // DB::insert('insert into offre_commande (commande_id, offre_id, created_at, quantity) values (?, ?, ?, ?)', [$id, $o->id, Carbon::now(), $offre["quantity"]]);

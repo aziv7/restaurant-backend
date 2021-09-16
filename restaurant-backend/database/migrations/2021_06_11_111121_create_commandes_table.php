@@ -33,10 +33,10 @@ class CreateCommandesTable extends Migration
             $table->string('paiement_modality')->nullable();
         });
 
-        Schema::create('commande_custom_offres', function (Blueprint $table) {
+        Schema::create('commandes_custom_offres', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('custom_offre_id')->unsigned();
-            $table->bigInteger('command_id')->unsigned();
+            $table->string('command_id')->unsigned();
             $table->foreign('custom_offre_id')
                 ->references('id')
                 ->on('customs');
