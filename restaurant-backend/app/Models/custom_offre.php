@@ -22,7 +22,7 @@ class custom_offre extends Model
 
     public function requested_plats()
     {
-        return $this->belongsToMany(RequestedPlat::class, 'custom_offre_requested_plats',
+        return $this->belongsToMany(RequestedPlat::class, 'requested_plat_custom_offres',
             'custom_offre_id', 'requested_plat_id',
             'id', 'id');
     }

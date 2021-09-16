@@ -55,7 +55,7 @@ class CreateRequestedPlatsTable extends Migration
 
         Schema::create('requested_plat_custom_offres', function (Blueprint $table) {
             $table->id();
-            $table->string('offre_id');
+            $table->integer('custom_offre_id');
             $table->unsignedBigInteger('requested_plat_id');
             $table->integer('quantity')
                 ->nullable();

@@ -121,7 +121,7 @@ class CommandeController extends Controller
                     foreach ($offre["plats"] as $c => $plat) {
                         // create new requested_plat
                         $rp = $this->createRequestedPlat($plat);
-                        $co->requested_plats()->attach($rp, ['quantity' => 1]);
+                        $rp->custom_offres()->attach($co, ['quantity' => 1]);
                         //parcourir les plats pour traiter les customs
                         foreach ($plat["modificateurs"] as $m => $mod) {
                                 $checked = $mod['checked'];
