@@ -176,6 +176,8 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
 
 Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function () {
 
+    Route::get('command_id/{id}', [CommandeController::class, 'get_Command_id']);
+
     Route::get('statisticplat', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlat']);
     Route::post('statisticplat/', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlatByMounth']);
 

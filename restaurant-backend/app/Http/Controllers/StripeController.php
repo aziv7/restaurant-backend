@@ -39,8 +39,27 @@ class StripeController extends Controller
 
     public static function payments($request, $commande, $id)
     {
-
-        }
+        $info = RestaurantInfo::all()->first();
+        $stripe = new \Stripe\StripeClient($info->secret_key_stripe);
+        $pay = $stripe->charges->create([
+            'amount' => $request->prixtot * 100,
+            'currency' => 'eur',
+            'source' => $request->token,
+            'description' => 'payment',
+        ]);
+        $checkout = ['prixtotal' => $request->prixtot,
+            'cart' => $request->card,
+            'cartOffre' => $request->cartOffre,
+            'idCommande' => $id,
+            'status' => $commande->status,
+            'user_id' => Auth::id(),
+            'created_at' => Carbon::now(),
+            'longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'addresse' => $request->address
+        ];
+        return $checkout;
+    }
 
     public function charges(Request $request)
     {
@@ -90,8 +109,9 @@ class StripeController extends Controller
 
     }
 
-public  function getPublicKeyStripe()
-{
-    $info = RestaurantInfo::all()->first();
-    return $info->public_key_stripe;}
+    public function getPublicKeyStripe()
+    {
+        $info = RestaurantInfo::all()->first();
+        return $info->public_key_stripe;
+    }
 }
