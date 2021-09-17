@@ -40,7 +40,7 @@ class CommandeController extends Controller
     {
 
         $commandes = Commande::with('requested_plat', 'user', 'requested_plat.customs', 'requested_plat.customs.ingredients', 'custom_offres', 'custom_offres.requested_plats', 'custom_offres.requested_plats.customs', 'custom_offres.requested_plats.customs.ingredients')
-            ->get();
+            ->orderByDesc('created_at')->get();
         return $commandes;
     }
 
