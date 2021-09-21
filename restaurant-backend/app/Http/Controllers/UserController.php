@@ -235,9 +235,9 @@ class UserController extends Controller
         foreach ($user_test->roles as $r) {
             if ($r->Nom_des_roles == "admin") {
                 $token = $user->createToken('my-app-token')->plainTextToken;
-                $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
+                $cookie = cookie('jwtadmin', $token, 60 * 24); // cookie valid for 1 day
                 $response = [
-                    'jwt' => $token,
+                    'jwtadmin' => $token,
                     'user' => $user_test
                 ];
                 return response($response, 201)->withCookie($cookie);
@@ -394,6 +394,8 @@ class UserController extends Controller
             'message' => 'Success'
         ])->withCookie($cookie);
     }
+
+
 
     public function Connected()
     {

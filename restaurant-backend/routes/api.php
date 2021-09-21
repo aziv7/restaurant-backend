@@ -266,6 +266,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     // this one is for current year
     ROUTE::get('totalpermonththisyear', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMontheCurrentYear']);
+    ROUTE::get('totalCashpermon/{year}', [\App\Http\Controllers\statisticsController::class, 'getTotalCashByMonth']);
     ROUTE::get('totalpermonth/{year}', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMonthe']);
 
     //***************************          WORKTIMES       *************************//
