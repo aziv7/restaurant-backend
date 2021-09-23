@@ -27,7 +27,12 @@ class RestaurantInfo extends Model
         'longitude',
         'latitude',
         'tel',
-        'prixlivraison'
+        'prixlivraison',
+        'carte_bancaire',
+        'cash',
+        'livraison',
+        'emporter',
+        'sur_place'
     ];
 
     public function holidays()

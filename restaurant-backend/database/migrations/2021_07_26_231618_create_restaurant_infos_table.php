@@ -44,6 +44,16 @@ class CreateRestaurantInfosTable extends Migration
                 ->nullable();
             $table->bigInteger('user_id')
                 ->unsigned();
+            $table->boolean('carte_bancaire')
+                ->nullable();
+            $table->boolean('cash')
+                ->nullable();
+            $table->boolean('livraison')
+                ->nullable();
+            $table->boolean('emporter')
+                ->nullable();
+            $table->boolean('sur_place')
+                ->nullable();
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

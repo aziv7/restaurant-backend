@@ -112,4 +112,5 @@ class RestaurantInfoController extends Controller
         $restau_info = DB::select('select * from restaurant_infos where user_id = ?', [$user_id]);
         return $restau_info;
     }
+
 }
