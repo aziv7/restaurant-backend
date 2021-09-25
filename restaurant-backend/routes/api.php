@@ -268,6 +268,11 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     ROUTE::get('totalpermonththisyear', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMontheCurrentYear']);
     ROUTE::get('totalCashpermon/{year}', [\App\Http\Controllers\statisticsController::class, 'getTotalCashByMonth']);
     ROUTE::get('totalpermonth/{year}', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMonthe']);
+    ROUTE::get('nbrOfUsersConnected', [\App\Http\Controllers\statisticsController::class, 'nbrOfUserConnected']);
+    ROUTE::get('mostImportentClientBuyin', [\App\Http\Controllers\statisticsController::class, 'mostImportentClientBuyin']);
+    ROUTE::get('userWithHistoric', [\App\Http\Controllers\statisticsController::class, 'userWithHistoric']);
+    ROUTE::get('CAMensuel/{debut}/{fin}', [\App\Http\Controllers\statisticsController::class, 'CAMensuel']);
+    ROUTE::get('CAMAnnuel', [\App\Http\Controllers\statisticsController::class, 'CAMAnnuel']);
 
     //***************************          WORKTIMES       *************************//
 

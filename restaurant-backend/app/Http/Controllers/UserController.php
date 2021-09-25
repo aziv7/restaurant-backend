@@ -195,11 +195,12 @@ class UserController extends Controller
                 'message' => 'verify your email',
             ), 403);
         }
-        $user_test = User::with(['img'])->where('id', $user->id)->get()->first(); //var_dump($user_test);
+        $user_test = User::with(['img'])->where('id', $user->id)->get()->first();
         $token = $user->createToken('my-app-token')->plainTextToken;
         $cookie = cookie('jwt', $token, 60 * 24); // cookie valid for 1 day
         $ratings = Rating::where('user_id',$user_test->id)->get();
-//var_dump(Auth::id());
+        $user->is_connected = true;
+        $user->save();
         $response = [
             'ratings' => $ratings,
             'jwt' => $token,
@@ -236,6 +237,8 @@ class UserController extends Controller
             if ($r->Nom_des_roles == "admin") {
                 $token = $user->createToken('my-app-token')->plainTextToken;
                 $cookie = cookie('jwtadmin', $token, 60 * 24); // cookie valid for 1 day
+                $user->is_connected = true;
+                $user->save();
                 $response = [
                     'jwtadmin' => $token,
                     'user' => $user_test
@@ -389,6 +392,8 @@ class UserController extends Controller
     {
         $cookie = \Cookie::forget('jwt');
         $user = request()->user();
+        $user->is_connected = false;
+        $user->save();
         $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
         return response([
             'message' => 'Success'

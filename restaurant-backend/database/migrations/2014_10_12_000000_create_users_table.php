@@ -28,6 +28,8 @@ class CreateUsersTable extends Migration
            $table->timestamp('email_verified_at')->nullable();
             $table->integer('is_verified')->default(0);
             $table->string('verification_code')->nullable();
+            $table->boolean('is_connected')
+                ->default(false);
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();

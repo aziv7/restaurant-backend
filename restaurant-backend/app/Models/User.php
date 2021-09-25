@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Commande;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
@@ -27,6 +28,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'date_de_naissance',
         'email',
         'numero_de_telephone',
+        'is_connected'
     ];
 
     /**
@@ -51,7 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
     //user has many roles
     public function roles()
     {
-        return $this->belongsToMany(Role::class,'role_users');
+        return $this->belongsToMany(Role::class, 'role_users');
     }
 
     //user has one coordonneesAuthentification
@@ -64,20 +66,27 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(Commande::class);
     }
+
     public function Code_reductions()
     {
         return $this->hasMany(CodeReduction::class);
     }
-    public function img() {
-        return $this->hasOne(Image::class);}
+
+    public function img()
+    {
+        return $this->hasOne(Image::class);
+    }
+
     public function ratings()
     {
         return $this->belongsToMany(Rating::class);
     }
+
     public function Code_reset()
     {
         return $this->belongsToMany(ResetCode::class);
     }
+
     public function restaurant_infos()
     {
         return $this->belongsToOneOrZero(RestaurantInfo::class);
