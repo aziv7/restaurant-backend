@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Models\CodeReduction;
+use App\Models\Commande;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -69,5 +71,35 @@ class statisticsController extends Controller
         $year = Carbon::now()->year;
         return DB::select("SELECT SUM(prix_total) as CA FROM `commandes` WHERE YEAR(created_at) = $year and status not LIKE 'annulee'
 ");
+    }
+
+    public function CountactiveCodes()
+    {
+        $date = Carbon::now();
+        return CodeReduction::where([
+            ['date_expiration', '<', $date],
+            ['statut', '=', true],
+        ])->count();
+    }
+
+    public function CAOffreByMonthOfYear($year)
+    {
+        // calcul chiffre d'affaire offre avec reduction
+        return DB::select("SELECT SUM((custom_offres.prix -(custom_offres.prix * code_reductions.taux_reduction) / 100) * commandes_custom_offres.quantity) as ca, offres.nom as offre FROM `commandes` JOIN commandes_custom_offres on commandes.commande_id = commandes_custom_offres.command_id JOIN custom_offres on commandes_custom_offres.custom_offre_id = custom_offres.id JOIN code_reductions ON code_reductions.id = commandes.code_reduction_id JOIN offres ON offres.nom = custom_offres.nom where commandes.status != 'annulee' AND YEAR(commandes.created_at) = $year GROUP BY offres.id;");
+    }
+
+    public function QuantityOffreByYear($year)
+    {
+        return DB::select("SELECT offres.nom as offre, SUM(commandes_custom_offres.quantity) as quantity FROM commandes JOIN commandes_custom_offres ON commandes.commande_id = commandes_custom_offres.command_id JOIN custom_offres ON commandes_custom_offres.custom_offre_id = custom_offres.id JOIN offres ON offres.nom = custom_offres.nom WHERE YEAR(commandes.created_at) = $year AND STATUS NOT LIKE 'annulee' GROUP BY offres.id;");
+    }
+
+    public function nbrusecoderedbyyear($year)
+    {
+        return DB::select("SELECT code_reductions.code as code, COUNT(*) as nbruse FROM commandes JOIN code_reductions ON code_reductions.id = commandes.code_reduction_id WHERE commandes.status NOT LIKE 'annulee' AND YEAR(commandes.created_at) = $year GROUP BY code_reductions.id;");
+    }
+
+    public  function nbrusecoderedbyyearbyuser($year)
+    {
+        $result = DB::select("SELECT users.nom, users.prenom, users.email , COUNT(*) as nbruse, code_reductions.code FROM `commandes` JOIN users ON commandes.user_id = users.id JOIN code_reductions ON code_reductions.id = commandes.code_reduction_id WHERE code_reduction_id NOT LIKE 'NULL' AND status NOT LIKE 'annulee' and YEAR(commandes.created_at) = $year GROUP BY users.id, code_reductions.id;");
     }
 }

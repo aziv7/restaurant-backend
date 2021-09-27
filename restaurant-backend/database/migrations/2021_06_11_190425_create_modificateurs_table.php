@@ -17,6 +17,8 @@ class CreateModificateursTable extends Migration
             $table->id();
             $table->string('nom');
             $table->double('prix');
+            $table->integer('limite')
+                ->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

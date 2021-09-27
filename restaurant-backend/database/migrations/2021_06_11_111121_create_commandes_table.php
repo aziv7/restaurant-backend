@@ -38,7 +38,7 @@ class CreateCommandesTable extends Migration
             $table->softDeletes();
             $table->integer('code_reduction_id')
                 ->unsigned()
-                ->nullable();
+                ->default(0);
             $table->foreign('code_reduction_id')
                 ->references('id')
                 ->on('code_reductions')

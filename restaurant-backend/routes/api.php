@@ -66,7 +66,7 @@ Route::middleware(['json.response'])->group(function () {
 
     Route::get('modificateur/{id}', [ModificateurController::class, 'show']);
     Route::get('modificateur', [ModificateurController::class, 'index']);
-    Route::get('modificateur/ingredients/{id}', [ModificateurController::class, 'getIngredients']);
+    Route::get('modificateur/ingredients/{id}', [Modifica²teurController::class, 'getIngredients']);
     Route::get('modificateur/plats/{id}', [ModificateurController::class, 'getPlats']);
 
     //***************************            Ingrédient          *************************//
@@ -273,6 +273,11 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     ROUTE::get('userWithHistoric', [\App\Http\Controllers\statisticsController::class, 'userWithHistoric']);
     ROUTE::get('CAMensuel/{debut}/{fin}', [\App\Http\Controllers\statisticsController::class, 'CAMensuel']);
     ROUTE::get('CAMAnnuel', [\App\Http\Controllers\statisticsController::class, 'CAMAnnuel']);
+    ROUTE::get('CountactiveCodes', [\App\Http\Controllers\statisticsController::class, 'CountactiveCodes']);
+    ROUTE::get('CAOffreByMonthOfYear/{year}', [\App\Http\Controllers\statisticsController::class, 'CAOffreByMonthOfYear']);
+    ROUTE::get('QuantityOffreByYear/{year}', [\App\Http\Controllers\statisticsController::class, 'QuantityOffreByYear']);
+    ROUTE::get('nbrusecoderedbyyear/{year}', [\App\Http\Controllers\statisticsController::class, 'nbrusecoderedbyyear']);
+    ROUTE::get('nbrusecoderedbyyearbyuser/{year}', [\App\Http\Controllers\statisticsController::class, 'nbrusecoderedbyyearbyuser']);
 
     //***************************          WORKTIMES       *************************//
 

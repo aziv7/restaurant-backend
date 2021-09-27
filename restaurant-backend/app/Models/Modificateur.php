@@ -12,7 +12,8 @@ class Modificateur extends Model
     use SoftDeletes;
     protected $fillable = [
         'nom',
-        'prix'
+        'prix',
+        'limite'
     ];
 
     public function plats()

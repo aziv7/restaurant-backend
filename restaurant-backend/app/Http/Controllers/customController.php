@@ -28,8 +28,7 @@ class customController extends Controller
     {
         $request->validate([
             'nom' => 'required',
-            'prix' => 'required',
-
+            'prix' => 'required'
         ]);
         return Custom::create($request->all());
     }
