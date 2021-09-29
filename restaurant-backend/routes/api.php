@@ -178,9 +178,6 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     Route::get('command_id/{id}', [CommandeController::class, 'get_Command_id']);
 
-    Route::get('statisticplat', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlat']);
-    Route::post('statisticplat/', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlatByMounth']);
-
     //***************************           User        *************************//
 
     Route::get('/user/{nom}', [UserController::class, 'search']);
@@ -264,6 +261,8 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 
     //***************************          STATISTICS       *************************//
 
+    Route::get('statisticplat', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlat']);
+    Route::post('statisticplat/', [\App\Http\Controllers\statisticsController::class, 'getNbrOfPayedPlatsGroupByPlatByMounth']);
     // this one is for current year
     ROUTE::get('totalpermonththisyear', [\App\Http\Controllers\statisticsController::class, 'getTotalPricesPerMontheCurrentYear']);
     ROUTE::get('totalCashpermon/{year}', [\App\Http\Controllers\statisticsController::class, 'getTotalCashByMonth']);
@@ -272,7 +271,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     ROUTE::get('mostImportentClientBuyin', [\App\Http\Controllers\statisticsController::class, 'mostImportentClientBuyin']);
     ROUTE::get('userWithHistoric', [\App\Http\Controllers\statisticsController::class, 'userWithHistoric']);
     ROUTE::get('CAMensuel/{debut}/{fin}', [\App\Http\Controllers\statisticsController::class, 'CAMensuel']);
-    ROUTE::get('CAMAnnuel', [\App\Http\Controllers\statisticsController::class, 'CAMAnnuel']);
+    ROUTE::get('CAMAnnuel/{year}', [\App\Http\Controllers\statisticsController::class, 'CAMAnnuel']);
     ROUTE::get('CountactiveCodes', [\App\Http\Controllers\statisticsController::class, 'CountactiveCodes']);
     ROUTE::get('CAOffreByMonthOfYear/{year}', [\App\Http\Controllers\statisticsController::class, 'CAOffreByMonthOfYear']);
     ROUTE::get('QuantityOffreByYear/{year}', [\App\Http\Controllers\statisticsController::class, 'QuantityOffreByYear']);

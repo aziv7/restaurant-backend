@@ -248,13 +248,11 @@ class CommandeController extends Controller
     }
 
 
-    public function get_Command_id($id)
+    public static function get_Command_id($id)
     {
         $command_id = Crypt::decryptString($id);
         $id = preg_split("/\//", $command_id)[2];
-        return response(array(
-            'message' => $id
-        ));
+        return $id;
     }
 
     /**

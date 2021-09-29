@@ -43,19 +43,27 @@ class statisticsController extends Controller
 
     public function mostImportentClientBuyin()
     {
-        $result = DB::select("SELECT COUNT(*) AS nbrCmd, user_id FROM commandes GROUP BY user_id ORDER BY nbrCmd DESC");
-        $user_id = $result[0]->user_id;
-        var_dump($user_id);
-        $user = User::find($user_id);
-        return $user;
+        return DB::select("SELECT COUNT(*) AS nbrCmd, user_id, users.* FROM commandes JOIN users ON commandes.user_id = users.id GROUP BY user_id ORDER BY nbrCmd DESC, users.is_connected, users.prenom  LIMIT 10;");
     }
 
     public function userWithHistoric()
     {
-        return User::with('Commandes', 'Commandes.custom_offres', 'Commandes.custom_offres.requested_plats',
+        $users = User::with('Commandes', 'Commandes.custom_offres', 'Commandes.custom_offres.requested_plats',
             'Commandes.custom_offres.requested_plats.customs', 'Commandes.custom_offres.requested_plats.customs.ingredients',
             'Commandes.requested_plat', 'Commandes.requested_plat.customs', 'Commandes.requested_plat.customs.ingredients')
+            ->orderByDesc('is_connected')
+            ->orderBy('nom')
+            ->orderBy('prenom')
             ->get();
+        foreach ($users as $u => $user)
+        {
+            foreach ($user['commandes'] as $c => $cmd)
+            {
+                $id = CommandeController::get_Command_id($cmd->commande_id);
+                $cmd->id = $id;
+            }
+        }
+        return $users;
     }
 
     public function CAMensuel($debut, $fin)
@@ -65,10 +73,9 @@ class statisticsController extends Controller
 ");
     }
 
-    public function CAMAnnuel()
+    public function CAMAnnuel($year)
     {
         $statut = 'annulee';
-        $year = Carbon::now()->year;
         return DB::select("SELECT SUM(prix_total) as CA FROM `commandes` WHERE YEAR(created_at) = $year and status not LIKE 'annulee'
 ");
     }
