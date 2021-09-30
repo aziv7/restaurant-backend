@@ -102,11 +102,11 @@ class statisticsController extends Controller
 
     public function nbrusecoderedbyyear($year)
     {
-        return DB::select("SELECT code_reductions.code as code, COUNT(*) as nbruse FROM commandes JOIN code_reductions ON code_reductions.id = commandes.code_reduction_id WHERE commandes.status NOT LIKE 'annulee' AND YEAR(commandes.created_at) = $year GROUP BY code_reductions.id;");
+        return DB::select("SELECT code_reductions.code as code, COUNT(*) as nbruse FROM commandes JOIN code_reductions ON code_reductions.id = commandes.code_reduction_id WHERE commandes.status NOT LIKE 'annulee' AND YEAR(commandes.created_at) = $year AND code_reduction_id != 0 GROUP BY code_reductions.id;");
     }
 
     public  function nbrusecoderedbyyearbyuser($year)
     {
-        $result = DB::select("SELECT users.nom, users.prenom, users.email , COUNT(*) as nbruse, code_reductions.code FROM `commandes` JOIN users ON commandes.user_id = users.id JOIN code_reductions ON code_reductions.id = commandes.code_reduction_id WHERE code_reduction_id NOT LIKE 'NULL' AND status NOT LIKE 'annulee' and YEAR(commandes.created_at) = $year GROUP BY users.id, code_reductions.id;");
+        return DB::select("SELECT users.nom, users.prenom, users.email , COUNT(*) as nbruse, code_reductions.code FROM `commandes` JOIN users ON commandes.user_id = users.id JOIN code_reductions ON code_reductions.id = commandes.code_reduction_id WHERE code_reduction_id != 0 AND status NOT LIKE 'annulee' and YEAR(commandes.created_at) = $year GROUP BY users.id, code_reductions.id;");
     }
 }
