@@ -54,6 +54,10 @@ class CreateRestaurantInfosTable extends Migration
                 ->nullable();
             $table->boolean('sur_place')
                 ->nullable();
+            $table->integer('visitors')
+                ->default(0);
+            $table->boolean('mutex_visitors')
+                ->default(true);
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

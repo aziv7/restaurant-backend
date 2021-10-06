@@ -292,6 +292,9 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
 //***************************          RESTAU       *************************//
     Route::get('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'index']);
     Route::get('myrestau', [\App\Http\Controllers\RestaurantInfoController::class, 'myrestau']);
+    Route::get('getVisitors', [\App\Http\Controllers\RestaurantInfoController::class, 'getVisitors']);
+    Route::get('incrementVisitors', [\App\Http\Controllers\RestaurantInfoController::class, 'incrementVisitors']);
+    Route::get('decrementVisitors', [\App\Http\Controllers\RestaurantInfoController::class, 'decrementVisitors']);
     Route::get('restau/{id}', [\App\Http\Controllers\RestaurantInfoController::class, 'show']);
     Route::put('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'update']);
     Route::post('restau', [\App\Http\Controllers\RestaurantInfoController::class, 'store']);

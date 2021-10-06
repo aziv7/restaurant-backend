@@ -32,7 +32,9 @@ class RestaurantInfo extends Model
         'cash',
         'livraison',
         'emporter',
-        'sur_place'
+        'sur_place',
+        'visitors',
+        'mutex_visitors'
     ];
 
     public function holidays()
