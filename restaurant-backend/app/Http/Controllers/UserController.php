@@ -206,7 +206,6 @@ class UserController extends Controller
             'jwt' => $token,
             'user' => $user_test
         ];
-        RestaurantInfoController::decrementVisitors();
         return response($response, 201)->withCookie($cookie);
     }
 
@@ -244,7 +243,6 @@ class UserController extends Controller
                     'jwtadmin' => $token,
                     'user' => $user_test
                 ];
-                RestaurantInfoController::incrementVisitors();
                 return response($response, 201)->withCookie($cookie);
             }
         }
