@@ -104,6 +104,8 @@ Route::middleware(['json.response'])->group(function () {
     Route::get('offre/{id}', [\App\Http\Controllers\OffreController::class, 'show']);
     //***************************            Stripe          *************************//
     Route::get('stripe/get/publicKey', [\App\Http\Controllers\StripeController::class, 'getPublicKeyStripe']);
+//***************************            restau info          *************************//
+    Route::get('frontRestuInfo', [\App\Http\Controllers\RestaurantInfoController::class, 'frontRestuInfo']);
 });
 
 

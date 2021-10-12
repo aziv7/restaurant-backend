@@ -116,4 +116,14 @@ class RestaurantInfoController extends Controller
         $restau_info = DB::select('select * from restaurant_infos where user_id = ?', [$user_id]);
         return $restau_info;
     }
+
+    public function frontRestuInfo()
+    {
+        $restaurant =  DB::table('restaurant_infos')
+            ->select(['address', 'tel', 'nom_restaurant', 'num_siret',
+                'num_tva_intercommunautaire', 'logo', 'prixlivraison','livraison',
+                'emporter', 'sur_place', 'cash', 'carte_bancaire'])
+            ->first();
+        return response(['restaurant' => $restaurant], 200);
+    }
 }
