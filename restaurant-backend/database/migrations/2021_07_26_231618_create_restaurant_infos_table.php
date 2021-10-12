@@ -43,6 +43,7 @@ class CreateRestaurantInfosTable extends Migration
             $table->double('prixlivraison')
                 ->nullable();
             $table->bigInteger('user_id')
+                ->nullable()
                 ->unsigned();
             $table->boolean('carte_bancaire')
                 ->nullable();
@@ -58,6 +59,20 @@ class CreateRestaurantInfosTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->string('facebook')
+                ->nullable();
+            $table->string('instagram')
+                ->nullable();
+            $table->string('tik_tok')
+                ->nullable();
+            $table->string('snapchat')
+                ->nullable();
+            $table->string('androidApp')
+                ->nullable();
+            $table->string('iosApp')
+                ->nullable();
+            $table->string('email')
+                ->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

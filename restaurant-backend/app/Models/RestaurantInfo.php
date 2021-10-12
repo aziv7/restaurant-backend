@@ -32,7 +32,14 @@ class RestaurantInfo extends Model
         'cash',
         'livraison',
         'emporter',
-        'sur_place'
+        'sur_place',
+        'facebook',
+        'tik_tok',
+        'instagram',
+        'snapchat',
+        'androidApp',
+        'iosApp',
+        'email'
     ];
 
     public function holidays()
