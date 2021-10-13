@@ -16,9 +16,9 @@ class CreateRestaurantInfosTable extends Migration
         Schema::create('restaurant_infos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('rib');
-            $table->string('address');
-            $table->integer('longitude');
-            $table->integer('latitude');
+            $table->string('address'); 
+            $table->decimal('longitude');
+            $table->decimal('latitude');
             $table->integer('tel');
             $table->string('secret_key_stripe')
                 ->nullable();
