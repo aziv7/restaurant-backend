@@ -121,8 +121,10 @@ class RestaurantInfoController extends Controller
     {
         $restaurant =  DB::table('restaurant_infos')
             ->select(['address', 'tel', 'nom_restaurant', 'num_siret',
-                'num_tva_intercommunautaire', 'logo', 'prixlivraison','livraison',
-                'emporter', 'sur_place', 'cash', 'carte_bancaire','facebook','instagram','tik_tok','snapchat','androidApp','iosApp','email'])
+                'num_tva_intercommunautaire', 'logo', 'prixlivraison', 'livraison',
+                'emporter', 'sur_place', 'cash', 'carte_bancaire',
+                'facebook', 'instagram', 'tik_tok', 'snapchat', 'androidApp',
+                'iosApp', 'email'])
             ->first();
         return response(['restaurant' => $restaurant], 200);
     }

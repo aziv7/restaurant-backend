@@ -47,6 +47,9 @@ class CreateRestaurantInfosTable extends Migration
                 ->unsigned();
             $table->boolean('carte_bancaire')
                 ->nullable();
+            $table->boolean('payal')
+                ->nullable()
+                ->default(false);
             $table->boolean('cash')
                 ->nullable();
             $table->boolean('livraison')

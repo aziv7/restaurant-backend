@@ -50,6 +50,8 @@ class CreateCommandesTable extends Migration
                 ->nullable();
             $table->string('paiement_modality')
                 ->nullable();
+            $table->string('service_restaurant')
+                ->nullable();
         });
 
         Schema::create('commandes_custom_offres', function (Blueprint $table) {

@@ -63,9 +63,10 @@ class StripeController extends Controller
 
     public function charges(Request $request)
     {
-        $stripe = new \Stripe\StripeClient(
-            'sk_test_51J9zB2EQevdhZyUKTOZeSfMyd57956WAdKdnUIAS59wkTw7yPXzavY18a92czBGuqNzfXDANAZNRsFcX81jdP04p00t5heW0dE'
-        );
+        $sk = DB::table('restaurant_infos')
+            ->select('secret_key_stripe')
+            ->first();
+        $stripe = new \Stripe\StripeClient($sk->secret_key_stripe);
 
         return $stripe->charges->all();
     }

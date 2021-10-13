@@ -34,7 +34,8 @@ class Commande extends Model
         'updated_at',
         'prix_total',
         'livraison_address',
-        'paiement_modality'
+        'paiement_modality',
+        'service_restaurant'
     ];
 
     public function code_reduction()

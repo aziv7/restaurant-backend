@@ -29,6 +29,7 @@ class RestaurantInfo extends Model
         'tel',
         'prixlivraison',
         'carte_bancaire',
+        'payal',
         'cash',
         'livraison',
         'emporter',
