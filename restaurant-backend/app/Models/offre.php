@@ -21,10 +21,4 @@ class offre extends Model
         'id',
         'id');
     }
-
-    public function commandes()
-    {
-        return $this->belongsToMany(Commande::class);
-    }
-
 }

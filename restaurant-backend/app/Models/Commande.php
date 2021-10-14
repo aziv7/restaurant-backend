@@ -60,14 +60,4 @@ class Commande extends Model
             'commande_id', 'requested_plat_id',
             'commande_id', 'id');
     }
-
-    public function Offres()
-    {
-        return $this->belongsToMany(offre::class,
-            'offre_commande',
-            'commande_id',
-            'offre_id',
-            'commande_id',
-            'id');
-    }
 }

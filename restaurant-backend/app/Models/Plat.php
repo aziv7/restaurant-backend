@@ -33,15 +33,6 @@ class Plat extends Model
             'plat_id','modificateur_id','id','id');
     }
 
-    public function Commandes()
-    {
-        return $this->hasMany(Commande::class);
-    }
-    public function supplements()
-    {
-        return $this->belongsToMany(Supplement::class);
-    }
-
     public function ratings()
     {
         return $this->belongsToMany(Rating::class);
