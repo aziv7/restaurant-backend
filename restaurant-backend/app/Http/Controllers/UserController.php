@@ -237,18 +237,34 @@ class UserController extends Controller
             if ($r->Nom_des_roles == "admin") {
                 $token = $user->createToken('my-app-token')->plainTextToken;
                 $cookie = cookie('jwtadmin', $token, 60 * 24); // cookie valid for 1 day
+                $role_cookie = cookie('role', $r->Nom_des_roles);
                 $user->is_connected = true;
                 $user->save();
                 $response = [
                     'jwtadmin' => $token,
                     'user' => $user_test
                 ];
-                return response($response, 201)->withCookie($cookie);
+            }
+            if ($r->Nom_des_roles == "msdigital") {
+                $token = $user->createToken('my-app-token')->plainTextToken;
+                $cookie = cookie('jwtadmin', $token, 60 * 24); // cookie valid for 1 day
+                $role_cookie = cookie('role', $r->Nom_des_roles);
+                $user->is_connected = true;
+                $user->save();
+                $response = [
+                    'jwtadmin' => $token,
+                    'user' => $user_test
+                ];
             }
         }
-        return response(array(
-            'message' => 'Not admin',
-        ), 403);
+        if($cookie) {
+            return response($response, 201)->withCookie($cookie)->withCookie($role_cookie);
+        } else {
+            return response(array(
+                        'message' => 'Not admin',
+                    ), 403);
+        }
+
     }
 
     /**

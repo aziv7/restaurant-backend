@@ -5,7 +5,6 @@ $domain = parse_url($_SERVER['HTTP_REFERER']);
     if (isset($domain['host'])) {
         $host = $domain['host'];
     }
-
 return [
 
     /*
