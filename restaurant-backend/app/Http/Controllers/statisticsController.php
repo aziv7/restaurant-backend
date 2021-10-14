@@ -55,14 +55,15 @@ class statisticsController extends Controller
             ->orderBy('nom')
             ->orderBy('prenom')
             ->get();
-        foreach ($users as $u => $user)
+        /*foreach ($users as $u => $user)
         {
+            var_dump($user);
             foreach ($user['commandes'] as $c => $cmd)
             {
                 $id = CommandeController::get_Command_id($cmd->commande_id);
                 $cmd->id = $id;
             }
-        }
+        }*/
         return $users;
     }
 
