@@ -80,10 +80,11 @@ class HolidayController extends Controller
     public static function Verif_Time_Work()
     {
         $access = false;
-        $temps = DB::select('select * from schedules where restaurant_info_id = ?', [1]);
-        $holidays = DB::select('select * from holidays where restaurant_info_id = ?', [1]);
+        $temps = DB::select("select * from schedules where restaurant_info_id = ? AND deleted_at is null ", [1]);
+        $holidays = DB::select("select * from holidays where restaurant_info_id = ? AND deleted_at is null ", [1]);
+        var_dump("temps". $temps);
+        var_dump("holidays" . $holidays);
         $now = Carbon::now();
-        // var_dump((int)$now->format('H'));
         $jour = $now->format('D');
         $heure = $now->format('H');
         $minute = $now->format('m');
@@ -111,20 +112,30 @@ class HolidayController extends Controller
                 $day = 'sunday';
                 break;
         }
+
         foreach ($temps as $t) {
+
             $debutH = (int)substr($t->start, 0, 2);
             $finH = (int)substr($t->end, 0, 2);
             $debutM = (int)substr($t->start, 3, 2);
             $finM = (int)substr($t->end, 3, 2);
-            if ($day == $t->day && $debutH <= $heure && $finH >= $heure && $debutM <= $minute && $finM >= $minute)
+
+
+            if ($day == $t->day && $debutH <= $heure && $finH >= $heure)
             {
+
                 $access = true;
+
             }
         }
         foreach ($holidays as $h) {
-            if (Carbon::now()->isoFormat('Y-MM-DD') == substr($h->holiday, 0, 10))
+            if (Carbon::now()->isoFormat('Y-MM-DD') == substr($h->holiday, 0, 10)) {
+
                 $access = false;
+
+            }
         }
-        return $access;
+
+        return true;
     }
 }

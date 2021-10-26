@@ -300,7 +300,7 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::put('deleteRestauFromHoliday/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachHoliday']);
     Route::put('deleteRestauFromTime/{idWorkTime}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachTime']);
     Route::put('affectUserToRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'user']);
-    Route::put('detachUserFromRestau/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
+    Route::put('detachUserFromRestau/{user_id}/{restau_id}', [\App\Http\Controllers\RestaurantInfoController::class, 'detachUser']);
 
     //***************************            offre          *************************//
 

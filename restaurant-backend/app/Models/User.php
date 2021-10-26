@@ -89,6 +89,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function restaurant_infos()
     {
-        return $this->belongsToOneOrZero(RestaurantInfo::class);
+        return $this->belongsToMany(RestaurantInfo::class);
     }
 }

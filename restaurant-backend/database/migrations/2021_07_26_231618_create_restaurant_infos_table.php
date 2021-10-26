@@ -16,7 +16,7 @@ class CreateRestaurantInfosTable extends Migration
         Schema::create('restaurant_infos', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('rib');
-            $table->string('address'); 
+            $table->string('address');
             $table->decimal('longitude');
             $table->decimal('latitude');
             $table->integer('tel');
@@ -42,9 +42,6 @@ class CreateRestaurantInfosTable extends Migration
                 ->nullable();
             $table->double('prixlivraison')
                 ->nullable();
-            $table->bigInteger('user_id')
-                ->nullable()
-                ->unsigned();
             $table->boolean('carte_bancaire')
                 ->nullable();
             $table->boolean('payal')
@@ -58,10 +55,6 @@ class CreateRestaurantInfosTable extends Migration
                 ->nullable();
             $table->boolean('sur_place')
                 ->nullable();
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
             $table->string('facebook')
                 ->nullable();
             $table->string('instagram')
@@ -78,6 +71,11 @@ class CreateRestaurantInfosTable extends Migration
                 ->nullable();
             $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::create('restaurant_info_user', function (Blueprint $table) {
+            $table->foreignId('restaurant_info_id')->constrained();
+            $table->foreignId('user_id')->constrained();
         });
     }
 

@@ -13,7 +13,7 @@ class CategorieController extends Controller
     public function index()
     {
 
-        $categories = Categorie::with('plats','plats.images')->get();
+        $categories = Categorie::with('plats','plats.modificateurs', 'plats.modificateurs.ingredients')->get();
         return $categories;
     }
 

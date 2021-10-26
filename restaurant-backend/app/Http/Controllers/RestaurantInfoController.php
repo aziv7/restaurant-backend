@@ -102,18 +102,28 @@ class RestaurantInfoController extends Controller
 
     public function user($user_id, $restau_id)
     {
-        return DB::update('update restaurant_infos set user_id = ? where id = ?', [$user_id, $restau_id]);
+        $user = User::find($user_id);
+        $restau = RestaurantInfo::find($restau_id);
+        $user->restaurant_infos()->attach($restau);
+        return $restau;
     }
 
-    public function detachUser($restau_id)
+    public function detachUser($user_id, $restau_id)
     {
-        return DB::update('update restaurant_infos set user_id = ? where id = ?', [null, $restau_id]);
+        $user = User::find($user_id);
+        $restau = RestaurantInfo::find($restau_id);
+        $user->restaurant_infos()->detach($restau);
+        return $restau;
     }
 
     public function myRestau()
     {
         $user_id = Auth::id();
-        $restau_info = DB::select('select * from restaurant_infos where user_id = ?', [$user_id]);
+        $restau_info = DB::table('restaurant_infos')
+            ->select("*")
+            ->leftJoin("restaurant_info_user", 'restaurant_infos.id', '=', 'restaurant_info_user.restaurant_info_id')
+            ->where('restaurant_info_user.user_id', '=', $user_id)
+            ->get();
         return $restau_info;
     }
 
