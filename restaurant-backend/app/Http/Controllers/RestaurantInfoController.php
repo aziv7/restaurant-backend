@@ -138,4 +138,26 @@ class RestaurantInfoController extends Controller
             ->first();
         return response(['restaurant' => $restaurant], 200);
     }
+
+    public function getAllDeliveryDistance()
+    {
+        $restau_info_id = DB::table('restaurant_infos')
+            ->select(['id'])
+            ->first()->id;
+        if ($restau_info_id == null) {
+            return response(array(
+                'message' => 'this user doesn\'t have a restaurant or problem mapping table restau info',
+            ), 404);
+        }
+        $distances = DB::table('delivery_distances')
+            ->select("*")
+            ->where('restaurant_info_id', '=', $restau_info_id)
+            ->get();
+        if ($distances!= null) {
+            return $distances;
+        } else
+            return response(array(
+            'message' => 'this table doesn\'t have delivery distances or problem mapping between delivery_distances table and restaurant_info tablet',
+        ), 404);
+    }
 }

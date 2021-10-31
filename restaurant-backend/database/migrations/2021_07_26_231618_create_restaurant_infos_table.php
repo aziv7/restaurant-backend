@@ -72,11 +72,6 @@ class CreateRestaurantInfosTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
-
-        Schema::create('restaurant_info_user', function (Blueprint $table) {
-            $table->foreignId('restaurant_info_id')->constrained();
-            $table->foreignId('user_id')->constrained();
-        });
     }
 
     /**

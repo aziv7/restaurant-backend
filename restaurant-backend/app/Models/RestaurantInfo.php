@@ -57,4 +57,9 @@ class RestaurantInfo extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    public function deliveryDistance()
+    {
+        return $this->hasMany(DeliveryDistance::class);
+    }
 }

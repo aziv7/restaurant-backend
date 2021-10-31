@@ -163,6 +163,10 @@ Route::middleware(['auth:sanctum', 'json.response'])->group(function () {
     Route::post('rating', [RatingController::class, 'AffectRatingToUser']);
     Route::get('getrating', [RatingController::class, 'GetUserRating']);
 
+    //***************************            Delivery Distance          *************************//
+    Route::get('attachRestauDeliveryDistance/{idrestau}/{idDeliveryDistance}', [\App\Http\Controllers\DeliveryDistanceController::class, 'attachRestaurant']);
+    Route::get('detachRestauDeliveryDistance/{idrestau}/{idDeliveryDistance}', [\App\Http\Controllers\DeliveryDistanceController::class, 'detachRestaurant']);
+    Route::get('getAllDeliveryDistanceRestau', [\App\Http\Controllers\RestaurantInfoController::class, 'getAllDeliveryDistance']);
 });
 /*
 |--------------------------------------------------------------------------
@@ -323,5 +327,13 @@ Route::middleware(['auth:sanctum', 'admin', 'json.response'])->group(function ()
     Route::post('time', [\App\Http\Controllers\ScheduleController::class, 'store']);
     Route::put('time', [\App\Http\Controllers\ScheduleController::class, 'update']);
     Route::delete('time/{id}', [\App\Http\Controllers\ScheduleController::class, 'destroy']);
+
+    /****************************           Delivery Distance       ********************/
+
+    Route::get('allDeliveryDistance', [\App\Http\Controllers\DeliveryDistanceController::class, 'index']);
+    Route::get('findDeliveryDistance/{id}',[\App\Http\Controllers\DeliveryDistanceController::class, 'show']);
+    Route::post('addDeliveryDistance', [\App\Http\Controllers\DeliveryDistanceController::class, 'store']);
+    Route::put('updateDeliveryDistance/{id}',[\App\Http\Controllers\DeliveryDistanceController::class, 'update']);
+    Route::delete('deleteDeliveryDistance/{id}', [\App\Http\Controllers\DeliveryDistanceController::class, 'destroy']);
 
 });
