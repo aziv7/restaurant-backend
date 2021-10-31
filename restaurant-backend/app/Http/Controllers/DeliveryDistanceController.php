@@ -85,5 +85,33 @@ class DeliveryDistanceController extends Controller
         return DB::update("UPDATE `delivery_distances` SET `restaurant_info_id` = null WHERE `delivery_distances`.`id` = ?;", [$idDeliveryDistance]);
 
     }
+    public function MaxPossibleDeliveryDistance()
+    {
+       $AvailableDistance=DB::select("SELECT *  from delivery_distances where `restaurant_info_id` = ?;",[1]);
+       $max=0;
+       foreach($AvailableDistance as $i =>$avdistance)
+       {
+            if($avdistance->distance>$max && $avdistance->deleted_at==null )
+                $max=$avdistance->distance;
+       }
+       return $max;
+    }
+    public function getLimitedPrice($distance)
+    {
+        //get prices with distaance
+     $availablePrices=DB::select("SELECT *  from delivery_distances where `restaurant_info_id` = ? ORDER BY PRICE ASC;",[1]);
+    $limited_price=null;
+     foreach($availablePrices as $i=>$avprice)
+      {
+          if($distance<=$avprice->distance && $avprice->deleted_at==null)
+          {
+                $limited_price=$avprice->price;
+                return $limited_price;
+            }
+         
+      }
+
+      return $limited_price;
+    }
 
 }

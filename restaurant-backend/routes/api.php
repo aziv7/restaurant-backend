@@ -12,7 +12,7 @@ use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\ImageUploadController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\SupplementController;
-
+use App\Http\Controllers\DeliveryDistanceController;
 use App\Http\Controllers\CommandeController;
 use App\Http\Controllers\CodeReductionController;
 use App\Http\Controllers\OffreController;
@@ -46,6 +46,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::middleware(['json.response'])->group(function () {
+    Route::get('/getmaxdistance', [DeliveryDistanceController::class, 'MaxPossibleDeliveryDistance']);
+    Route::get('/getlimitedprice/{distance}', [DeliveryDistanceController::class, 'getLimitedPrice']);
     //***************************             USER           *************************//
     Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'store']);
     Route::post('/login', [UserController::class, 'login']);
