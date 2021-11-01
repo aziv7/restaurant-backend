@@ -151,8 +151,8 @@ class RestaurantInfoController extends Controller
         }
         $distances = DB::table('delivery_distances')
             ->select("*")
-            ->where('restaurant_info_id', '=', $restau_info_id)
-            ->get();
+            ->where(['restaurant_info_id', '=' , $restau_info_id], ['deleted_at', 'is', null])
+                        ->get();
         if ($distances!= null) {
             return $distances;
         } else
