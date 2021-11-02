@@ -149,10 +149,8 @@ class RestaurantInfoController extends Controller
                 'message' => 'this user doesn\'t have a restaurant or problem mapping table restau info',
             ), 404);
         }
-        $distances = DB::table('delivery_distances')
-            ->select("*")
-            ->where(['restaurant_info_id', '=' , $restau_info_id], ['deleted_at', 'is', null])
-                        ->get();
+
+        $distances = DB::select("SELECT * FROM delivery_distances WHERE restaurant_info_id = $restau_info_id AND deleted_at is null ");
         if ($distances!= null) {
             return $distances;
         } else

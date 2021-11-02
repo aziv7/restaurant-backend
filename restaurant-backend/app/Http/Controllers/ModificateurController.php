@@ -18,7 +18,6 @@ class ModificateurController extends Controller
         $request->validate([
             'nom' => 'required',
             'prix' => 'required',
-
         ]);
         return Modificateur::create($request->all());
     }
@@ -43,7 +42,7 @@ class ModificateurController extends Controller
     /**
      * Search for a name
      *
-     * @param  string  $nom
+     * @param string $nom
      * @return \Illuminate\Http\Response
      */
     public function search($nom)
@@ -51,13 +50,15 @@ class ModificateurController extends Controller
         return Modificateur::where('nom', 'like', '%' . $nom . '%')->get();
     }
 
-    public function affectIngredientToModificateur($modificateur_id, $ingredient_id) {
+    public function affectIngredientToModificateur($modificateur_id, $ingredient_id)
+    {
         $modificateur = Modificateur::find($modificateur_id);
         $ingredient = Ingredient::find($ingredient_id);
         $modificateur->ingredients()->attach($ingredient);
     }
 
-    public function DetachIngredientFromModificateur($modificateur_id, $ingredient_id) {
+    public function DetachIngredientFromModificateur($modificateur_id, $ingredient_id)
+    {
         $modificateur = Modificateur::find($modificateur_id);
         $ingredient = Ingredient::find($ingredient_id);
         $modificateur->ingredients()->detach($ingredient);

@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\DeliveryDistance;
-use App\Models\RestaurantInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpFoundation\Response;
 
 class DeliveryDistanceController extends Controller
 {
@@ -108,7 +106,7 @@ class DeliveryDistanceController extends Controller
                 $limited_price=$avprice->price;
                 return $limited_price;
             }
-         
+
       }
 
       return $limited_price;
