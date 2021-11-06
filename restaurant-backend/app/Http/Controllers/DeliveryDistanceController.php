@@ -97,7 +97,7 @@ class DeliveryDistanceController extends Controller
     public function getLimitedPrice($distance)
     {
         //get prices with distaance
-     $availablePrices=DB::select("SELECT *  from delivery_distances where `restaurant_info_id` = ? ORDER BY PRICE ASC;",[1]);
+     $availablePrices=DB::select("SELECT *  from delivery_distances where `restaurant_info_id` = ? ORDER BY distance ASC;",[1]);
     $limited_price=null;
      foreach($availablePrices as $i=>$avprice)
       {
