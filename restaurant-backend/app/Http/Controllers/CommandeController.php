@@ -66,9 +66,10 @@ class CommandeController extends Controller
             if ($request->idCodRed) {
                 $commande = CodeReductionController::AffecterToCommandeCodeReduction($request->idCodRed, $commande);
             } else $commande->code_reduction_id = 0;
-            if ($request->livraison == true) {
-                $prix_livraison = DB::select('SELECT `prixlivraison` FROM `restaurant_infos`');
-                $commande->prix_total = $commande->prix_total + $prix_livraison[0]->prixlivraison;
+            if ($request->distance != null) {
+                $distance = DeliveryDistanceController::MaxPossibleDeliveryDistance();
+                $prix_livraison = DB::select('SELECT `price` FROM `delivery_distances` WHERE `distance` = ?', [$distance]);
+                $commande->prix_total = $commande->prix_total + $prix_livraison[0]->price;
                 $commande->longitude = $request->longitude;
                 $commande->latitude = $request->latitude;
                 $commande->livraison = $request->livraison;
